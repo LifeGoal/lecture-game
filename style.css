@@ -366,6 +366,8 @@ body {
 /* House floor */
 .t24{background-image:url(img/tiles/floor/white_marble_3.png);}
 .t25{background-image:url(img/tiles/passage/open_door.png), url(img/tiles/floor/white_marble_3.png);}
+.t26{background-image:url(img/tiles/floor/bridge.png), url(img/tiles/water/shallow_water.png);}
+.t27{background-image:url(img/tiles/water-effects/boulder.png), url(img/tiles/water/shallow_water.png);}
 
 .b11{background-image:url(img/tiles/wall/metal_wall.png);}
 .b12{background-image:url(img/tiles/wall/crystal_wall02.png);}
@@ -403,6 +405,17 @@ body {
 .b38{background-image:url(img/tiles/graveyard/catacombs_8.png);}
 .b39{background-image:url(img/tiles/graveyard/catacombs_9.png);}
 .b40{background-image:url(img/tiles/graveyard/catacombs_10.png);}
+.b41{background-image:url(img/tiles/graveyard/altar_new.png), url(img/tiles/floor/grass_0_old.png);}
+.b42{background-image:url(img/tiles/graveyard/altar_okawaru.png), url(img/tiles/floor/grass_0_old.png);}
+.b43{background-image:url(img/tiles/graveyard/altar_old.png), url(img/tiles/floor/grass_0_old.png);}
+.b44{background-image:url(img/tiles/graveyard/crumbled_column_3.png), url(img/tiles/floor/grass_0_old.png);}
+.b45{background-image:url(img/tiles/graveyard/crumbled_column_4.png), url(img/tiles/floor/grass_0_old.png);}
+.b46{background-image:url(img/tiles/graveyard/crumbled_column_5.png), url(img/tiles/floor/grass_0_old.png);}
+.b47{background-image:url(img/tiles/graveyard/crumbled_column_6.png), url(img/tiles/floor/grass_0_old.png);}
+.b48{background-image:url(img/tiles/graveyard/statue_cat.png), url(img/tiles/floor/grass_0_old.png);}
+
+/* Food */
+.b80{background-image:url(img/food/orange.png), url(img/tiles/floor/grass_0_old.png);}
 
 /* Monster */
 .b90{background-image:url(img/monsters/stone_giant_new.png), url(img/tiles/floor/grass_0_old.png);}
