@@ -363,11 +363,51 @@ body {
 .t21{background-image:url(img/tiles/floor/grass_full_old.png);}
 .t22{background-image:url(img/tiles/floor/grass_southwest_old.png);}
 .t23{background-image:url(img/tiles/floor/grass_south_old.png);}
+/* House floor */
+.t24{background-image:url(img/tiles/floor/white_marble_3.png);}
+.t25{background-image:url(img/tiles/passage/open_door.png), url(img/tiles/floor/white_marble_3.png);}
 
 .b11{background-image:url(img/tiles/wall/metal_wall.png);}
 .b12{background-image:url(img/tiles/wall/crystal_wall02.png);}
 .b13{background-image:url(img/tiles/wall/mirrored_wall_old.png);}
 .b14{background-image:url(img/tiles/wall/green_crystal_wall.png);background-color:green;}
-.b17{background-image:url(img/tiles/passage/open_door.png);background-color:#bbb;}
 .b18{background-image:url(img/tiles/passage/closed_door.png);}
 .b19{background-image:url(img/tiles/wall/brick_brown-vines_1.png);}
+/* House walls */
+.b20{background-image:url(img/tiles/wall/brick_gray_0.png);}
+.b21{background-image:url(img/tiles/wall/brick_gray_1.png);}
+.b22{background-image:url(img/tiles/wall/brick_gray_2.png);}
+.b23{background-image:url(img/tiles/wall/brick_gray_3.png);}
+
+/* Chests */
+.b24{background-image:url(img/tiles/chests/chest_2_closed.png), url(img/tiles/floor/white_marble_3.png);}
+.b25{background-image:url(img/tiles/chests/chest_2_open.png), url(img/tiles/floor/white_marble_3.png);}
+
+/* Trees */
+.b26{background-image:url(img/tiles/trees/mangrove_2.png), url(img/tiles/floor/grass_0_old.png);}
+.b27{background-image:url(img/tiles/trees/mangrove_3.png), url(img/tiles/floor/grass_0_old.png);}
+
+/* Water */
+.b28{background-image:url(img/tiles/water/shallow_water.png);}
+.b29{background-image:url(img/tiles/water/shallow_water_2.png);}
+
+/* Graveyard */
+.b30{background-image:url(img/tiles/graveyard/catacombs_0.png);}
+.b31{background-image:url(img/tiles/graveyard/catacombs_1.png);}
+.b32{background-image:url(img/tiles/graveyard/catacombs_2.png);}
+.b33{background-image:url(img/tiles/graveyard/catacombs_3.png);}
+.b34{background-image:url(img/tiles/graveyard/catacombs_4.png);}
+.b35{background-image:url(img/tiles/graveyard/catacombs_5.png);}
+.b36{background-image:url(img/tiles/graveyard/catacombs_6.png);}
+.b37{background-image:url(img/tiles/graveyard/catacombs_7.png);}
+.b38{background-image:url(img/tiles/graveyard/catacombs_8.png);}
+.b39{background-image:url(img/tiles/graveyard/catacombs_9.png);}
+.b40{background-image:url(img/tiles/graveyard/catacombs_10.png);}
+
+/* Monster */
+.b90{background-image:url(img/monsters/stone_giant_new.png), url(img/tiles/floor/grass_0_old.png);}
+
+@keyframes flipBg {
+  0%   { transform: scaleX(1); }
+  50%  { transform: scaleX(-1); }
+}
