@@ -12,16 +12,17 @@ window.addEventListener("DOMContentLoaded", function () {
     tileSize = 32,
     gridSize = 24,
     baddieDirection = 'down',
+    soundOn = false, // Set to true to enable sounds
 
     /**
      * This is the background for the game area.
      */
     gameArea = [
-        13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12,
-        12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14,
-        14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13,
-        13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12,
-        12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14,
+        24, 24, 24, 24, 24, 24, 24, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12,
+        24, 24, 24, 24, 24, 24, 24, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14,
+        24, 24, 24, 24, 24, 24, 24, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13,
+        24, 24, 24, 24, 24, 24, 24, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12,
+        24, 24, 24, 24, 24, 24, 24, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14,
         14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13,
         13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12,
         12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14,
@@ -48,37 +49,45 @@ window.addEventListener("DOMContentLoaded", function () {
      * The blocks are drawn "on top" of the gamearea. Block 10 is empty, should be 0 but looks nicer with two figures.
      */
     gameBlocks = [
-        19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19,
-        19, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 19,
-        19, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 19,
-        19, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 19,
-        19, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 12, 13, 10, 10, 10, 10, 19,
-        19, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 12, 10, 10, 10, 10, 10, 19,
-        19, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 12, 10, 10, 10, 10, 10, 19,
-        19, 10, 10, 10, 10, 10, 11, 10, 10, 10, 10, 10, 10, 10, 10, 10, 13, 10, 10, 10, 10, 10, 10, 19,
-        19, 10, 10, 10, 10, 10, 11, 10, 10, 10, 10, 10, 10, 10, 10, 10, 13, 10, 10, 10, 10, 10, 10, 19,
-        19, 10, 10, 10, 10, 10, 11, 11, 11, 12, 11, 11, 10, 10, 10, 10, 13, 10, 10, 10, 10, 10, 10, 19,
-        19, 10, 10, 10, 10, 10, 10, 10, 10, 10, 11, 11, 10, 10, 10, 10, 13, 10, 10, 10, 10, 10, 10, 19,
-        19, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 13, 10, 10, 10, 10, 10, 10, 10, 19,
-        19, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 13, 13, 10, 10, 10, 10, 10, 10, 10, 10, 19,
-        19, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 13, 13, 10, 10, 10, 10, 10, 10, 10, 10, 19,
-        19, 10, 10, 10, 10, 10, 12, 12, 11, 11, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 19,
-        19, 10, 10, 10, 10, 10, 12, 12, 10, 11, 13, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 19,
-        19, 10, 10, 10, 10, 10, 12, 14, 10, 10, 13, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 19,
-        19, 10, 10, 10, 10, 10, 13, 10, 13, 13, 13, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 19,
-        19, 10, 10, 10, 10, 10, 13, 13, 11, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 19,
-        19, 10, 10, 10, 10, 10, 11, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 19,
-        19, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 19,
-        19, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 19,
-        19, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 18, 19,
-        19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19,
-    ];
+        20, 20, 20, 20, 20, 20, 20, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 28, 28, 26, 26, 26, 26, 26,
+        20, 10, 10, 10, 10, 24, 20, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 28, 28, 10, 10, 10, 10, 26,
+        20, 10, 10, 10, 10, 10, 20, 10, 26, 10, 10, 10, 10, 10, 10, 10, 10, 28, 28, 10, 10, 10, 10, 26,
+        20, 10, 10, 10, 10, 10, 20, 26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 28, 28, 10, 10, 10, 10, 26,
+        20, 20, 20, 18, 20, 20, 20, 10, 10, 10, 10, 10, 26, 10, 10, 10, 10, 28, 28, 28, 10, 10, 10, 26,
+        26, 10, 10, 10, 10, 10, 26, 10, 10, 10, 26, 26, 26, 26, 26, 26, 28, 28, 28, 28, 28, 10, 10, 26,
+        26, 10, 26, 10, 10, 10, 90, 10, 10, 10, 26, 10, 10, 10, 26, 26, 28, 28, 28, 28, 28, 28, 10, 26,
+        26, 10, 26, 10, 10, 10, 26, 10, 10, 26, 26, 10, 10, 10, 10, 10, 28, 28, 28, 28, 28, 28, 28, 28,
+        26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 28, 28, 28,
+        26, 10, 10, 26, 26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 26,
+        26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 26,
+        26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 26,
+        26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 26,
+        26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 30, 30, 30, 30, 30, 30, 30, 30, 30,
+        26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 26,
+        26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 26,
+        26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 26,
+        26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 26,
+        26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 26,
+        26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 26,
+        26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 26,
+        26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 26,
+        26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 18, 26,
+        26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
+    ],
+
+    enemies = [90];
+
+    const characterStats = {
+        health: 100,
+        superStrength: false
+    };
+    const inventory = {};
 
     const Sounds = {
         move: new Audio('./sounds/walking.mp3'),
         // splash: new Audio('./sounds/splash.mp3'),
         // dig: new Audio('./sounds/dig.mp3'),
-        // gem: new Audio('./sounds/gem.mp3'),
+        // eat: new Audio('./sounds/eat.mp3'),
     };
 
     class SoundManager {
@@ -123,6 +132,10 @@ window.addEventListener("DOMContentLoaded", function () {
 
     const sound = new SoundManager();
 
+    function isTileAnEnemy(tileId) {
+        return enemies.includes(tileId);
+    }
+
     /**
      * Draw the initial gameplan
     */
@@ -131,7 +144,10 @@ window.addEventListener("DOMContentLoaded", function () {
         for (i = 0; i < gameArea.length; i++) {
             e = document.createElement('div');
             e.innerHTML = '';
-            e.className = 'tile t' + gameArea[i] + (gameBlocks[i] ? ' b' + gameBlocks[i] : '');
+            e.className = 'tile t' + gameArea[i] + (gameBlocks[i] ? ' b' + gameBlocks[i] : '') + (isTileAnEnemy(gameBlocks[i]) ? ' flipBg' : '');
+            if (isTileAnEnemy(gameBlocks[i])) {
+                e.style = 'animation: flipBg 1s infinite steps(1);';
+            }
             e.id = 'n' + i;
             area.appendChild(e);
         }
@@ -139,45 +155,34 @@ window.addEventListener("DOMContentLoaded", function () {
     console.log('Drawing gameplan.');
     drawGamePlan(gameArea, gameBlocks);
 
-
     /**
      * Move Rockford
     */
     let move = function (moveLeft, moveTop, which) {
-
         function moveIt() {
             rockford.style.left = (area.offsetLeft + posLeft * tileSize + tileSize / 2) + 'px';
             rockford.style.top = (area.offsetTop + posTop * tileSize + tileSize / 2) + 'px';
-            //  console.log("
-            // Moved to: " + rockford.style.left + "x" + rockford.style.top);
         };
 
         if (which) { rockford.className = 'baddie ' + which; baddieDirection = which; }
 
-        // First if means the baddie can movie
         if (!(gameBlocks[(posLeft + moveLeft) + (posTop + moveTop) * gridSize] - 10)) {
             posLeft += moveLeft;
             posTop += moveTop;
             moveIt();
-            sound.play('move', {
-                category: 'move',
-                volume: 0.1,
-                randomize: true   // ← gives nice variation to footsteps
-            });
+            if (soundOn) {
+                sound.play('move', {
+                    category: 'move', // Category for volume control, wont be used in this case as we are passing volume directly below.
+                    volume: 0.1, // What volume to use, in this case 10%.
+                    randomize: true // Slight variation in playback rate (kinda goofy, but more realistic)
+                });
+            }
         } else {  // Else means the baddie cannot move because of a wall
             console.log('Block detected, cant move.');
         }
-        // console.log("area.offsetLeft", area.offsetLeft);
-        // console.log("area.offsetTop", area.offsetTop);
-        // console.log("posLeft", posLeft)
-        // console.log("posTop", posTop)
     };
-    console.log('Moving Mickey Mos (Rockford) to initial spot.');
     move(1, 1, 'down');
 
-    /**
-     * Keep track on keys pressed and move Rockford accordingly.
-    */
     document.onkeydown = function (event) {
         let key;
         key = event.keyCode || event.which;
@@ -187,12 +192,111 @@ window.addEventListener("DOMContentLoaded", function () {
             case 38: move(0, -1, 'up'); break;
             case 40: move(0, 1, 'down'); break;
         };
-        console.log('Keypress: ' + event + ' key: ' + key + ' new pos: ' + rockford.offsetLeft + ', ' + rockford.offsetTop);
     };
 
+    function getTileInFront() {
+        let dx = 0, dy = 0;
+        switch (baddieDirection) {
+            case 'left': dx = -1; break;
+            case 'right': dx = 1; break;
+            case 'up': dy = -1; break;
+            case 'down': dy = 1; break;
+        }
+
+        const x = posLeft + dx;
+        const y = posTop + dy;
+
+        if (x < 0 || x >= gridSize || y < 0 || y >= gridSize) {
+            return null; // There is no tiles here, return null.
+        }
+
+        const idx = x + y * gridSize;
+        const block = gameBlocks[idx];
+
+        return {id: idx, block: block, ground: gameArea[idx]}; // Returning all info about the tile, even though it's not needed for now.
+    }
+
+    function addItemToInventory(item, amount) {
+        if (!inventory[item]) {
+            inventory[item] = 0;
+        }
+        inventory[item] += amount;
+    }
+
+    function removeItemFromInventory(item, amount) {
+        if (!inventory[item]) {
+            inventory[item] = 0;
+        }
+        inventory[item] -= amount;
+    }
+
+    function handlePlayerHealthChange(add, amount) {
+        if (add) {
+            characterStats.health += amount;
+        } else {
+            characterStats.health -= amount;
+        }
+
+        if (characterStats.health <= 0) {
+            alert('You have died! GAME OVER!');
+        }
+    }
+
+    function setSuperStrength(enabled) {
+        characterStats.superStrength = enabled;
+        if (enabled) {
+            alert('You feel a surge of power! You now have super strength!');
+        } else {
+            alert('You feel your super strength fade away.');
+        }
+    }
+
+    function eatFood(health, superpower) {
+        if (health) {
+            handlePlayerHealthChange(true, health);
+        }
+
+        if (superpower) {
+            setSuperStrength(true);
+        }
+    }
+
     function action () {
-        console.log('Action button pressed, trying to do something...');
-        console.log(direction)
+        const tile = getTileInFront();
+        if (tile === null) {
+            console.log('There is no tile in front of Rockford.');
+            return;
+        }
+
+        if (tile.block === 24) { // Closed chest in house
+            gameBlocks[tile.id] = 25;
+            document.getElementById('n' + tile.id).className = 'tile t' + gameArea[tile.id] + ' b25';
+            addItemToInventory("door_key", 1);
+            alert('You found a key in the chest!');
+        } else if (tile.block === 25) {
+            console.log('This chest at tile ' + tile.id + ' is already open.');
+        } else if (tile.block === 18) { // Door
+            if (inventory["door_key"] > 0) {
+                gameBlocks[tile.id] = 10;
+                gameArea[tile.id] = 25;
+                document.getElementById('n' + tile.id).className = 'tile t25 b10';
+                removeItemFromInventory("door_key", 1);
+            } else {
+                alert('The door is locked, you need a key to open it.');
+            }
+        } else if (tile.block === 90) { // Troll enemy
+            if (characterStats.superStrength) {
+                alert('You defeated the troll!');
+                setSuperStrength(false);
+            } else {
+                alert('You lost 20 health for trying to defeat the troll without super strength!');
+                handlePlayerHealthChange(false, 20);
+                return;
+            }
+            gameBlocks[tile.id] = 10;
+            document.getElementById('n' + tile.id).className = 'tile t' + gameArea[tile.id] + ' b' + gameBlocks[tile.id];
+            document.getElementById('n' + tile.id).style = '';
+        }
     }
 
     document.onkeyup = function (event) {
@@ -202,6 +306,4 @@ window.addEventListener("DOMContentLoaded", function () {
             case 13: action(); break;
         };
     }
-
-    console.log('Everything is ready.');
 });
