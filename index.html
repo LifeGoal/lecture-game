@@ -1,18 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Boulder Dash test game</title>
-  
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boulder Dash test game</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  
-  <div id='flash'>
-    <div id='baddie1' class='baddie down'></div>
-  </div>
+    <div id='flash'>
+        <div id='baddie1' class='baddie down'></div>
+    </div>
 
-  <script src="main.js"></script>
+    <div class="player-stats">
+        <div class="health-container">
+            <div class="health-label">HP</div>
+            <div class="health-bar-bg">
+                <div class="health-bar" id="healthBar" style="width: 75%;"></div>
+            </div>
+            <div class="health-value"><span id="healthValue">75</span>/100</div>
+        </div>
+
+        <div class="superpower-container" id="superContainer">
+            <div class="super-icon" id="superIcon">
+                ⚡
+            </div>
+            <div class="super-label">Super Power</div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
 </body>
 </html>

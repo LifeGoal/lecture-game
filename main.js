@@ -75,12 +75,44 @@ window.addEventListener("DOMContentLoaded", function () {
         26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
     ],
 
-    enemies = [90];
+    enemies = [90]; // Add all block IDs that are enemies in here. 90 is a big troll.
 
     const characterStats = {
         health: 100,
         superStrength: false
     };
+
+    function updateHealthBar() {
+        const healthBarFill = document.getElementById('healthBar');
+        healthBarFill.style.width = characterStats.health + '%';
+        const healthBarLabel = document.getElementById('healthValue');
+        healthBarLabel.textContent = characterStats.health;
+
+        if (characterStats.health > 80) {
+            healthBarLabel.style.color = 'greenyellow';
+        } else if (characterStats.health >= 40) {
+            healthBarLabel.style.color = 'orange';
+        } else {
+            healthBarLabel.style.color = 'red';
+        }
+    }
+
+    updateHealthBar();
+
+    function updateSuperpowerDisplay() {
+        const superIcon = document.getElementById('superIcon');
+        const superContainer = document.getElementById('superContainer');
+        if (characterStats.superStrength) {
+            superIcon.classList.add('active');
+            superContainer.classList.add('active');
+        } else {
+            superIcon.classList.remove('active');
+            superContainer.classList.remove('active');
+        }
+    }
+
+    updateSuperpowerDisplay();
+
     const inventory = {};
 
     const sounds = {
@@ -154,7 +186,7 @@ window.addEventListener("DOMContentLoaded", function () {
             area.appendChild(e);
         }
     };
-    console.log('Drawing gameplan.');
+
     drawGamePlan(gameArea, gameBlocks);
 
     /**
@@ -247,6 +279,8 @@ window.addEventListener("DOMContentLoaded", function () {
         if (characterStats.health <= 0) {
             alert('You have died! GAME OVER!');
         }
+
+        updateHealthBar();
     }
 
     function setSuperStrength(enabled) {
@@ -256,6 +290,7 @@ window.addEventListener("DOMContentLoaded", function () {
         } else {
             alert('You feel your super strength fade away.');
         }
+        updateSuperpowerDisplay();
     }
 
     function eatFood(health, superpower) {

@@ -164,7 +164,7 @@ audio:not([controls]) {
 }
 /** --------------------------------------------------------------
  * Typography.
- * 
+ *
  */
 /* 16px - 100%/1.375 */
 body {
@@ -242,11 +242,11 @@ tfoot {
 }
 /** --------------------------------------------------------------
  * CSS3 mixins.
- * 
+ *
  */
 /** --------------------------------------------------------------
  * Colors.
- * 
+ *
  */
 .black {
   color: #000;
@@ -268,32 +268,30 @@ tfoot {
 }
 /** --------------------------------------------------------------
  * Page layout.
- * 
+ *
  */
 body {
   max-width: 940px;
   margin: 8px auto;
+  background: rgb(10, 10, 10);
 }
 /** --------------------------------------------------------------
  * Boxes.
- * 
+ *
  */
 #flash {
   margin: 2em auto;
-  background-color: rgba(238, 238, 238, 0.95);
+  background-color: rgba(10, 10, 10, 0.95);
+  border: 2px solid rgb(48, 48, 48);
   min-height: 10em;
-  border: 1px solid #999;
   padding: 1em;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-  -webkit-box-shadow: 5px 5px 5px 5px #555;
-  -moz-box-shadow: 5px 5px 5px 5px #555;
-  box-shadow: 5px 5px 5px 5px #555;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  border-radius: 12px;
 }
 /** --------------------------------------------------------------
  * Footer.
- * 
+ *
  */
 #footer {
   border-top: 1px solid #999;
@@ -348,7 +346,7 @@ body {
 .baddie.right {background-position: 0 0;}
 /** --------------------------------------------------------------
  * Boulder Dash Gameplan
- * 
+ *
  */
 .tile, .t, .block, .b{width:32px;height:32px;float:left;background-repeat:no-repeat;}
 .t12{background-image:url(img/tiles/floor/grass_0_old.png);}
@@ -423,4 +421,90 @@ body {
 @keyframes flipBg {
   0%   { transform: scaleX(1); }
   50%  { transform: scaleX(-1); }
+}
+
+.player-stats {
+  display: flex;
+  gap: 1rem;
+  width: 768px;
+  margin: 2em auto;
+  justify-content: space-evenly;
+  padding: 1em;
+  background: rgba(10, 10, 10, 0.95);
+  border: 2px solid rgb(48, 48, 48);
+  border-radius: 12px;
+  color: #eee;
+}
+
+.health-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: max-content;
+}
+
+.health-label {
+  font-weight: bold;
+  color: #ff4444;
+  width: 32px;
+}
+
+.health-bar-bg {
+  width: 400px;
+  height: 18px;
+  background: #222;
+  border: 2px solid #444;
+  border-radius: 9px;
+  overflow: hidden;
+}
+
+.health-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #ff4444, #00ff37);
+  transition: width 0.3s ease, background 0.6s ease;
+  border-radius: 6px;
+}
+
+.health-value {
+  font-size: 0.9rem;
+  font-weight: bold;
+  min-width: 60px;
+  text-align: right;
+  color: greenyellow;
+}
+
+.superpower-container {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  gap: 10px;
+}
+
+.super-icon {
+  width: 42px;
+  height: 42px;
+  background: #1a1a2e;
+  border: 3px solid #444;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  transition: all 0.4s ease;
+}
+
+.super-icon.active {
+  border-color: #ffd700;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+  transform: scale(1.15);
+}
+
+.super-label {
+  font-size: 0.9em;
+  color: #aaa;
+}
+
+.superpower-container.active .super-label {
+  color: #ffdd00;
+  font-weight: bold;
 }
