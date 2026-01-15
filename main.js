@@ -12,7 +12,7 @@ window.addEventListener("DOMContentLoaded", function () {
     tileSize = 32,
     gridSize = 24,
     baddieDirection = 'down',
-    soundOn = false, // Set to true to enable sounds
+    soundOn = true, // Set to false to disable sounds.
 
     /**
      * This is the background for the game area.
@@ -20,13 +20,13 @@ window.addEventListener("DOMContentLoaded", function () {
     gameArea = [
         24, 24, 24, 24, 24, 24, 24, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12,
         24, 24, 24, 24, 24, 24, 24, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14,
-        24, 24, 24, 24, 24, 24, 24, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13,
+        24, 24, 24, 24, 24, 24, 24, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 26, 26, 12, 13, 14, 12, 13,
         24, 24, 24, 24, 24, 24, 24, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12,
-        24, 24, 24, 24, 24, 24, 24, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14,
+        24, 24, 24, 24, 24, 24, 24, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 13, 14, 13, 14, 12, 13, 14,
         14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13,
         13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12,
-        12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14,
-        14, 12, 13, 14, 12, 13, 14, 16, 16, 14, 12, 16, 17, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13,
+        12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 27, 14,
+        14, 12, 13, 14, 12, 13, 14, 16, 16, 14, 12, 16, 17, 12, 13, 14, 12, 13, 14, 12, 13, 14, 27, 13,
         13, 14, 12, 13, 14, 12, 13, 14, 16, 17, 14, 17, 13, 15, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12,
         12, 13, 14, 12, 13, 14, 12, 13, 15, 15, 13, 14, 12, 16, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14,
         14, 12, 13, 14, 12, 13, 14, 12, 15, 15, 17, 17, 16, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13,
@@ -51,18 +51,18 @@ window.addEventListener("DOMContentLoaded", function () {
     gameBlocks = [
         20, 20, 20, 20, 20, 20, 20, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 28, 28, 26, 26, 26, 26, 26,
         20, 10, 10, 10, 10, 24, 20, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 28, 28, 10, 10, 10, 10, 26,
-        20, 10, 10, 10, 10, 10, 20, 10, 26, 10, 10, 10, 10, 10, 10, 10, 10, 28, 28, 10, 10, 10, 10, 26,
+        20, 10, 10, 10, 10, 10, 20, 80, 26, 10, 10, 10, 10, 10, 10, 10, 90, 10, 10, 10, 10, 10, 10, 26,
         20, 10, 10, 10, 10, 10, 20, 26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 28, 28, 10, 10, 10, 10, 26,
         20, 20, 20, 18, 20, 20, 20, 10, 10, 10, 10, 10, 26, 10, 10, 10, 10, 28, 28, 28, 10, 10, 10, 26,
         26, 10, 10, 10, 10, 10, 26, 10, 10, 10, 26, 26, 26, 26, 26, 26, 28, 28, 28, 28, 28, 10, 10, 26,
-        26, 10, 26, 10, 10, 10, 90, 10, 10, 10, 26, 10, 10, 10, 26, 26, 28, 28, 28, 28, 28, 28, 10, 26,
-        26, 10, 26, 10, 10, 10, 26, 10, 10, 26, 26, 10, 10, 10, 10, 10, 28, 28, 28, 28, 28, 28, 28, 28,
-        26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 28, 28, 28,
-        26, 10, 10, 26, 26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 26,
+        26, 10, 26, 10, 10, 10, 90, 10, 10, 10, 26, 10, 10, 26, 26, 10, 28, 28, 28, 28, 28, 28, 10, 26,
+        26, 80, 26, 10, 10, 10, 26, 10, 10, 26, 26, 10, 10, 10, 45, 10, 28, 28, 28, 28, 28, 28, 10, 28,
+        26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 10, 10, 10, 44, 10, 10, 10, 10, 10, 10, 10, 28, 10, 28, // Water end
+        26, 10, 10, 26, 26, 10, 10, 10, 10, 10, 10, 10, 10, 46, 10, 42, 10, 43, 10, 41, 10, 10, 10, 26,
         26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 26,
-        26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 26,
-        26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 26,
-        26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 30, 30, 30, 30, 30, 30, 30, 30, 30,
+        26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 47, 10, 41, 10, 42, 10, 10, 10, 48, 10, 26,
+        26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 44, 10, 10, 10, 10, 10, 10, 10, 10, 10, 26,
+        26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, // Graveyard stone wall
         26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 26,
         26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 26,
         26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 26,
@@ -83,16 +83,18 @@ window.addEventListener("DOMContentLoaded", function () {
     };
     const inventory = {};
 
-    const Sounds = {
+    const sounds = {
         move: new Audio('./sounds/walking.mp3'),
+        eat: new Audio('./sounds/eat.mp3'),
+        kill: new Audio('./sounds/kill.mp3'),
+        kick: new Audio('./sounds/kick.mp3'),
         // splash: new Audio('./sounds/splash.mp3'),
         // dig: new Audio('./sounds/dig.mp3'),
-        // eat: new Audio('./sounds/eat.mp3'),
     };
 
     class SoundManager {
         constructor() {
-            this.sounds = Sounds;
+            this.sounds = sounds;
             this.muted = false;
             
             // Optional: volume control per category
@@ -232,7 +234,12 @@ window.addEventListener("DOMContentLoaded", function () {
 
     function handlePlayerHealthChange(add, amount) {
         if (add) {
-            characterStats.health += amount;
+            if (characterStats.health + amount >= 100) {
+                characterStats.health = 100;
+                return;
+            } else {
+                characterStats.health += amount;
+            }
         } else {
             characterStats.health -= amount;
         }
@@ -252,6 +259,12 @@ window.addEventListener("DOMContentLoaded", function () {
     }
 
     function eatFood(health, superpower) {
+        sound.play('eat', {
+            category: 'eat', // Category for volume control, wont be used in this case as we are passing volume directly below.
+            volume: 0.1, // What volume to use, in this case 10%.
+            randomize: false // Slight variation in playback rate (kinda goofy, but more realistic)
+        });
+
         if (health) {
             handlePlayerHealthChange(true, health);
         }
@@ -284,10 +297,20 @@ window.addEventListener("DOMContentLoaded", function () {
             } else {
                 alert('The door is locked, you need a key to open it.');
             }
+        } else if (tile.block === 48) { // Food item that gives health
+            alert('Wow, I really hate these creatures...');
+        } else if (tile.block === 80) { // Food item that gives super strength
+            eatFood(20, true);
+            gameBlocks[tile.id] = 10;
+            document.getElementById('n' + tile.id).className = 'tile t' + gameArea[tile.id] + ' b10';
         } else if (tile.block === 90) { // Troll enemy
             if (characterStats.superStrength) {
-                alert('You defeated the troll!');
                 setSuperStrength(false);
+                sound.play('kick', {
+                category: 'effects', // Category for volume control, wont be used in this case as we are passing volume directly below.
+                volume: 0.25, // What volume to use, in this case 10%.
+                randomize: false // Slight variation in playback rate (kinda goofy, but more realistic)
+            });
             } else {
                 alert('You lost 20 health for trying to defeat the troll without super strength!');
                 handlePlayerHealthChange(false, 20);
@@ -296,6 +319,12 @@ window.addEventListener("DOMContentLoaded", function () {
             gameBlocks[tile.id] = 10;
             document.getElementById('n' + tile.id).className = 'tile t' + gameArea[tile.id] + ' b' + gameBlocks[tile.id];
             document.getElementById('n' + tile.id).style = '';
+            sound.play('kill', {
+                category: 'effects', // Category for volume control, wont be used in this case as we are passing volume directly below.
+                volume: 0.25, // What volume to use, in this case 10%.
+                randomize: false // Slight variation in playback rate (kinda goofy, but more realistic)
+            });
+            alert('You defeated the troll!');
         }
     }
 
