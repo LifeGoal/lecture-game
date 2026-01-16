@@ -365,8 +365,8 @@ body {
 /* House floor */
 .t24{background-image:url(img/tiles/floor/white_marble_3.png);}
 .t25{background-image:url(img/tiles/passage/open_door.png), url(img/tiles/floor/white_marble_3.png);}
-.t26{background-image:url(img/tiles/floor/bridge.png), url(img/tiles/water/shallow_water.png);}
-.t27{background-image:url(img/tiles/water-effects/boulder.png), url(img/tiles/water/shallow_water.png);}
+.t26{background-image:url(img/tiles/floor/bridge.png), url(img/tiles/water/shoals_shallow_water_2_new.png);}
+.t27{background-image:url(img/tiles/water-effects/boulder.png), url(img/tiles/water/shoals_shallow_water_2_new.png);}
 
 /* Graveyard floor */
 .t28{background-image:url(img/tiles/floor/cobble_blood_8_new.png);}
@@ -386,7 +386,12 @@ body {
 .t39{background-image:url(img/tiles/water/shallow_water_wave_north_new.png), url(img/tiles/floor/grass_2_old.png);}
 .t40{background-image:url(img/tiles/water/shallow_water_wave_south_new.png), url(img/tiles/floor/grass_2_old.png);}
 
+/* Shadows - not working atm */
+.t50{background-image:url(img/tiles/shadows/shadow_1.png), url(img/tiles/floor/cobble_blood_8_new.png);}
 
+
+
+/* GAME BLOCKS - cannot go through */
 .b11{background-image:url(img/tiles/wall/metal_wall.png);}
 .b12{background-image:url(img/tiles/wall/crystal_wall02.png);}
 .b13{background-image:url(img/tiles/wall/mirrored_wall_old.png);}
@@ -400,7 +405,7 @@ body {
 .b22{background-image:url(img/tiles/wall/brick_gray_2.png);}
 .b23{background-image:url(img/tiles/wall/brick_gray_3.png);}
 
-/* Chests */
+/* Chest house*/
 .b24{background-image:url(img/tiles/chests/chest_2_closed.png), url(img/tiles/floor/white_marble_3.png);}
 .b25{background-image:url(img/tiles/chests/chest_2_open.png), url(img/tiles/floor/white_marble_3.png);}
 
@@ -428,20 +433,42 @@ body {
 .b41{background-image:url(img/tiles/graveyard/altar_new.png), url(img/tiles/floor/cobble_blood_8_new.png);}
 .b42{background-image:url(img/tiles/graveyard/altar_okawaru.png), url(img/tiles/floor/cobble_blood_8_new.png);}
 .b43{background-image:url(img/tiles/graveyard/altar_old.png), url(img/tiles/floor/cobble_blood_8_new.png);}
-.b44{background-image:url(img/tiles/graveyard/crumbled_column_3.png), url(img/tiles/floor/grass_0_old.png);}
-.b45{background-image:url(img/tiles/graveyard/crumbled_column_4.png), url(img/tiles/floor/grass_0_old.png);}
-.b46{background-image:url(img/tiles/graveyard/crumbled_column_5.png), url(img/tiles/floor/grass_0_old.png);}
-.b47{background-image:url(img/tiles/graveyard/crumbled_column_6.png), url(img/tiles/floor/grass_0_old.png);}
+.b44{background-image:url(img/tiles/graveyard/crumbled_column_3.png), url(img/tiles/floor/cobble_blood_8_new.png);}
+.b45{background-image:url(img/tiles/graveyard/crumbled_column_4.png), url(img/tiles/floor/cobble_blood_8_new.png);}
+.b46{background-image:url(img/tiles/graveyard/crumbled_column_5.png), url(img/tiles/floor/cobble_blood_8_new.png);}
+.b47{background-image:url(img/tiles/graveyard/crumbled_column_6.png), url(img/tiles/floor/cobble_blood_8_new.png);}
 .b48{background-image:url(img/tiles/graveyard/statue_cat.png), url(img/tiles/floor/cobble_blood_8_new.png);}
 
 /* Trees other colors */
-.b60{background-image:url(img/tiles/trees/mangrove_2_yellow.png), url(img/tiles/floor/grass_0_old.png);}
+.b60{background-image:url(img/tiles/trees/tree_1_lightred.png), url(img/tiles/floor/grass_0_old.png);}
+.b61{background-image:url(img/tiles/trees/tree_1_red.png), url(img/tiles/floor/grass_0_old.png);}
+.b62{background-image:url(img/tiles/trees/cactus1.png), url(img/tiles/floor/grass_full_old.png);}
+.b63{background-image:url(img/tiles/trees/cactus2.png), url(img/tiles/floor/grass_full_old.png);}
+
+/* Misc items */
+.b70{background-image:url(img/tiles/items/large_box.png), url(img/tiles/floor/white_marble_3.png);}
+.b71{background-image:url(img/tiles/items/torch_1.png), url(img/tiles/wall/brick_gray_2.png);}
+.b72{background-image:url(img/tiles/items/torch_3.png), url(img/tiles/wall/brick_gray_2.png);}
+.b73{background-image:url(img/tiles/items/blood_fountain.png), url(img/tiles/floor/cobble_blood_8_new.png);}
+.b74{background-image:url(img/tiles/items/statue_iron_golem.png), url(img/tiles/floor/grass0-dirt-mix_1.png);}
+
 
 /* Food */
 .b80{background-image:url(img/food/orange.png), url(img/tiles/floor/grass_0_old.png);}
 
+/* Chest forest*/
+.b88{background-image:url(img/tiles/chests/chest_2_closed.png), url(img/tiles/floor/grass_0_old.png);}
+.b89{background-image:url(img/tiles/chests/chest_2_open.png), url(img/tiles/floor/grass_0_old.png);}
+
 /* Monster */
 .b90{background-image:url(img/monsters/stone_giant_new.png), url(img/tiles/floor/grass_0_old.png);}
+
+
+/* GATE */
+.b95{background-image:url(img/tiles/passage/vgate_runed_down.png);}
+.b96{background-image:url(img/tiles/passage/vgate_runed_up.png);}
+.b97{background-image:url(img/tiles/passage/vgate_open_down.png);}
+.b98{background-image:url(img/tiles/passage/vgate_open_up.png);}
 
 @keyframes flipBg {
   0%   { transform: scaleX(1); }
