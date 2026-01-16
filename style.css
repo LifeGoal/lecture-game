@@ -361,11 +361,31 @@ body {
 .t21{background-image:url(img/tiles/floor/grass_full_old.png);}
 .t22{background-image:url(img/tiles/floor/grass_southwest_old.png);}
 .t23{background-image:url(img/tiles/floor/grass_south_old.png);}
+
 /* House floor */
 .t24{background-image:url(img/tiles/floor/white_marble_3.png);}
 .t25{background-image:url(img/tiles/passage/open_door.png), url(img/tiles/floor/white_marble_3.png);}
 .t26{background-image:url(img/tiles/floor/bridge.png), url(img/tiles/water/shallow_water.png);}
 .t27{background-image:url(img/tiles/water-effects/boulder.png), url(img/tiles/water/shallow_water.png);}
+
+/* Graveyard floor */
+.t28{background-image:url(img/tiles/floor/cobble_blood_8_new.png);}
+.t29{background-image:url(img/tiles/floor/cobble_blood_9_new.png);}
+.t30{background-image:url(img/tiles/floor/cobble_blood_10_new.png);}
+.t31{background-image:url(img/tiles/floor/cobble_blood_11_new.png);}
+
+/* water effects with cobble_blood*/
+.t33{background-image:url(img/tiles/water/shallow_water_wave_north_new.png), url(img/tiles/floor/cobble_blood_8_new.png);}
+.t34{background-image:url(img/tiles/water/shallow_water_wave_south_new.png), url(img/tiles/floor/cobble_blood_8_new.png);}
+.t35{background-image:url(img/tiles/water/shallow_water_wave_east_new.png), url(img/tiles/floor/cobble_blood_8_new.png);}
+.t36{background-image:url(img/tiles/water/shallow_water_wave_west_new.png), url(img/tiles/floor/cobble_blood_8_new.png);}
+.t37{background-image:url(img/tiles/water/shallow_water_wave_corner_southeast_new.png), url(img/tiles/floor/cobble_blood_8_new.png);}
+.t38{background-image:url(img/tiles/water/shallow_water_wave_corner_southwest_new.png), url(img/tiles/floor/cobble_blood_8_new.png);}
+
+/* Water effects with grass */
+.t39{background-image:url(img/tiles/water/shallow_water_wave_north_new.png), url(img/tiles/floor/grass_2_old.png);}
+.t40{background-image:url(img/tiles/water/shallow_water_wave_south_new.png), url(img/tiles/floor/grass_2_old.png);}
+
 
 .b11{background-image:url(img/tiles/wall/metal_wall.png);}
 .b12{background-image:url(img/tiles/wall/crystal_wall02.png);}
@@ -373,6 +393,7 @@ body {
 .b14{background-image:url(img/tiles/wall/green_crystal_wall.png);background-color:green;}
 .b18{background-image:url(img/tiles/passage/closed_door.png);}
 .b19{background-image:url(img/tiles/wall/brick_brown-vines_1.png);}
+
 /* House walls */
 .b20{background-image:url(img/tiles/wall/brick_gray_0.png);}
 .b21{background-image:url(img/tiles/wall/brick_gray_1.png);}
@@ -383,13 +404,14 @@ body {
 .b24{background-image:url(img/tiles/chests/chest_2_closed.png), url(img/tiles/floor/white_marble_3.png);}
 .b25{background-image:url(img/tiles/chests/chest_2_open.png), url(img/tiles/floor/white_marble_3.png);}
 
-/* Trees */
+/* Trees green mangrove - others further down to easier access by numbers*/
 .b26{background-image:url(img/tiles/trees/mangrove_2.png), url(img/tiles/floor/grass_0_old.png);}
 .b27{background-image:url(img/tiles/trees/mangrove_3.png), url(img/tiles/floor/grass_0_old.png);}
 
 /* Water */
-.b28{background-image:url(img/tiles/water/shallow_water.png);}
-.b29{background-image:url(img/tiles/water/shallow_water_2.png);}
+.b28{background-image:url(img/tiles/water/shoals_shallow_water_2_new.png);}
+.b29{background-image:url(img/tiles/water/shoals_shallow_water_8_new.png);}
+
 
 /* Graveyard */
 .b30{background-image:url(img/tiles/graveyard/catacombs_0.png);}
@@ -403,14 +425,17 @@ body {
 .b38{background-image:url(img/tiles/graveyard/catacombs_8.png);}
 .b39{background-image:url(img/tiles/graveyard/catacombs_9.png);}
 .b40{background-image:url(img/tiles/graveyard/catacombs_10.png);}
-.b41{background-image:url(img/tiles/graveyard/altar_new.png), url(img/tiles/floor/grass_0_old.png);}
-.b42{background-image:url(img/tiles/graveyard/altar_okawaru.png), url(img/tiles/floor/grass_0_old.png);}
-.b43{background-image:url(img/tiles/graveyard/altar_old.png), url(img/tiles/floor/grass_0_old.png);}
+.b41{background-image:url(img/tiles/graveyard/altar_new.png), url(img/tiles/floor/cobble_blood_8_new.png);}
+.b42{background-image:url(img/tiles/graveyard/altar_okawaru.png), url(img/tiles/floor/cobble_blood_8_new.png);}
+.b43{background-image:url(img/tiles/graveyard/altar_old.png), url(img/tiles/floor/cobble_blood_8_new.png);}
 .b44{background-image:url(img/tiles/graveyard/crumbled_column_3.png), url(img/tiles/floor/grass_0_old.png);}
 .b45{background-image:url(img/tiles/graveyard/crumbled_column_4.png), url(img/tiles/floor/grass_0_old.png);}
 .b46{background-image:url(img/tiles/graveyard/crumbled_column_5.png), url(img/tiles/floor/grass_0_old.png);}
 .b47{background-image:url(img/tiles/graveyard/crumbled_column_6.png), url(img/tiles/floor/grass_0_old.png);}
-.b48{background-image:url(img/tiles/graveyard/statue_cat.png), url(img/tiles/floor/grass_0_old.png);}
+.b48{background-image:url(img/tiles/graveyard/statue_cat.png), url(img/tiles/floor/cobble_blood_8_new.png);}
+
+/* Trees other colors */
+.b60{background-image:url(img/tiles/trees/mangrove_2_yellow.png), url(img/tiles/floor/grass_0_old.png);}
 
 /* Food */
 .b80{background-image:url(img/food/orange.png), url(img/tiles/floor/grass_0_old.png);}
