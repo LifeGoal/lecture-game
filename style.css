@@ -316,9 +316,31 @@ body {
     width: 768px;
     height: 738px;
 }
+
+#flash-overlay {
+    position: absolute;
+    background-color: rgb(10, 10, 10);
+    width: 768px;
+    height: 738px;
+    opacity: 0;
+    z-index: 1;
+    transition: opacity 1s ease;
+    display: flex;
+    justify-content: center;
+}
+
+#flash-overlay p {
+    color: crimson;
+    margin-bottom: 0px;
+    margin: auto;
+    font-size: 32px;
+    font-weight: bold;
+}
+
 #baddie1 {
     position: absolute;
 }
+
 .baddie {
     z-index: 10;
     width: 32px;
@@ -341,6 +363,7 @@ body {
     -o-transition-timing-function: ease;
     transition-timing-function: ease;
 }
+
 .baddie.up {background-position: -96px 0;}
 .baddie.down {background-position: -64px 0;}
 .baddie.left {background-position: -32px 0;}

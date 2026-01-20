@@ -21,7 +21,7 @@ window.addEventListener("DOMContentLoaded", function () {
         2: 'Hell Dimension',
     }
 
-    const gameArea = {
+    var gameArea = {
         1: [ // Dimension 1
             24, 24, 24, 24, 24, 24, 24, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12,
             24, 24, 24, 49, 49, 24, 24, 13, 14, 12, 13, 14, 12, 46, 14, 12, 47, 14, 12, 45, 14, 12, 13, 14,
@@ -78,7 +78,7 @@ window.addEventListener("DOMContentLoaded", function () {
      * These are blocks that cant be moved to, or something happens when you try to move on them.
      * The blocks are drawn "on top" of the gamearea. Block 10 is empty, should be 0 but looks nicer with two figures.
      */
-    const gameBlocks = {
+    var gameBlocks = {
         1: [ // Dimension 1
             22, 20, 21, 23, 20, 22, 23, 26, 60, 26, 26, 26, 26, 26, 26, 26, 26, 28, 28, 26, 26, 26, 26, 26,
             20, 10, 70, 10, 10, 24, 20, 10, 10, 10, 10, 27, 26, 10, 10, 10, 10, 28, 28, 10, 10, 10, 60, 26,
@@ -176,7 +176,9 @@ window.addEventListener("DOMContentLoaded", function () {
         kick: new Audio('./sounds/kick.mp3'),
         openChest: new Audio('./sounds/open-chest.mp3'),
         ghost: new Audio('./sounds/jfk-ghost.mp3'),
-        dumbledore: new Audio('./sounds/dumbledore.mp3')
+        dumbledore: new Audio('./sounds/dumbledore.mp3'),
+        damage: new Audio('./sounds/bone-crack.mp3'),
+        gameover: new Audio('./sounds/gameover.mp3')
     };
 
     class SoundManager {
@@ -319,13 +321,10 @@ window.addEventListener("DOMContentLoaded", function () {
         return enemies.includes(tileId);
     }
 
-    /**
-     * Draw the initial gameplan
-    */
-    function drawGamePlan() {
+    function drawGamePlan(gameover) {
         const savedPos = { left: posLeft, top: posTop, direction: baddieDirection };
 
-        area.innerHTML = '';
+        area.innerHTML = '<div id="flash-overlay"><p>GAME OVER!</p></div>';
         let i, e, b;
         for (i = 0; i < gameArea[currentDimension].length; i++) {
             e = document.createElement('div');
@@ -340,16 +339,42 @@ window.addEventListener("DOMContentLoaded", function () {
 
         rockford = document.createElement('div');
         rockford.id = 'baddie1';
-        rockford.className = 'baddie ' + savedPos.direction;
+        if (gameover) {
+            rockford.className = 'baddie down';
+        } else {
+            rockford.className = 'baddie ' + savedPos.direction;
+        }
         area.appendChild(rockford);
-        baddieDirection = savedPos.direction;
-        posLeft = savedPos.left;
-        posTop = savedPos.top;
+        if (gameover) {
+            posLeft = 1,
+            posTop = 1,
+            baddieDirection = 'down';
+        } else {
+            baddieDirection = savedPos.direction;
+            posLeft = savedPos.left;
+            posTop = savedPos.top;
+        }
         rockford.style.left = (area.offsetLeft + posLeft * tileSize + tileSize / 2) + 'px';
         rockford.style.top = (area.offsetTop + posTop * tileSize + tileSize / 2) + 'px';
     };
 
-    drawGamePlan();
+    drawGamePlan(false);
+
+    const savedStandardGameArea = structuredClone(gameArea);
+    const savedStandardGameBlocks = structuredClone(gameBlocks);
+
+    function resetGamePlan() {
+        if (characterStats.health > 0) { return; };
+        currentDimension = 1;
+        gameArea = structuredClone(savedStandardGameArea);
+        gameBlocks = structuredClone(savedStandardGameBlocks);
+        drawGamePlan(true);
+        characterStats.health = 100;
+        updateHealthBar();
+        if (characterStats.superStrength) {
+            setSuperStrength(false);
+        }
+    }
 
     /**
      * Move Rockford
@@ -382,7 +407,7 @@ window.addEventListener("DOMContentLoaded", function () {
     function changeDimension(dimension) {
         if (dimension !== currentDimension) {
             currentDimension = dimension;
-            drawGamePlan();
+            drawGamePlan(false);
             document.getElementById('dimensionName').textContent = dimensions[currentDimension];
             notify('Wow! You have been sent to the ' + dimensions[currentDimension] + '!', 'info', 4000);
         }
@@ -434,10 +459,27 @@ window.addEventListener("DOMContentLoaded", function () {
             }
         } else {
             characterStats.health -= amount;
+            sound.play('damage', {
+                category: 'effects',
+                volume: 0.25,
+                randomize: false
+            });
         }
 
         if (characterStats.health <= 0) {
             notify('You have died! GAME OVER!', 'error', 5000);
+            sound.play('gameover', {
+                category: 'effects',
+                volume: 0.25,
+                randomize: false
+            });
+            document.getElementById("flash-overlay").style.opacity = 1;
+            setTimeout(() => {
+                resetGamePlan();
+            }, 1500)
+            setTimeout(() => {
+                document.getElementById("flash-overlay").style.opacity = 0;
+            }, 5000)
         }
 
         updateHealthBar();
@@ -487,7 +529,7 @@ window.addEventListener("DOMContentLoaded", function () {
                 volume: 0.25,
                 randomize: false
             });
-            notify('You found a key in the chest!', 'success', 40000);
+            notify('You found a key in the chest!', 'success', 4000);
         } else if (tile.block === 25) {
             console.log('This chest at tile ' + tile.id + ' is already open.');
         } else if (tile.block === 18) { // Door
@@ -571,6 +613,7 @@ window.addEventListener("DOMContentLoaded", function () {
             notify('Here lies Cleopatra, 69 BC-30 BC.', 'info', 5000);
         } else if (tile.block === 92) { // Quest character
             if (inventory["fan"] > 0) {
+                removeItemFromInventory("fan", 1);
                 notify('You found it! Thank you for returning my fan. Now I will try and open the gate.', 'success', 4000);
                 sound.play('openChest', {
                     category: 'effects', // Category for volume control, wont be used in this case as we are passing volume directly below.
@@ -596,12 +639,25 @@ window.addEventListener("DOMContentLoaded", function () {
             // Steg 3: Uppdatera DOM.
             // Hur ni hämtar tiles för att senare ändra className osv: const upperGateTile = document.getElementById('n80'); const lowerGateTile = document.getElementById('n89');
             // OBS! Jag vet inte vilka index de har så satte bara 80 och 89 som exempel.
+        } else if (tile.block === 75) {
+            gameArea[currentDimension][tile.id] = 60;
+            gameBlocks[currentDimension][tile.id] = 10;
+            document.getElementById('n' + tile.id).className = 'tile t' + gameArea[currentDimension][tile.id] + ' b' + gameBlocks[currentDimension][tile.id];
+            addItemToInventory("fan", 1);
+            // Should add some other sound here?
+            // sound.play('openChest', {
+            //     category: 'effects',
+            //     volume: 0.25,
+            //     randomize: false
+            // });
+            notify('You found the fan that Dumbledore was looking for! Go back and give it to him', 'success', 10000);
         }
     }
 
     document.onkeydown = function (event) {
         let key;
         key = event.keyCode || event.which;
+        if (characterStats.health <= 0) { return; }
         switch (key) {
             case 37: move(-1, 0, 'left'); break;
             case 39: move(1, 0, 'right'); break;
@@ -613,6 +669,7 @@ window.addEventListener("DOMContentLoaded", function () {
     document.onkeyup = function (event) {
         let key;
         key = event.keyCode || event.which;
+        if (characterStats.health <= 0) { return; }
         switch (key) {
             case 13: action(); break;
             case 32: // Spacebar to switch dimension (for testing purposes only - should be removed later)
