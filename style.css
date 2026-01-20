@@ -316,9 +316,31 @@ body {
     width: 768px;
     height: 738px;
 }
+
+#flash-overlay {
+    position: absolute;
+    background-color: rgb(10, 10, 10);
+    width: 768px;
+    height: 738px;
+    opacity: 0;
+    z-index: 1;
+    transition: opacity 1s ease;
+    display: flex;
+    justify-content: center;
+}
+
+#flash-overlay p {
+    color: crimson;
+    margin-bottom: 0px;
+    margin: auto;
+    font-size: 32px;
+    font-weight: bold;
+}
+
 #baddie1 {
     position: absolute;
 }
+
 .baddie {
     z-index: 10;
     width: 32px;
@@ -341,6 +363,7 @@ body {
     -o-transition-timing-function: ease;
     transition-timing-function: ease;
 }
+
 .baddie.up {background-position: -96px 0;}
 .baddie.down {background-position: -64px 0;}
 .baddie.left {background-position: -32px 0;}
@@ -386,6 +409,9 @@ body {
 /* Water effects with grass */
 .t39{background-image:url(img/tiles/water/shallow_water_wave_north_new.png), url(img/tiles/floor/grass_2_old.png);}
 .t40{background-image:url(img/tiles/water/shallow_water_wave_south_new.png), url(img/tiles/floor/grass_2_old.png);}
+
+.t41{background-image:url(img/tiles/passage/vgate_open_down.png), url(img/tiles/floor/grass_0_old.png);}
+.t42{background-image:url(img/tiles/passage/vgate_open_up.png), url(img/tiles/floor/grass_0_old.png);}
 
 /* decorations */
 .t44{background-image:url(img/tiles/decorations/pots.PNG), url(img/tiles/floor/white_marble_3.png);}
@@ -482,8 +508,6 @@ body {
 /* GATE */
 .b95{background-image:url(img/tiles/passage/vgate_runed_down.png);}
 .b96{background-image:url(img/tiles/passage/vgate_runed_up.png);}
-.b97{background-image:url(img/tiles/passage/vgate_open_down.png);}
-.b98{background-image:url(img/tiles/passage/vgate_open_up.png);}
 
 @keyframes flipBg {
     0%   { transform: scaleX(1); }
