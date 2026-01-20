@@ -389,7 +389,8 @@ body {
 /* Shadows - not working atm */
 .t50{background-image:url(img/tiles/shadows/shadow_1.png), url(img/tiles/floor/cobble_blood_8_new.png);}
 
-
+/* Temple floor */
+.t60{background-image:url(img/tiles/floor/dirt_0_new.png);}
 
 /* GAME BLOCKS - cannot go through */
 .b11{background-image:url(img/tiles/wall/metal_wall.png);}
@@ -438,6 +439,8 @@ body {
 .b46{background-image:url(img/tiles/graveyard/crumbled_column_5.png), url(img/tiles/floor/cobble_blood_8_new.png);}
 .b47{background-image:url(img/tiles/graveyard/crumbled_column_6.png), url(img/tiles/floor/cobble_blood_8_new.png);}
 .b48{background-image:url(img/tiles/graveyard/statue_cat.png), url(img/tiles/floor/cobble_blood_8_new.png);}
+.b49{background-image:url(img/tiles/graveyard/altar_okawaru.png), url(img/tiles/floor/cobble_blood_8_new.png);}
+.b50{background-image:url(img/tiles/graveyard/altar_old.png), url(img/tiles/floor/cobble_blood_8_new.png);}
 
 /* Trees other colors */
 .b60{background-image:url(img/tiles/trees/tree_1_lightred.png), url(img/tiles/floor/grass_0_old.png);}
@@ -451,6 +454,7 @@ body {
 .b72{background-image:url(img/tiles/items/torch_3.png), url(img/tiles/wall/brick_gray_2.png);}
 .b73{background-image:url(img/tiles/items/blood_fountain.png), url(img/tiles/floor/cobble_blood_8_new.png);}
 .b74{background-image:url(img/tiles/items/statue_iron_golem.png), url(img/tiles/floor/grass0-dirt-mix_1.png);}
+.b75{background-image:url(img/tiles/items/misc_fan_inert.png), url(img/tiles/floor/dirt_0_new.png);}
 
 
 /* Food */
