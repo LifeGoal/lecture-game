@@ -39,7 +39,7 @@ window.addEventListener("DOMContentLoaded", function () {
         12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 20, 21, 21, 21, 21, 21, 21, 21,
         14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 22, 21, 21, 21, 21, 21, 21, 21,
         13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 22, 21, 21, 21, 21, 21, 21,
-        12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 22, 21, 21, 21, 21, 21,
+        12, 60, 14, 60, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 22, 21, 21, 21, 21, 21,
         14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 22, 21, 21, 21, 21,
     ],
 
@@ -56,10 +56,10 @@ window.addEventListener("DOMContentLoaded", function () {
         26, 10, 10, 10, 10, 10, 26, 10, 10, 10, 26, 27, 26, 26, 26, 26, 28, 28, 28, 28, 28, 10, 10, 26,
         27, 10, 26, 10, 10, 10, 90, 10, 10, 27, 26, 61, 27, 27, 26, 10, 10, 28, 28, 28, 28, 28, 10, 26,
         26, 80, 26, 10, 10, 10, 26, 10, 60, 26, 27, 10, 10, 37, 36, 38, 40, 40, 38, 37, 36, 28, 10, 28, // Water 
-        27, 27, 27, 26, 27, 27, 26, 27, 26, 27, 10, 10, 38, 44, 10, 10, 10, 43, 10, 10, 10, 40, 10, 28, // Water 
-        26, 26, 60, 26, 26, 10, 10, 10, 10, 10, 10, 10, 46, 10, 10, 42, 10, 10, 10, 41, 10, 10, 10, 26, 
-        26, 61, 27, 10, 10, 10, 27, 26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 73, 10, 10, 10, 10, 10, 26, // fountain
-        27, 27, 10, 10, 10, 10, 61, 60, 27, 26, 10, 26, 47, 10, 10, 41, 10, 10, 10, 10, 10, 48, 10, 26,
+        27, 27, 27, 26, 27, 27, 26, 27, 26, 27, 10, 10, 38, 44, 10, 10, 10, 50, 10, 10, 10, 40, 10, 28, // Water 
+        26, 26, 60, 26, 26, 10, 10, 10, 10, 10, 10, 10, 46, 10, 10, 49, 10, 10, 10, 41, 10, 10, 10, 26, 
+        26, 61, 27, 10, 10, 10, 27, 26, 10, 10, 10, 10, 91, 10, 10, 10, 10, 73, 10, 10, 10, 10, 10, 26, // fountain
+        27, 27, 10, 10, 10, 10, 61, 60, 27, 26, 10, 26, 47, 10, 10, 43, 10, 10, 10, 10, 10, 48, 10, 26,
         27, 26, 10, 10, 10, 10, 10, 26, 26, 27, 61, 26, 38, 44, 10, 10, 10, 42, 10, 45, 10, 10, 10, 26,
         60, 10, 26, 27, 26, 27, 10, 10, 10, 10, 10, 26, 60, 40, 30, 36, 38, 36, 39, 39, 30, 38, 30, 37, // Graveyard stone wall
         26, 10, 10, 10, 10, 10, 26, 27, 10, 10, 10, 61, 26, 27, 10, 12, 10, 10, 10, 10, 10, 10, 10, 62,
@@ -69,11 +69,11 @@ window.addEventListener("DOMContentLoaded", function () {
         61, 10, 10, 10, 27, 10, 10, 10, 10, 27, 26, 10, 26, 10, 10, 12, 10, 10, 10, 10, 10, 62, 10, 63,
         61, 74, 10, 74, 27, 26, 27, 27, 10, 10, 27, 10, 27, 10, 10, 26, 12, 10, 63, 10, 10, 10, 10, 63,
         19, 19, 18, 19, 19, 88, 10, 26, 10, 10, 26, 10, 27, 10, 27, 27, 12, 10, 10, 10, 10, 10, 10, 63,
-        19, 10, 88, 10, 19, 27, 10, 90, 10, 27, 27, 10, 10, 10, 26, 27, 10, 12, 10, 10, 10, 10, 18, 63,
+        19, 10, 75, 10, 19, 10, 10, 90, 10, 27, 27, 10, 10, 10, 26, 27, 10, 12, 10, 10, 10, 10, 18, 63,
         19, 19, 19, 19, 19, 27, 60, 26, 27, 26, 26, 27, 26, 26, 26, 60, 26, 12, 26, 63, 63, 63, 63, 62,
     ],
 
-    enemies = [90, 91]; // Add all block IDs that are enemies in here. 90 is a big troll.
+    enemies = [90, 91]; // Add all block IDs that are enemies in here. 90 is a big troll. 91 is a skeleton
 
     const characterStats = {
         health: 100,
@@ -118,6 +118,8 @@ window.addEventListener("DOMContentLoaded", function () {
         eat: new Audio('./sounds/eat.mp3'),
         kill: new Audio('./sounds/kill.mp3'),
         kick: new Audio('./sounds/kick.mp3'),
+        openChest: new Audio('./sounds/open-chest.mp3'),
+        ghost: new Audio('./sounds/jfk-ghost.mp3'),
         // splash: new Audio('./sounds/splash.mp3'),
         // dig: new Audio('./sounds/dig.mp3'),
     };
@@ -319,6 +321,11 @@ window.addEventListener("DOMContentLoaded", function () {
             gameBlocks[tile.id] = 25 ;
             document.getElementById('n' + tile.id).className = 'tile t' + gameArea[tile.id] + ' b25';
             addItemToInventory("door_key", 1);
+                        sound.play('openChest', {
+                category: 'effects', // Category for volume control, wont be used in this case as we are passing volume directly below.
+                volume: 0.25, // What volume to use, in this case 10%.
+                randomize: false // Slight variation in playback rate (kinda goofy, but more realistic)
+            });
             alert('You found a key in the chest!');
         } else if (tile.block === 25) {
             console.log('This chest at tile ' + tile.id + ' is already open.');
@@ -331,24 +338,30 @@ window.addEventListener("DOMContentLoaded", function () {
             } else {
                 alert('The door is locked, you need a key to open it.');
             }
-        //          if (tile2.block === 88) { // Closed chest in forest
-        //     gameBlocks[tile2.id] = 89 ;
-        //     document.getElementById('n' + tile2.id).className = 'tile2 t' + gameArea[tile2.id] + ' b89';
-        //     addItemToInventory("door_key", 1);
-        //     alert('You found a key in the chest!');
-        // } else if (tile2.block === 89) {
-        //      console.log('This chest at tile ' + tile2.id + ' is already open.');
-        //  }   else if (tile2.block === 18) { // Door
-        //      if (inventory["door_key"] > 0) {
-        //          gameBlocks[tile2.id] = 10;
-        //          gameArea[tile2.id] = 89;
-        //          document.getElementById('n' + tile2.id).className = 'tile t89 b10';
-        //          removeItemFromInventory("door_key", 1);
-        //      }  else {
-        //          alert('The door is locked, you need a key to open it.');
-            //  }
-        } else if (tile.block === 48) { // Food item that gives health
-            alert('Wow, I really hate these creatures...');
+                 if (tile.block === 88) { // Closed chest in forest
+            gameBlocks[tile.id] = 89 ;
+            document.getElementById('n' + tile.id).className = 'tile t' + gameArea[tile.id] + ' b89';
+            addItemToInventory("door_key", 1);
+                                    sound.play('openChest', {
+                category: 'effects', // Category for volume control, wont be used in this case as we are passing volume directly below.
+                volume: 0.25, // What volume to use, in this case 10%.
+                randomize: false // Slight variation in playback rate (kinda goofy, but more realistic)
+            });
+            alert('You found a key in the chest!');
+        } else if (tile.block === 89) {
+             console.log('This chest at tile ' + tile.id + ' is already open.');
+         }   else if (tile.block === 18) { // Door
+             if (inventory["door_key"] > 0) {
+                 gameBlocks[tile.id] = 10;
+                 gameArea[tile.id] = 89;
+                 document.getElementById('n' + tile.id).className = 'tile t89 b10';
+                 removeItemFromInventory("door_key", 1);
+             }  else {
+                 alert('The door is locked, you need a key to open it.');
+             }
+            }
+        } else if (tile.block === 48) { // Cat-statue
+            alert('Dont look at me Im not a gravestone...');
         } else if (tile.block === 80) { // Food item that gives super strength
             eatFood(20, true);
             gameBlocks[tile.id] = 10;
@@ -375,9 +388,57 @@ window.addEventListener("DOMContentLoaded", function () {
                 randomize: false // Slight variation in playback rate (kinda goofy, but more realistic)
             });
             alert('You defeated the troll!');
-        }
-    }
 
+        }  else if (tile.block === 91) { // Skeleton enemy
+               let yearBorn = prompt('Hello my name is John F Kennedy. If you can tell me which year I was born, I will let you pass.');
+               if (yearBorn === '1917') {
+                       alert('Correct! You may pass.');
+                sound.play('ghost', {
+                category: 'effects', // Category for volume control, wont be used in this case as we are passing volume directly below.
+                volume: 0.25, // What volume to use, in this case 10%.
+                randomize: false // Slight variation in playback rate (kinda goofy, but more realistic)
+            });  
+                } else {
+                    alert('Incorrect! The skeleton hits you, and you lose 20 health.');
+                    handlePlayerHealthChange(false, 20); 
+                    return;
+                   }
+            
+            gameBlocks[tile.id] = 10;
+            document.getElementById('n' + tile.id).className = 'tile t' + gameArea[tile.id] + ' b' + gameBlocks[tile.id];
+            document.getElementById('n' + tile.id).style = '';
+            // sound.play('kick', {
+            //     category: 'effects', // Category for volume control, wont be used in this case as we are passing volume directly below.
+            //     volume: 0.25, // What volume to use, in this case 10%.
+            //     randomize: false // Slight variation in playback rate (kinda goofy, but more realistic)
+            // });
+        }else if (tile.block === 41) { // Gravestone 1
+            alert('Here lies John F Kennedy, 1917-1963.');
+        }else if (tile.block === 42) { // Gravestone 2   
+            alert('Here lies Marilyn Monroe, 1926-1962.');
+        }else if (tile.block === 43) { // Gravestone 3
+            alert('Here lies Albert Einstein, 1879-1955.');
+        }else if (tile.block === 49) { // Gravestone 4  
+            alert('Here lies Leonardo da Vinci, 1452-1519.');
+        }else if (tile.block === 50) { // Gravestone 5
+            alert('Here lies Cleopatra, 69 BC-30 BC.');
+        } 
+        else if (tile.block === 92) { // Quest character
+               if (inventory["fan"] > 0) {
+                       alert('You found it! Thank you for returning my fan. Now I will try and open the gate.');
+                sound.play('openChest', {
+                category: 'effects', // Category for volume control, wont be used in this case as we are passing volume directly below.
+                volume: 0.25, // What volume to use, in this case 10%.
+                randomize: false // Slight variation in playback rate (kinda goofy, but more realistic)
+            });  
+                } else {
+                    alert('"My name is Dumbledore, Im trying to get past this gate but my magic is not working. Theres a rumor that there are a magic fan deep in the forest, if I could get my hands on that I could probably open the gate."');
+  
+                    return;
+                   }
+                   // Här ska gate öppnas men det är inte den aktiva tilen - hur gör vi? b95, b96 => b97, b98
+    }
+}
     document.onkeyup = function (event) {
         let key;
         key = event.keyCode || event.which;
