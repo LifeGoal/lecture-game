@@ -14,12 +14,12 @@ window.addEventListener("DOMContentLoaded", function () {
         baddieDirection = 'down',
         soundOn = true, // Set to false to disable sounds.
         currentDimension = 1,
-
-        /**
-         * This is the background for the game area.
-         */
-
         enemies = [90, 91]; // Add all block IDs that are enemies in here. 90 is a big troll.
+
+    const dimensions = { // These names are only for testing purposes. You can set the real names later.
+        1: 'Main Dimension',
+        2: 'Hell Dimension',
+    }
 
     const gameArea = {
         1: [ // Dimension 1
@@ -378,16 +378,14 @@ window.addEventListener("DOMContentLoaded", function () {
     };
     move(1, 1, 'down');
 
-    document.onkeydown = function (event) {
-        let key;
-        key = event.keyCode || event.which;
-        switch (key) {
-            case 37: move(-1, 0, 'left'); break;
-            case 39: move(1, 0, 'right'); break;
-            case 38: move(0, -1, 'up'); break;
-            case 40: move(0, 1, 'down'); break;
-        };
-    };
+    function changeDimension(dimension) {
+        if (dimension !== currentDimension) {
+            currentDimension = dimension;
+            drawGamePlan();
+            document.getElementById('dimensionName').textContent = dimensions[currentDimension];
+            notify('Wow! You have been sent to the ' + dimensions[currentDimension] + '!', 'info', 4000);
+        }
+    }
 
     function getTileInFront() {
         let dx = 0, dy = 0;
@@ -549,6 +547,7 @@ window.addEventListener("DOMContentLoaded", function () {
             if (yearBorn === '1917') {
                 notify('Correct! You may pass.', 'success', 4000);
             } else {
+                if (yearBorn === null || yearBorn === "") { return; }
                 notify('Incorrect! The skeleton hits you, and you lose 20 health.', 'error', 4000);
                 handlePlayerHealthChange(false, 20);
                 return;
@@ -589,14 +588,24 @@ window.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    document.onkeydown = function (event) {
+        let key;
+        key = event.keyCode || event.which;
+        switch (key) {
+            case 37: move(-1, 0, 'left'); break;
+            case 39: move(1, 0, 'right'); break;
+            case 38: move(0, -1, 'up'); break;
+            case 40: move(0, 1, 'down'); break;
+        };
+    };
+
     document.onkeyup = function (event) {
         let key;
         key = event.keyCode || event.which;
         switch (key) {
             case 13: action(); break;
             case 32: // Spacebar to switch dimension (for testing purposes only - should be removed later)
-                currentDimension = currentDimension === 1 ? 2 : 1;
-                drawGamePlan();
+                changeDimension(currentDimension === 1 ? 2 : 1);
                 break;
         };
     }
