@@ -87,9 +87,9 @@ window.addEventListener("DOMContentLoaded", function () {
             22, 21, 71, 18, 72, 20, 20, 10, 10, 10, 10, 10, 26, 10, 10, 10, 10, 28, 28, 28, 10, 10, 10, 26,
             26, 10, 10, 10, 10, 10, 26, 10, 10, 10, 26, 27, 26, 26, 26, 26, 28, 28, 28, 28, 28, 10, 10, 26,
             27, 10, 26, 10, 10, 10, 90, 10, 10, 27, 26, 61, 27, 27, 26, 10, 10, 28, 28, 28, 28, 28, 10, 26,
-            26, 80, 26, 10, 10, 10, 26, 10, 60, 26, 27, 10, 10, 37, 36, 38, 40, 40, 38, 37, 36, 28, 10, 28, // Water 
-            27, 27, 27, 26, 27, 27, 26, 27, 26, 27, 10, 10, 38, 44, 10, 10, 10, 43, 10, 10, 10, 40, 10, 28, // Water 
-            26, 26, 60, 26, 26, 10, 10, 10, 10, 10, 10, 10, 46, 10, 10, 42, 10, 10, 10, 41, 10, 10, 10, 26, 
+            26, 80, 26, 10, 10, 10, 26, 10, 60, 26, 27, 10, 10, 37, 36, 38, 40, 40, 38, 37, 36, 28, 10, 28, // Water
+            27, 27, 27, 26, 27, 27, 26, 27, 26, 27, 10, 10, 38, 44, 10, 10, 10, 43, 10, 10, 10, 40, 10, 28, // Water
+            26, 26, 60, 26, 26, 10, 10, 10, 10, 10, 10, 10, 46, 10, 10, 42, 10, 10, 10, 41, 10, 10, 10, 26,
             26, 61, 27, 10, 10, 10, 27, 26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 73, 10, 10, 10, 10, 10, 26, // fountain
             27, 27, 10, 10, 10, 10, 61, 60, 27, 26, 10, 26, 47, 10, 10, 41, 10, 10, 10, 10, 10, 48, 10, 26,
             27, 26, 10, 10, 10, 10, 10, 26, 26, 27, 61, 26, 38, 44, 10, 10, 10, 42, 10, 45, 10, 10, 10, 26,
@@ -112,9 +112,9 @@ window.addEventListener("DOMContentLoaded", function () {
             22, 21, 71, 18, 72, 20, 20, 10, 10, 10, 10, 10, 26, 10, 10, 10, 10, 28, 28, 28, 10, 10, 10, 26,
             26, 10, 10, 10, 10, 10, 26, 10, 10, 10, 26, 27, 26, 26, 26, 26, 28, 28, 28, 28, 28, 10, 10, 26,
             27, 10, 26, 10, 10, 10, 90, 10, 10, 27, 26, 61, 27, 27, 26, 10, 10, 28, 28, 28, 28, 28, 10, 26,
-            26, 80, 26, 10, 10, 10, 26, 10, 60, 26, 27, 10, 10, 37, 36, 38, 40, 40, 38, 37, 36, 28, 10, 28, // Water 
-            27, 27, 27, 26, 27, 27, 26, 27, 26, 27, 10, 10, 38, 44, 10, 10, 10, 43, 10, 10, 10, 40, 10, 28, // Water 
-            26, 26, 60, 26, 26, 10, 10, 10, 10, 10, 10, 10, 46, 10, 10, 42, 10, 10, 10, 41, 10, 10, 10, 26, 
+            26, 80, 26, 10, 10, 10, 26, 10, 60, 26, 27, 10, 10, 37, 36, 38, 40, 40, 38, 37, 36, 28, 10, 28, // Water
+            27, 27, 27, 26, 27, 27, 26, 27, 26, 27, 10, 10, 38, 44, 10, 10, 10, 43, 10, 10, 10, 40, 10, 28, // Water
+            26, 26, 60, 26, 26, 10, 10, 10, 10, 10, 10, 10, 46, 10, 10, 42, 10, 10, 10, 41, 10, 10, 10, 26,
             26, 61, 27, 10, 10, 10, 27, 26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 73, 10, 10, 10, 10, 10, 26, // fountain
             27, 27, 10, 10, 10, 10, 61, 60, 27, 26, 10, 26, 47, 10, 10, 41, 10, 10, 10, 10, 10, 48, 10, 26,
             27, 26, 10, 10, 10, 10, 10, 26, 26, 27, 61, 26, 38, 44, 10, 10, 10, 42, 10, 45, 10, 10, 10, 26,
@@ -127,7 +127,7 @@ window.addEventListener("DOMContentLoaded", function () {
             61, 74, 10, 74, 27, 26, 27, 27, 10, 10, 27, 10, 27, 10, 10, 26, 12, 10, 63, 10, 10, 10, 10, 63,
             19, 19, 10, 19, 19, 88, 10, 26, 10, 10, 26, 10, 27, 10, 27, 27, 12, 10, 10, 10, 10, 10, 10, 63,
             19, 10, 88, 10, 19, 27, 10, 10, 10, 27, 27, 10, 10, 10, 26, 27, 10, 12, 10, 10, 10, 10, 18, 63,
-            19, 19, 19, 19, 19, 27, 60, 26, 27, 26, 26, 27, 26, 26, 26, 60, 26, 12, 26, 63, 63, 63, 63, 62,
+            10, 10, 10, 10, 10, 10, 10, 10, 10, 26, 26, 27, 26, 26, 26, 60, 26, 12, 26, 63, 63, 63, 63, 62,
         ],
     };
 
@@ -182,7 +182,7 @@ window.addEventListener("DOMContentLoaded", function () {
         constructor() {
             this.sounds = sounds;
             this.muted = false;
-            
+
             // Optional: volume control per category
             this.volumes = {
                 move: 0.6,
@@ -228,6 +228,9 @@ window.addEventListener("DOMContentLoaded", function () {
      * Draw the initial gameplan
     */
     function drawGamePlan() {
+        const savedPos = { left: posLeft, top: posTop, direction: baddieDirection };
+
+        area.innerHTML = '';
         let i, e, b;
         for (i = 0; i < gameArea[currentDimension].length; i++) {
             e = document.createElement('div');
@@ -239,6 +242,16 @@ window.addEventListener("DOMContentLoaded", function () {
             e.id = 'n' + i;
             area.appendChild(e);
         }
+
+        rockford = document.createElement('div');
+        rockford.id = 'baddie1';
+        rockford.className = 'baddie ' + savedPos.direction;
+        area.appendChild(rockford);
+        baddieDirection = savedPos.direction;
+        posLeft = savedPos.left;
+        posTop = savedPos.top;
+        rockford.style.left = (area.offsetLeft + posLeft * tileSize + tileSize / 2) + 'px';
+        rockford.style.top = (area.offsetTop + posTop * tileSize + tileSize / 2) + 'px';
     };
 
     drawGamePlan();
@@ -422,6 +435,10 @@ window.addEventListener("DOMContentLoaded", function () {
         key = event.keyCode || event.which;
         switch (key) {
             case 13: action(); break;
+            case 32: // Spacebar to switch dimension (for testing purposes only - should be removed later)
+                currentDimension = currentDimension === 1 ? 2 : 1;
+                drawGamePlan();
+            break;
         };
     }
 });
