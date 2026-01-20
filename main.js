@@ -176,6 +176,7 @@ window.addEventListener("DOMContentLoaded", function () {
         kick: new Audio('./sounds/kick.mp3'),
         openChest: new Audio('./sounds/open-chest.mp3'),
         ghost: new Audio('./sounds/jfk-ghost.mp3'),
+        dumbledore: new Audio('./sounds/dumbledore.mp3')
     };
 
     class SoundManager {
@@ -468,6 +469,8 @@ window.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    var dumbledoreSound = null;
+
     function action() {
         const tile = getTileInFront();
         if (tile === null) {
@@ -543,7 +546,7 @@ window.addEventListener("DOMContentLoaded", function () {
                 randomize: false
             });
             let yearBorn = prompt('Hello my name is John F Kennedy. If you can tell me which year I was born, I will let you pass.');
-            sound.stop(kennedySound);
+            sound.stop(kennedySound, 600);
             if (yearBorn === '1917') {
                 notify('Correct! You may pass.', 'success', 4000);
             } else {
@@ -575,6 +578,14 @@ window.addEventListener("DOMContentLoaded", function () {
                     randomize: false // Slight variation in playback rate (kinda goofy, but more realistic)
                 });
             } else {
+                if (dumbledoreSound) {
+                    sound.stop(dumbledoreSound, 600);
+                }
+                dumbledoreSound = sound.play('dumbledore', {
+                    category: 'effects',
+                    volume: 0.25,
+                    randomize: false
+                });
                 notify('"My name is Dumbledore, Im trying to get past this gate but my magic is not working. Theres a rumor that there are a magic fan deep in the forest, if I could get my hands on that I could probably open the gate."', 'info', 10000);
                 return;
             }
