@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 /**
  * Import base style
  */
@@ -93,11 +95,11 @@ video {
     padding: 0;
     border: 0;
     font-size: 100.01%;
-    font: inherit;
     vertical-align: baseline;
 }
 body {
     line-height: 1;
+    font-family: "Inter", sans-serif;
 }
 ol,
 ul {
@@ -169,7 +171,6 @@ audio:not([controls]) {
 /* 16px - 100%/1.375 */
 body {
     color: #222;
-    font: 100.01%/1.375 Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 p {
     margin-bottom: 22px;
@@ -586,7 +587,6 @@ body {
     border-radius: 10px;
     padding: 14px 18px;
     color: #e0e0e0;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     font-size: 0.95rem;
     line-height: 1.4;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
