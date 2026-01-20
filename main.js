@@ -176,38 +176,44 @@ window.addEventListener("DOMContentLoaded", function () {
         kick: new Audio('./sounds/kick.mp3'),
         openChest: new Audio('./sounds/open-chest.mp3'),
         ghost: new Audio('./sounds/jfk-ghost.mp3'),
-        // splash: new Audio('./sounds/splash.mp3'),
-        // dig: new Audio('./sounds/dig.mp3'),
     };
 
     class SoundManager {
         constructor() {
             this.sounds = sounds;
             this.muted = false;
-
-            // Optional: volume control per category
+            this.activeInstances = new Set();
+            
             this.volumes = {
                 move: 0.6,
-                effects: 0.8
+                effects: 0.8,
+                eat: 0.7,
             };
         }
 
         play(key, options = {}) {
-            if (this.muted) return;
+            if (this.muted) return null;
 
             const sound = this.sounds[key];
             if (!sound) {
                 console.warn(`Sound "${key}" not found`);
-                return;
+                return null;
             }
 
-            const instance = sound.cloneNode();
+            const instance = sound.cloneNode(true);
+            
             const category = options.category || 'effects';
-            instance.volume = (options.volume || this.volumes[category]) ?? 1;
+            instance.volume = (options.volume !== undefined ? options.volume : this.volumes[category]) ?? 1;
 
             if (options.randomize && Math.random() > 0.5) {
                 instance.playbackRate = 0.9 + Math.random() * 0.3;
             }
+
+            this.activeInstances.add(instance);
+
+            instance.addEventListener('ended', () => {
+                this.activeInstances.delete(instance);
+            }, { once: true });
 
             instance.play().catch(err => {
                 console.log("Audio play prevented:", err);
@@ -216,11 +222,97 @@ window.addEventListener("DOMContentLoaded", function () {
             return instance;
         }
 
-        mute() { this.muted = true; }
-        unmute() { this.muted = false; }
+        stop(instance, fadeOutMs = 400) {
+            if (!instance) return;
+            
+            if (fadeOutMs > 0) {
+                const startVol = instance.volume;
+                const step = startVol / (fadeOutMs / 20);
+                const interval = setInterval(() => {
+                    instance.volume = Math.max(0, instance.volume - step);
+                    if (instance.volume <= 0.01) {
+                        instance.pause();
+                        instance.currentTime = 0;
+                        clearInterval(interval);
+                        this.activeInstances.delete(instance);
+                    }
+                }, 20);
+            } else {
+                instance.pause();
+                instance.currentTime = 0;
+                this.activeInstances.delete(instance);
+            }
+        }
+
+        stopAll() {
+            for (const instance of this.activeInstances) {
+                instance.pause();
+                instance.currentTime = 0;
+            }
+            this.activeInstances.clear();
+        }
+
+        mute() {
+            this.muted = true;
+            this.stopAll();
+        }
+
+        unmute() {
+            this.muted = false;
+        }
+
+        toggleMute() {
+            if (this.muted) {
+                this.unmute();
+            } else {
+                this.mute();
+            }
+            return this.muted;
+        }
     }
 
     const sound = new SoundManager();
+
+    const notificationContainer = document.getElementById('notifications');
+
+    function showNotification(message, options = {}) {
+        const {
+            type = 'info',
+            title = '',
+            duration = 3500
+        } = options;
+
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        
+        let html = '';
+        if (title) {
+            html += `<div class="title">${title}</div>`;
+        }
+        html += `<div class="message">${message}</div>`;
+
+        notification.innerHTML = html;
+        notificationContainer.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 10);
+
+        if (duration > 0) {
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    notification.remove();
+                }, 450);
+            }, duration);
+        }
+
+        return notification;
+    }
+
+    function notify(msg, type, duration = 5000) {
+        showNotification(msg, { type, duration });
+    }
 
     function isTileAnEnemy(tileId) {
         return enemies.includes(tileId);
@@ -346,7 +438,7 @@ window.addEventListener("DOMContentLoaded", function () {
         }
 
         if (characterStats.health <= 0) {
-            alert('You have died! GAME OVER!');
+            notify('You have died! GAME OVER!', 'error', 5000);
         }
 
         updateHealthBar();
@@ -355,9 +447,9 @@ window.addEventListener("DOMContentLoaded", function () {
     function setSuperStrength(enabled) {
         characterStats.superStrength = enabled;
         if (enabled) {
-            alert('You feel a surge of power! You now have super strength!');
+            notify('You feel a surge of power! You now have super strength!', 'success', 4000);
         } else {
-            alert('You feel your super strength fade away.');
+            notify('Your super strength has worn off.', 'info', 4000);
         }
         updateSuperpowerDisplay();
     }
@@ -380,7 +472,6 @@ window.addEventListener("DOMContentLoaded", function () {
 
     function action() {
         const tile = getTileInFront();
-        const tile2 = getTileInFront();
         if (tile === null) {
             console.log('There is no tile in front of Rockford.');
             return;
@@ -395,7 +486,7 @@ window.addEventListener("DOMContentLoaded", function () {
                 volume: 0.25,
                 randomize: false
             });
-            alert('You found a key in the chest!');
+            notify('You found a key in the chest!', 'success', 40000);
         } else if (tile.block === 25) {
             console.log('This chest at tile ' + tile.id + ' is already open.');
         } else if (tile.block === 18) { // Door
@@ -405,33 +496,22 @@ window.addEventListener("DOMContentLoaded", function () {
                 document.getElementById('n' + tile.id).className = 'tile t25 b10';
                 removeItemFromInventory("door_key", 1);
             } else {
-                alert('The door is locked, you need a key to open it.');
+                notify('The door is locked, you need a key to open it.', 'warning', 4000);
             }
-
-            if (tile.block === 88) { // Closed chest in forest
-                gameBlocks[tile.id] = 89;
-                document.getElementById('n' + tile.id).className = 'tile t' + gameArea[tile.id] + ' b89';
-                addItemToInventory("door_key", 1);
-                sound.play('openChest', {
-                    category: 'effects',
-                    volume: 0.25,
-                    randomize: false
-                });
-                alert('You found a key in the chest!');
-            } else if (tile.block === 89) {
-                console.log('This chest at tile ' + tile.id + ' is already open.');
-            } else if (tile.block === 18) { // Door
-                if (inventory["door_key"] > 0) {
-                    gameBlocks[tile.id] = 10;
-                    gameArea[tile.id] = 89;
-                    document.getElementById('n' + tile.id).className = 'tile t89 b10';
-                    removeItemFromInventory("door_key", 1);
-                } else {
-                    alert('The door is locked, you need a key to open it.');
-                }
-            }
+        } else if (tile.block === 88) { // Closed chest in forest
+            gameBlocks[tile.id] = 89;
+            document.getElementById('n' + tile.id).className = 'tile t' + gameArea[tile.id] + ' b89';
+            addItemToInventory("door_key", 1);
+            sound.play('openChest', {
+                category: 'effects',
+                volume: 0.25,
+                randomize: false
+            });
+            notify('You found a key in the chest!', 'success', 4000);
+        } else if (tile.block === 89) {
+            notify('This chest has already been opened', 'error', 4000);
         } else if (tile.block === 48) { // Cat-statue
-            alert('Dont look at me Im not a gravestone...');
+            notify('Dont look at me Im not a gravestone...', 'info', 4000);
         } else if (tile.block === 80) { // Food item that gives super strength
             eatFood(20, true);
             gameBlocks[currentDimension][tile.id] = 10;
@@ -445,7 +525,7 @@ window.addEventListener("DOMContentLoaded", function () {
                     randomize: false
                 });
             } else {
-                alert('You lost 20 health for trying to defeat the troll without super strength!');
+                notify('You lost 20 health for trying to defeat the troll without super strength!', 'error', 4000);
                 handlePlayerHealthChange(false, 20);
                 return;
             }
@@ -457,45 +537,46 @@ window.addEventListener("DOMContentLoaded", function () {
                 volume: 0.25,
                 randomize: false
             });
-            alert('You defeated the troll!');
+            notify('You defeated the troll!', 'success', 4000);
         } else if (tile.block === 91) { // Skeleton enemy
+            const kennedySound = sound.play('ghost', {
+                category: 'effects',
+                volume: 0.25,
+                randomize: false
+            });
             let yearBorn = prompt('Hello my name is John F Kennedy. If you can tell me which year I was born, I will let you pass.');
+            sound.stop(kennedySound);
             if (yearBorn === '1917') {
-                alert('Correct! You may pass.');
-                sound.play('ghost', {
-                    category: 'effects',
-                    volume: 0.25,
-                    randomize: false
-                });
+                notify('Correct! You may pass.', 'success', 4000);
             } else {
-                alert('Incorrect! The skeleton hits you, and you lose 20 health.');
+                notify('Incorrect! The skeleton hits you, and you lose 20 health.', 'error', 4000);
                 handlePlayerHealthChange(false, 20);
                 return;
             }
 
-            gameBlocks[tile.id] = 10;
-            document.getElementById('n' + tile.id).className = 'tile t' + gameArea[tile.id] + ' b' + gameBlocks[tile.id];
+            gameBlocks[currentDimension][tile.id] = 10;
+            document.getElementById('n' + tile.id).className = 'tile t' + gameArea[currentDimension][tile.id] + ' b' + gameBlocks[currentDimension][tile.id];
             document.getElementById('n' + tile.id).style = '';
         } else if (tile.block === 41) { // Gravestone 1
-            alert('Here lies John F Kennedy, 1917-1963.');
+            notify('Here lies John F Kennedy, 1917-1963.', 'info', 5000);
         } else if (tile.block === 42) { // Gravestone 2
-            alert('Here lies Marilyn Monroe, 1926-1962.');
+            notify('Here lies Marilyn Monroe, 1926-1962.', 'info', 5000);
         } else if (tile.block === 43) { // Gravestone 3
-            alert('Here lies Albert Einstein, 1879-1955.');
+            notify('Here lies Albert Einstein, 1879-1955.', 'info', 5000);
         } else if (tile.block === 49) { // Gravestone 4
-            alert('Here lies Leonardo da Vinci, 1452-1519.');
+            notify('Here lies Leonardo da Vinci, 1452-1519.', 'info', 5000);
         } else if (tile.block === 50) { // Gravestone 5
-            alert('Here lies Cleopatra, 69 BC-30 BC.');
+            notify('Here lies Cleopatra, 69 BC-30 BC.', 'info', 5000);
         } else if (tile.block === 92) { // Quest character
             if (inventory["fan"] > 0) {
-                alert('You found it! Thank you for returning my fan. Now I will try and open the gate.');
+                notify('You found it! Thank you for returning my fan. Now I will try and open the gate.', 'success', 4000);
                 sound.play('openChest', {
                     category: 'effects', // Category for volume control, wont be used in this case as we are passing volume directly below.
                     volume: 0.25, // What volume to use, in this case 10%.
                     randomize: false // Slight variation in playback rate (kinda goofy, but more realistic)
                 });
             } else {
-                alert('"My name is Dumbledore, Im trying to get past this gate but my magic is not working. Theres a rumor that there are a magic fan deep in the forest, if I could get my hands on that I could probably open the gate."');
+                notify('"My name is Dumbledore, Im trying to get past this gate but my magic is not working. Theres a rumor that there are a magic fan deep in the forest, if I could get my hands on that I could probably open the gate."', 'info', 10000);
                 return;
             }
             // Här ska gate öppnas men det är inte den aktiva tilen - hur gör vi? b95, b96 => b97, b98

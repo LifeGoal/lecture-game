@@ -89,34 +89,34 @@ time,
 mark,
 audio,
 video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100.01%;
-  font: inherit;
-  vertical-align: baseline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100.01%;
+    font: inherit;
+    vertical-align: baseline;
 }
 body {
-  line-height: 1;
+    line-height: 1;
 }
 ol,
 ul {
-  list-style: none;
+    list-style: none;
 }
 blockquote,
 q {
-  quotes: none;
+    quotes: none;
 }
 blockquote:before,
 blockquote:after,
 q:before,
 q:after {
-  content: '';
-  content: none;
+    content: '';
+    content: none;
 }
 table {
-  border-collapse: collapse;
-  border-spacing: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 /** --------------------------------------------------------------
  * HTML5 elements.
@@ -132,35 +132,35 @@ header,
 hgroup,
 nav,
 section {
-  display: block;
+    display: block;
 }
 audio,
 canvas,
 video {
-  display: inline-block;
-  display: inline;
-  zoom: 1;
+    display: inline-block;
+    display: inline;
+    zoom: 1;
 }
 audio:not([controls]) {
-  display: none;
+    display: none;
 }
 [hidden] {
-  display: none;
+    display: none;
 }
 /** --------------------------------------------------------------
  * The micro clearfix http://nicolasgallagher.com/micro-clearfix-hack/
  *
  */
 .wrapper {
-  zoom: 1;
+    zoom: 1;
 }
 .wrapper:before,
 .wrapper:after {
-  content: "";
-  display: table;
+    content: "";
+    display: table;
 }
 .wrapper:after {
-  clear: both;
+    clear: both;
 }
 /** --------------------------------------------------------------
  * Typography.
@@ -168,77 +168,77 @@ audio:not([controls]) {
  */
 /* 16px - 100%/1.375 */
 body {
-  color: #222;
-  font: 100.01%/1.375 Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #222;
+    font: 100.01%/1.375 Tahoma, Geneva, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 p {
-  margin-bottom: 22px;
+    margin-bottom: 22px;
 }
 b,
 strong {
-  font-weight: bold;
+    font-weight: bold;
 }
 i,
 em {
-  font-style: italic;
+    font-style: italic;
 }
 pre,
 code {
-  font: 1em/1.375 monospace;
+    font: 1em/1.375 monospace;
 }
 /* headers */
 h1 {
-  font-size: 2.375em;
-  line-height: 1.1579;
-  margin-bottom: 22px;
+    font-size: 2.375em;
+    line-height: 1.1579;
+    margin-bottom: 22px;
 }
 /* Lists */
 li ul,
 li ol {
-  margin: 0;
+    margin: 0;
 }
 ul,
 ol {
-  margin: 0.6875em 1.5em 1.375em 0;
-  padding-left: 1.5em;
+    margin: 0.6875em 1.5em 1.375em 0;
+    padding-left: 1.5em;
 }
 ul {
-  list-style-type: disc;
+    list-style-type: disc;
 }
 ol {
-  list-style-type: decimal;
+    list-style-type: decimal;
 }
 /* Tables. Because of the need for padding on TH and TD, the vertical rhythm
   on table cells has to be 33px, instead of the standard 22px or 44px
   of other elements. */
 table {
-  margin-bottom: 1.375em;
-  width: 100%;
+    margin-bottom: 1.375em;
+    width: 100%;
 }
 caption {
-  text-align: left;
-  font-style: italic;
+    text-align: left;
+    font-style: italic;
 }
 thead {
-  border-bottom: 2px solid #222;
+    border-bottom: 2px solid #222;
 }
 th {
-  vertical-align: bottom;
-  font-weight: bold;
-  text-align: left;
+    vertical-align: bottom;
+    font-weight: bold;
+    text-align: left;
 }
 th,
 td {
-  padding: 5px 10px 5px 5px;
+    padding: 5px 10px 5px 5px;
 }
 tbody tr {
-  border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #eee;
 }
 tbody tr:hover {
-  color: #000;
+    color: #000;
 }
 tfoot {
-  font-style: italic;
+    font-style: italic;
 }
 /** --------------------------------------------------------------
  * CSS3 mixins.
@@ -249,96 +249,96 @@ tfoot {
  *
  */
 .black {
-  color: #000;
+    color: #000;
 }
 .blue {
-  color: #049cdb;
+    color: #049cdb;
 }
 .green {
-  color: #46a546;
+    color: #46a546;
 }
 .red {
-  color: #9d261d;
+    color: #9d261d;
 }
 .yellow {
-  color: #ffc40d;
+    color: #ffc40d;
 }
 .orange {
-  color: #f89406;
+    color: #f89406;
 }
 /** --------------------------------------------------------------
  * Page layout.
  *
  */
 body {
-  max-width: 940px;
-  margin: 8px auto;
-  background: rgb(10, 10, 10);
+    max-width: 940px;
+    margin: 8px auto;
+    background: rgb(10, 10, 10);
 }
 /** --------------------------------------------------------------
  * Boxes.
  *
  */
 #flash {
-  margin: 2em auto;
-  background-color: rgba(10, 10, 10, 0.95);
-  border: 2px solid rgb(48, 48, 48);
-  min-height: 10em;
-  padding: 1em;
-  -webkit-border-radius: 12px;
-  -moz-border-radius: 12px;
-  border-radius: 12px;
+    margin: 2em auto;
+    background-color: rgba(10, 10, 10, 0.95);
+    border: 2px solid rgb(48, 48, 48);
+    min-height: 10em;
+    padding: 1em;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 12px;
 }
 /** --------------------------------------------------------------
  * Footer.
  *
  */
 #footer {
-  border-top: 1px solid #999;
-  font-size: smaller;
-  color: #999;
-  margin-top: 22px;
-  padding-top: 0.5em;
+    border-top: 1px solid #999;
+    font-size: smaller;
+    color: #999;
+    margin-top: 22px;
+    padding-top: 0.5em;
 }
 #footer a {
-  color: #999;
-  text-decoration: none;
+    color: #999;
+    text-decoration: none;
 }
 #footer a:hover {
-  color: #333333;
-  text-decoration: underline;
+    color: #333333;
+    text-decoration: underline;
 }
 /**
  * Here comes specific style for a certain test program.
  */
 #flash {
-  width: 768px;
-  height: 768px;
+    width: 768px;
+    height: 768px;
 }
 #baddie1 {
-  position: absolute;
+    position: absolute;
 }
 .baddie {
-  z-index: 10;
-  width: 32px;
-  height: 32px;
-  background-image: url(img/sprite_mickey_mos_mini.png);
-  background-repeat: no-repeat;
-  -webkit-transition-property: left,top;
-  -moz-transition-property: left,top;
-  -ms-transition-property: left,top;
-  -o-transition-property: left,top;
-  transition-property: left,top;
-  -webkit-transition-duration: 0.2s;
-  -moz-transition-duration: 0.2s;
-  -ms-transition-duration: 0.2s;
-  -o-transition-duration: 0.2s;
-  transition-duration: 0.2s;
-  -webkit-transition-timing-function: ease;
-  -moz-transition-timing-function: ease;
-  -ms-transition-timing-function: ease;
-  -o-transition-timing-function: ease;
-  transition-timing-function: ease;
+    z-index: 10;
+    width: 32px;
+    height: 32px;
+    background-image: url(img/sprite_mickey_mos_mini.png);
+    background-repeat: no-repeat;
+    -webkit-transition-property: left,top;
+    -moz-transition-property: left,top;
+    -ms-transition-property: left,top;
+    -o-transition-property: left,top;
+    transition-property: left,top;
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
+    -ms-transition-duration: 0.2s;
+    -o-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    -webkit-transition-timing-function: ease;
+    -moz-transition-timing-function: ease;
+    -ms-transition-timing-function: ease;
+    -o-transition-timing-function: ease;
+    transition-timing-function: ease;
 }
 .baddie.up {background-position: -96px 0;}
 .baddie.down {background-position: -64px 0;}
@@ -476,92 +476,155 @@ body {
 .b98{background-image:url(img/tiles/passage/vgate_open_up.png);}
 
 @keyframes flipBg {
-  0%   { transform: scaleX(1); }
-  50%  { transform: scaleX(-1); }
+    0%   { transform: scaleX(1); }
+    50%  { transform: scaleX(-1); }
 }
 
 .player-stats {
-  display: flex;
-  gap: 1rem;
-  width: 768px;
-  margin: 2em auto;
-  justify-content: space-evenly;
-  padding: 1em;
-  background: rgba(10, 10, 10, 0.95);
-  border: 2px solid rgb(48, 48, 48);
-  border-radius: 12px;
-  color: #eee;
+    display: flex;
+    gap: 1rem;
+    width: 768px;
+    margin: 2em auto;
+    justify-content: space-evenly;
+    padding: 1em;
+    background: rgba(10, 10, 10, 0.95);
+    border: 2px solid rgb(48, 48, 48);
+    border-radius: 12px;
+    color: #eee;
 }
 
 .health-container {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: max-content;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: max-content;
 }
 
 .health-label {
-  font-weight: bold;
-  color: #ff4444;
-  width: 32px;
+    font-weight: bold;
+    color: #ff4444;
+    width: 32px;
 }
 
 .health-bar-bg {
-  width: 400px;
-  height: 18px;
-  background: #222;
-  border: 2px solid #444;
-  border-radius: 9px;
-  overflow: hidden;
+    width: 400px;
+    height: 18px;
+    background: #222;
+    border: 2px solid #444;
+    border-radius: 9px;
+    overflow: hidden;
 }
 
 .health-bar {
-  height: 100%;
-  background: linear-gradient(90deg, #ff4444, #00ff37);
-  transition: width 0.3s ease, background 0.6s ease;
-  border-radius: 6px;
+    height: 100%;
+    background: linear-gradient(90deg, #ff4444, #00ff37);
+    transition: width 0.3s ease, background 0.6s ease;
+    border-radius: 6px;
 }
 
 .health-value {
-  font-size: 0.9rem;
-  font-weight: bold;
-  min-width: 60px;
-  text-align: right;
-  color: greenyellow;
+    font-size: 0.9rem;
+    font-weight: bold;
+    min-width: 60px;
+    text-align: right;
+    color: greenyellow;
 }
 
 .superpower-container {
-  display: flex;
-  align-items: center;
-  width: max-content;
-  gap: 10px;
+    display: flex;
+    align-items: center;
+    width: max-content;
+    gap: 10px;
 }
 
 .super-icon {
-  width: 42px;
-  height: 42px;
-  background: #1a1a2e;
-  border: 3px solid #444;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  transition: all 0.4s ease;
+    width: 42px;
+    height: 42px;
+    background: #1a1a2e;
+    border: 3px solid #444;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    transition: all 0.4s ease;
 }
 
 .super-icon.active {
-  border-color: #ffd700;
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
-  transform: scale(1.15);
+    border-color: #ffd700;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+    transform: scale(1.15);
 }
 
 .super-label {
-  font-size: 0.9em;
-  color: #aaa;
+    font-size: 0.9em;
+    color: #aaa;
 }
 
 .superpower-container.active .super-label {
-  color: #ffdd00;
-  font-weight: bold;
+    color: #ffdd00;
+    font-weight: bold;
+}
+
+/* Notifications */
+
+.notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 500px;
+    pointer-events: none;
+}
+
+.notification {
+    background: rgba(18, 18, 18, 0.95);
+    border: 2px solid rgb(48, 48, 48);
+    border-radius: 10px;
+    padding: 14px 18px;
+    color: #e0e0e0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    opacity: 0;
+    transform: translateX(30px);
+    transition: all 0.4s ease-out;
+    pointer-events: auto;
+}
+
+.notification.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.notification.success {
+    border-left: 4px solid #4caf50;
+}
+
+.notification.error {
+    border-left: 4px solid #f44336;
+}
+
+.notification.warning {
+    border-left: 4px solid #ff9800;
+}
+
+.notification.info {
+    border-left: 4px solid #2196f3;
+}
+
+.notification .title {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #ffffff;
+}
+
+.notification .message {
+    color: #d0d0d0;
 }
