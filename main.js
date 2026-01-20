@@ -499,6 +499,12 @@ window.addEventListener("DOMContentLoaded", function () {
                 return;
             }
             // Här ska gate öppnas men det är inte den aktiva tilen - hur gör vi? b95, b96 => b97, b98
+            // Tror tyvärr inte att det finns något lätt sätt att göra det på mer än att kolla vilken tile det är i gameBlocks. Om det är index 80 och 89 exempelvis så får man ändra dem här igenom manuellt.
+            // Såg steg 1: Hitta vilken tile det är i gameBlocks (indexen för porten).
+            // Steg 2: Manuellt ändra dem i gameBlocks och gameArea.
+            // Steg 3: Uppdatera DOM.
+            // Hur ni hämtar tiles för att senare ändra className osv: const upperGateTile = document.getElementById('n80'); const lowerGateTile = document.getElementById('n89');
+            // OBS! Jag vet inte vilka index de har så satte bara 80 och 89 som exempel.
         }
     }
 
