@@ -58,7 +58,7 @@ window.addEventListener("DOMContentLoaded", function () {
         26, 80, 26, 10, 10, 10, 26, 10, 60, 26, 27, 10, 10, 37, 36, 38, 40, 40, 38, 37, 36, 28, 10, 28, // Water 
         27, 27, 27, 26, 27, 27, 26, 27, 26, 27, 10, 10, 38, 44, 10, 10, 10, 43, 10, 10, 10, 40, 10, 28, // Water 
         26, 26, 60, 26, 26, 10, 10, 10, 10, 10, 10, 10, 46, 10, 10, 42, 10, 10, 10, 41, 10, 10, 10, 26, 
-        26, 61, 27, 10, 10, 10, 27, 26, 10, 10, 10, 10, 91, 10, 10, 10, 10, 73, 10, 10, 10, 10, 10, 26, // fountain
+        26, 61, 27, 10, 10, 10, 27, 26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 73, 10, 10, 10, 10, 10, 26, // fountain
         27, 27, 10, 10, 10, 10, 61, 60, 27, 26, 10, 26, 47, 10, 10, 41, 10, 10, 10, 10, 10, 48, 10, 26,
         27, 26, 10, 10, 10, 10, 10, 26, 26, 27, 61, 26, 38, 44, 10, 10, 10, 42, 10, 45, 10, 10, 10, 26,
         60, 10, 26, 27, 26, 27, 10, 10, 10, 10, 10, 26, 60, 40, 30, 36, 38, 36, 39, 39, 30, 38, 30, 37, // Graveyard stone wall
@@ -309,13 +309,14 @@ window.addEventListener("DOMContentLoaded", function () {
 
     function action () {
         const tile = getTileInFront();
+        const tile2 = getTileInFront();
         if (tile === null) {
             console.log('There is no tile in front of Rockford.');
             return;
         }
 
         if (tile.block === 24) { // Closed chest in house
-            gameBlocks[tile.id] = 25;
+            gameBlocks[tile.id] = 25 ;
             document.getElementById('n' + tile.id).className = 'tile t' + gameArea[tile.id] + ' b25';
             addItemToInventory("door_key", 1);
             alert('You found a key in the chest!');
@@ -330,6 +331,22 @@ window.addEventListener("DOMContentLoaded", function () {
             } else {
                 alert('The door is locked, you need a key to open it.');
             }
+        //          if (tile2.block === 88) { // Closed chest in forest
+        //     gameBlocks[tile2.id] = 89 ;
+        //     document.getElementById('n' + tile2.id).className = 'tile2 t' + gameArea[tile2.id] + ' b89';
+        //     addItemToInventory("door_key", 1);
+        //     alert('You found a key in the chest!');
+        // } else if (tile2.block === 89) {
+        //      console.log('This chest at tile ' + tile2.id + ' is already open.');
+        //  }   else if (tile2.block === 18) { // Door
+        //      if (inventory["door_key"] > 0) {
+        //          gameBlocks[tile2.id] = 10;
+        //          gameArea[tile2.id] = 89;
+        //          document.getElementById('n' + tile2.id).className = 'tile t89 b10';
+        //          removeItemFromInventory("door_key", 1);
+        //      }  else {
+        //          alert('The door is locked, you need a key to open it.');
+            //  }
         } else if (tile.block === 48) { // Food item that gives health
             alert('Wow, I really hate these creatures...');
         } else if (tile.block === 80) { // Food item that gives super strength
