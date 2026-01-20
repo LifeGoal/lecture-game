@@ -632,13 +632,12 @@ window.addEventListener("DOMContentLoaded", function () {
                 notify('"My name is Dumbledore, Im trying to get past this gate but my magic is not working. Theres a rumor that there are a magic fan deep in the forest, if I could get my hands on that I could probably open the gate."', 'info', 10000);
                 return;
             }
-            // Här ska gate öppnas men det är inte den aktiva tilen - hur gör vi? b95, b96 => b97, b98
-            // Tror tyvärr inte att det finns något lätt sätt att göra det på mer än att kolla vilken tile det är i gameBlocks. Om det är index 80 och 89 exempelvis så får man ändra dem här igenom manuellt.
-            // Såg steg 1: Hitta vilken tile det är i gameBlocks (indexen för porten).
-            // Steg 2: Manuellt ändra dem i gameBlocks och gameArea.
-            // Steg 3: Uppdatera DOM.
-            // Hur ni hämtar tiles för att senare ändra className osv: const upperGateTile = document.getElementById('n80'); const lowerGateTile = document.getElementById('n89');
-            // OBS! Jag vet inte vilka index de har så satte bara 80 och 89 som exempel.
+            gameArea[currentDimension][399] = 42;
+            gameBlocks[currentDimension][399] = 10;
+            gameArea[currentDimension][423] = 41;
+            gameBlocks[currentDimension][423] = 10;
+            document.getElementById('n399').className = 'tile t' + gameArea[currentDimension][399] + ' b' + gameBlocks[currentDimension][399];
+            document.getElementById('n423').className = 'tile t' + gameArea[currentDimension][423] + ' b' + gameBlocks[currentDimension][423];
         } else if (tile.block === 75) {
             gameArea[currentDimension][tile.id] = 60;
             gameBlocks[currentDimension][tile.id] = 10;

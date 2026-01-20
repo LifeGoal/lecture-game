@@ -410,6 +410,9 @@ body {
 .t39{background-image:url(img/tiles/water/shallow_water_wave_north_new.png), url(img/tiles/floor/grass_2_old.png);}
 .t40{background-image:url(img/tiles/water/shallow_water_wave_south_new.png), url(img/tiles/floor/grass_2_old.png);}
 
+.t41{background-image:url(img/tiles/passage/vgate_open_down.png), url(img/tiles/floor/grass_0_old.png);}
+.t42{background-image:url(img/tiles/passage/vgate_open_up.png), url(img/tiles/floor/grass_0_old.png);}
+
 /* decorations */
 .t44{background-image:url(img/tiles/decorations/pots.PNG), url(img/tiles/floor/white_marble_3.png);}
 .t45{background-image:url(img/tiles/decorations/mushrooms.PNG), url(img/tiles/floor/grass_0_old.png);}
@@ -505,8 +508,6 @@ body {
 /* GATE */
 .b95{background-image:url(img/tiles/passage/vgate_runed_down.png);}
 .b96{background-image:url(img/tiles/passage/vgate_runed_up.png);}
-.b97{background-image:url(img/tiles/passage/vgate_open_down.png);}
-.b98{background-image:url(img/tiles/passage/vgate_open_up.png);}
 
 @keyframes flipBg {
     0%   { transform: scaleX(1); }
