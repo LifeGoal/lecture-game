@@ -4,22 +4,22 @@
 window.addEventListener("DOMContentLoaded", function () {
     'use strict';
     let rockford = document.getElementById('baddie1'),
-    area = document.getElementById('flash'),
-    left = area.offsetLeft,
-    top = area.offsetTop,
-    posLeft = 0,
-    posTop = 0,
-    tileSize = 32,
-    gridSize = 24,
-    baddieDirection = 'down',
-    soundOn = true, // Set to false to disable sounds.
-    currentDimension = 1,
+        area = document.getElementById('flash'),
+        left = area.offsetLeft,
+        top = area.offsetTop,
+        posLeft = 0,
+        posTop = 0,
+        tileSize = 32,
+        gridSize = 24,
+        baddieDirection = 'down',
+        soundOn = true, // Set to false to disable sounds.
+        currentDimension = 1,
 
-    /**
-     * This is the background for the game area.
-     */
+        /**
+         * This is the background for the game area.
+         */
 
-    enemies = [90]; // Add all block IDs that are enemies in here. 90 is a big troll.
+        enemies = [90, 91]; // Add all block IDs that are enemies in here. 90 is a big troll.
 
     const gameArea = {
         1: [ // Dimension 1
@@ -44,7 +44,7 @@ window.addEventListener("DOMContentLoaded", function () {
             12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 20, 21, 21, 21, 21, 21, 21, 21,
             14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 22, 21, 21, 21, 21, 21, 21, 21,
             13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 22, 21, 21, 21, 21, 21, 21,
-            12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 22, 21, 21, 21, 21, 21,
+            12, 60, 14, 60, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 22, 21, 21, 21, 21, 21,
             14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 22, 21, 21, 21, 21,
         ],
         2: [ // Dimension 2
@@ -88,20 +88,20 @@ window.addEventListener("DOMContentLoaded", function () {
             26, 10, 10, 10, 10, 10, 26, 10, 10, 10, 26, 27, 26, 26, 26, 26, 28, 28, 28, 28, 28, 10, 10, 26,
             27, 10, 26, 10, 10, 10, 90, 10, 10, 27, 26, 61, 27, 27, 26, 10, 10, 28, 28, 28, 28, 28, 10, 26,
             26, 80, 26, 10, 10, 10, 26, 10, 60, 26, 27, 10, 10, 37, 36, 38, 40, 40, 38, 37, 36, 28, 10, 28, // Water
-            27, 27, 27, 26, 27, 27, 26, 27, 26, 27, 10, 10, 38, 44, 10, 10, 10, 43, 10, 10, 10, 40, 10, 28, // Water
-            26, 26, 60, 26, 26, 10, 10, 10, 10, 10, 10, 10, 46, 10, 10, 42, 10, 10, 10, 41, 10, 10, 10, 26,
-            26, 61, 27, 10, 10, 10, 27, 26, 10, 10, 10, 10, 10, 10, 10, 10, 10, 73, 10, 10, 10, 10, 10, 26, // fountain
-            27, 27, 10, 10, 10, 10, 61, 60, 27, 26, 10, 26, 47, 10, 10, 41, 10, 10, 10, 10, 10, 48, 10, 26,
+            27, 27, 27, 26, 27, 27, 26, 27, 26, 27, 10, 10, 38, 44, 10, 10, 10, 50, 10, 10, 10, 40, 10, 28, // Water
+            26, 26, 60, 26, 26, 10, 10, 10, 10, 10, 10, 10, 46, 10, 10, 49, 10, 10, 10, 41, 10, 10, 10, 26,
+            26, 61, 27, 10, 10, 10, 27, 26, 10, 10, 10, 10, 91, 10, 10, 10, 10, 73, 10, 10, 10, 10, 10, 26, // fountain
+            27, 27, 10, 10, 10, 10, 61, 60, 27, 26, 10, 26, 47, 10, 10, 43, 10, 10, 10, 10, 10, 48, 10, 26,
             27, 26, 10, 10, 10, 10, 10, 26, 26, 27, 61, 26, 38, 44, 10, 10, 10, 42, 10, 45, 10, 10, 10, 26,
             60, 10, 26, 27, 26, 27, 10, 10, 10, 10, 10, 26, 60, 40, 30, 36, 38, 36, 39, 39, 30, 38, 30, 37, // Graveyard stone wall
             26, 10, 10, 10, 10, 10, 26, 27, 10, 10, 10, 61, 26, 27, 10, 12, 10, 10, 10, 10, 10, 10, 10, 62,
-            27, 10, 27, 27, 26, 10, 10, 26, 27, 27, 10, 10, 10, 10, 10, 12, 10, 10, 10, 10, 62, 10, 10, 63,
-            26, 10, 26, 10, 27, 27, 10, 10, 10, 10, 26, 27, 26, 10, 10, 96, 10, 10, 10, 10, 10, 10, 10, 62,
-            27, 10, 27, 10, 10, 10, 26, 26, 27, 10, 10, 10, 27, 27, 10, 95, 10, 10, 10, 63, 10, 10, 10, 63,
+            27, 10, 27, 27, 26, 10, 10, 26, 27, 27, 10, 10, 10, 10, 92, 12, 10, 10, 10, 10, 62, 10, 10, 63, // quest character
+            26, 10, 26, 80, 27, 27, 10, 10, 10, 10, 26, 27, 26, 10, 10, 96, 10, 10, 10, 10, 10, 10, 10, 62, // upper gate
+            27, 10, 27, 10, 10, 10, 26, 26, 27, 10, 10, 10, 27, 27, 10, 95, 10, 10, 10, 63, 10, 10, 10, 63, // lower gate
             61, 10, 10, 10, 27, 10, 10, 10, 10, 27, 26, 10, 26, 10, 10, 12, 10, 10, 10, 10, 10, 62, 10, 63,
             61, 74, 10, 74, 27, 26, 27, 27, 10, 10, 27, 10, 27, 10, 10, 26, 12, 10, 63, 10, 10, 10, 10, 63,
-            19, 19, 10, 19, 19, 88, 10, 26, 10, 10, 26, 10, 27, 10, 27, 27, 12, 10, 10, 10, 10, 10, 10, 63,
-            19, 10, 88, 10, 19, 27, 10, 10, 10, 27, 27, 10, 10, 10, 26, 27, 10, 12, 10, 10, 10, 10, 18, 63,
+            19, 19, 18, 19, 19, 88, 10, 26, 10, 10, 26, 10, 27, 10, 27, 27, 12, 10, 10, 10, 10, 10, 10, 63,
+            19, 10, 75, 10, 19, 10, 10, 90, 10, 27, 27, 10, 10, 10, 26, 27, 10, 12, 10, 10, 10, 10, 18, 63,
             19, 19, 19, 19, 19, 27, 60, 26, 27, 26, 26, 27, 26, 26, 26, 60, 26, 12, 26, 63, 63, 63, 63, 62,
         ],
         2: [ // Dimension 2
@@ -174,6 +174,8 @@ window.addEventListener("DOMContentLoaded", function () {
         eat: new Audio('./sounds/eat.mp3'),
         kill: new Audio('./sounds/kill.mp3'),
         kick: new Audio('./sounds/kick.mp3'),
+        openChest: new Audio('./sounds/open-chest.mp3'),
+        ghost: new Audio('./sounds/jfk-ghost.mp3'),
         // splash: new Audio('./sounds/splash.mp3'),
         // dig: new Audio('./sounds/dig.mp3'),
     };
@@ -314,7 +316,7 @@ window.addEventListener("DOMContentLoaded", function () {
         const idx = x + y * gridSize;
         const block = gameBlocks[currentDimension][idx];
 
-        return {id: idx, block: block, ground: gameArea[currentDimension][idx]}; // Returning all info about the tile, even though it's not needed for now.
+        return { id: idx, block: block, ground: gameArea[currentDimension][idx] }; // Returning all info about the tile, even though it's not needed for now.
     }
 
     function addItemToInventory(item, amount) {
@@ -362,9 +364,9 @@ window.addEventListener("DOMContentLoaded", function () {
 
     function eatFood(health, superpower) {
         sound.play('eat', {
-            category: 'eat', // Category for volume control, wont be used in this case as we are passing volume directly below.
-            volume: 0.1, // What volume to use, in this case 10%.
-            randomize: false // Slight variation in playback rate (kinda goofy, but more realistic)
+            category: 'eat',
+            volume: 0.1,
+            randomize: false
         });
 
         if (health) {
@@ -376,8 +378,9 @@ window.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function action () {
+    function action() {
         const tile = getTileInFront();
+        const tile2 = getTileInFront();
         if (tile === null) {
             console.log('There is no tile in front of Rockford.');
             return;
@@ -387,6 +390,11 @@ window.addEventListener("DOMContentLoaded", function () {
             gameBlocks[currentDimension][tile.id] = 25;
             document.getElementById('n' + tile.id).className = 'tile t' + gameArea[currentDimension][tile.id] + ' b25';
             addItemToInventory("door_key", 1);
+            sound.play('openChest', {
+                category: 'effects',
+                volume: 0.25,
+                randomize: false
+            });
             alert('You found a key in the chest!');
         } else if (tile.block === 25) {
             console.log('This chest at tile ' + tile.id + ' is already open.');
@@ -399,8 +407,31 @@ window.addEventListener("DOMContentLoaded", function () {
             } else {
                 alert('The door is locked, you need a key to open it.');
             }
-        } else if (tile.block === 48) { // Food item that gives health
-            alert('Wow, I really hate these creatures...');
+
+            if (tile.block === 88) { // Closed chest in forest
+                gameBlocks[tile.id] = 89;
+                document.getElementById('n' + tile.id).className = 'tile t' + gameArea[tile.id] + ' b89';
+                addItemToInventory("door_key", 1);
+                sound.play('openChest', {
+                    category: 'effects',
+                    volume: 0.25,
+                    randomize: false
+                });
+                alert('You found a key in the chest!');
+            } else if (tile.block === 89) {
+                console.log('This chest at tile ' + tile.id + ' is already open.');
+            } else if (tile.block === 18) { // Door
+                if (inventory["door_key"] > 0) {
+                    gameBlocks[tile.id] = 10;
+                    gameArea[tile.id] = 89;
+                    document.getElementById('n' + tile.id).className = 'tile t89 b10';
+                    removeItemFromInventory("door_key", 1);
+                } else {
+                    alert('The door is locked, you need a key to open it.');
+                }
+            }
+        } else if (tile.block === 48) { // Cat-statue
+            alert('Dont look at me Im not a gravestone...');
         } else if (tile.block === 80) { // Food item that gives super strength
             eatFood(20, true);
             gameBlocks[currentDimension][tile.id] = 10;
@@ -409,10 +440,10 @@ window.addEventListener("DOMContentLoaded", function () {
             if (characterStats.superStrength) {
                 setSuperStrength(false);
                 sound.play('kick', {
-                category: 'effects', // Category for volume control, wont be used in this case as we are passing volume directly below.
-                volume: 0.25, // What volume to use, in this case 10%.
-                randomize: false // Slight variation in playback rate (kinda goofy, but more realistic)
-            });
+                    category: 'effects',
+                    volume: 0.25,
+                    randomize: false
+                });
             } else {
                 alert('You lost 20 health for trying to defeat the troll without super strength!');
                 handlePlayerHealthChange(false, 20);
@@ -422,11 +453,58 @@ window.addEventListener("DOMContentLoaded", function () {
             document.getElementById('n' + tile.id).className = 'tile t' + gameArea[currentDimension][tile.id] + ' b' + gameBlocks[currentDimension][tile.id];
             document.getElementById('n' + tile.id).style = '';
             sound.play('kill', {
-                category: 'effects', // Category for volume control, wont be used in this case as we are passing volume directly below.
-                volume: 0.25, // What volume to use, in this case 10%.
-                randomize: false // Slight variation in playback rate (kinda goofy, but more realistic)
+                category: 'effects',
+                volume: 0.25,
+                randomize: false
             });
             alert('You defeated the troll!');
+        } else if (tile.block === 91) { // Skeleton enemy
+            let yearBorn = prompt('Hello my name is John F Kennedy. If you can tell me which year I was born, I will let you pass.');
+            if (yearBorn === '1917') {
+                alert('Correct! You may pass.');
+                sound.play('ghost', {
+                    category: 'effects',
+                    volume: 0.25,
+                    randomize: false
+                });
+            } else {
+                alert('Incorrect! The skeleton hits you, and you lose 20 health.');
+                handlePlayerHealthChange(false, 20);
+                return;
+            }
+
+            gameBlocks[tile.id] = 10;
+            document.getElementById('n' + tile.id).className = 'tile t' + gameArea[tile.id] + ' b' + gameBlocks[tile.id];
+            document.getElementById('n' + tile.id).style = '';
+        } else if (tile.block === 41) { // Gravestone 1
+            alert('Here lies John F Kennedy, 1917-1963.');
+        } else if (tile.block === 42) { // Gravestone 2
+            alert('Here lies Marilyn Monroe, 1926-1962.');
+        } else if (tile.block === 43) { // Gravestone 3
+            alert('Here lies Albert Einstein, 1879-1955.');
+        } else if (tile.block === 49) { // Gravestone 4
+            alert('Here lies Leonardo da Vinci, 1452-1519.');
+        } else if (tile.block === 50) { // Gravestone 5
+            alert('Here lies Cleopatra, 69 BC-30 BC.');
+        } else if (tile.block === 92) { // Quest character
+            if (inventory["fan"] > 0) {
+                alert('You found it! Thank you for returning my fan. Now I will try and open the gate.');
+                sound.play('openChest', {
+                    category: 'effects', // Category for volume control, wont be used in this case as we are passing volume directly below.
+                    volume: 0.25, // What volume to use, in this case 10%.
+                    randomize: false // Slight variation in playback rate (kinda goofy, but more realistic)
+                });
+            } else {
+                alert('"My name is Dumbledore, Im trying to get past this gate but my magic is not working. Theres a rumor that there are a magic fan deep in the forest, if I could get my hands on that I could probably open the gate."');
+                return;
+            }
+            // Här ska gate öppnas men det är inte den aktiva tilen - hur gör vi? b95, b96 => b97, b98
+            // Tror tyvärr inte att det finns något lätt sätt att göra det på mer än att kolla vilken tile det är i gameBlocks. Om det är index 80 och 89 exempelvis så får man ändra dem här igenom manuellt.
+            // Såg steg 1: Hitta vilken tile det är i gameBlocks (indexen för porten).
+            // Steg 2: Manuellt ändra dem i gameBlocks och gameArea.
+            // Steg 3: Uppdatera DOM.
+            // Hur ni hämtar tiles för att senare ändra className osv: const upperGateTile = document.getElementById('n80'); const lowerGateTile = document.getElementById('n89');
+            // OBS! Jag vet inte vilka index de har så satte bara 80 och 89 som exempel.
         }
     }
 
@@ -438,7 +516,7 @@ window.addEventListener("DOMContentLoaded", function () {
             case 32: // Spacebar to switch dimension (for testing purposes only - should be removed later)
                 currentDimension = currentDimension === 1 ? 2 : 1;
                 drawGamePlan();
-            break;
+                break;
         };
     }
 });
