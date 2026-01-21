@@ -662,10 +662,10 @@ body {
     position: relative;
     display: flex;
     gap: 1rem;
-    width: 768px;
     min-height: 105px;
-    margin: 0.5em auto;
-    padding: 0.5em 1em;
+    min-width: 85px;
+    width: max-content;
+    padding: 1em;
     background: rgba(10, 10, 10, 0.95);
     border: 2px solid rgb(48, 48, 48);
     border-radius: 12px;
@@ -691,7 +691,7 @@ body {
 }
 
 .inventory-empty-state p {
-    font-size: 1.1rem;
+    font-size: 0.8rem;
     font-weight: 500;
     color: #888;
     margin: 0;
@@ -823,7 +823,7 @@ body {
     color: #d0d0d0;
 }
 
-.info-container {
+.sidebar {
     position: fixed;
     top: 20px;
     left: 20px;
