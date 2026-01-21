@@ -14,6 +14,7 @@ window.addEventListener("DOMContentLoaded", function () {
         baddieDirection = 'down',
         soundOn = true, // Set to false to disable sounds.
         currentDimension = 1,
+        controls = true,
         enemies = [90, 91]; // Add all block IDs that are enemies in here. 90 is a big troll.
 
     const dimensions = { // These names are only for testing purposes. You can set the real names later.
@@ -135,6 +136,10 @@ window.addEventListener("DOMContentLoaded", function () {
         health: 100,
         superStrength: false
     };
+
+    function toggleControls() {
+        controls = !controls;
+    }
 
     function updateHealthBar() {
         const healthBarFill = document.getElementById('healthBar');
@@ -393,13 +398,11 @@ window.addEventListener("DOMContentLoaded", function () {
             moveIt();
             if (soundOn) {
                 sound.play('move', {
-                    category: 'move', // Category for volume control, wont be used in this case as we are passing volume directly below.
-                    volume: 0.1, // What volume to use, in this case 10%.
-                    randomize: true // Slight variation in playback rate (kinda goofy, but more realistic)
+                    category: 'move',
+                    volume: 0.1,
+                    randomize: true
                 });
             }
-        } else {  // Else means the baddie cannot move because of a wall
-            console.log('Block detected, cant move.');
         }
     };
     move(1, 1, 'down');
@@ -426,13 +429,13 @@ window.addEventListener("DOMContentLoaded", function () {
         const y = posTop + dy;
 
         if (x < 0 || x >= gridSize || y < 0 || y >= gridSize) {
-            return null; // There is no tiles here, return null.
+            return null;
         }
 
         const idx = x + y * gridSize;
         const block = gameBlocks[currentDimension][idx];
 
-        return { id: idx, block: block, ground: gameArea[currentDimension][idx] }; // Returning all info about the tile, even though it's not needed for now.
+        return { id: idx, block: block, ground: gameArea[currentDimension][idx] };
     }
 
     function addItemToInventory(item, amount) {
@@ -587,6 +590,7 @@ window.addEventListener("DOMContentLoaded", function () {
                 volume: 0.25,
                 randomize: false
             });
+            toggleControls()
             let yearBorn = prompt('Hello my name is John F Kennedy. If you can tell me which year I was born, I will let you pass.');
             sound.stop(kennedySound, 600);
             if (yearBorn === '1917') {
@@ -595,9 +599,11 @@ window.addEventListener("DOMContentLoaded", function () {
                 if (yearBorn === null || yearBorn === "") { return; }
                 notify('Incorrect! The skeleton hits you, and you lose 20 health.', 'error', 4000);
                 handlePlayerHealthChange(false, 20);
+                toggleControls()
                 return;
             }
 
+            toggleControls()
             gameBlocks[currentDimension][tile.id] = 10;
             document.getElementById('n' + tile.id).className = 'tile t' + gameArea[currentDimension][tile.id] + ' b' + gameBlocks[currentDimension][tile.id];
             document.getElementById('n' + tile.id).style = '';
@@ -616,9 +622,9 @@ window.addEventListener("DOMContentLoaded", function () {
                 removeItemFromInventory("fan", 1);
                 notify('You found it! Thank you for returning my fan. Now I will try and open the gate.', 'success', 4000);
                 sound.play('openChest', {
-                    category: 'effects', // Category for volume control, wont be used in this case as we are passing volume directly below.
-                    volume: 0.25, // What volume to use, in this case 10%.
-                    randomize: false // Slight variation in playback rate (kinda goofy, but more realistic)
+                    category: 'effects',
+                    volume: 0.25,
+                    randomize: false
                 });
             } else {
                 if (dumbledoreSound) {
@@ -656,7 +662,7 @@ window.addEventListener("DOMContentLoaded", function () {
     document.onkeydown = function (event) {
         let key;
         key = event.keyCode || event.which;
-        if (characterStats.health <= 0) { return; }
+        if (characterStats.health <= 0 || controls == false) { return; }
         switch (key) {
             case 37: move(-1, 0, 'left'); break;
             case 39: move(1, 0, 'right'); break;
@@ -668,7 +674,7 @@ window.addEventListener("DOMContentLoaded", function () {
     document.onkeyup = function (event) {
         let key;
         key = event.keyCode || event.which;
-        if (characterStats.health <= 0) { return; }
+        if (characterStats.health <= 0 || controls == false) { return; }
         switch (key) {
             case 13: action(); break;
             case 32: // Spacebar to switch dimension (for testing purposes only - should be removed later)
