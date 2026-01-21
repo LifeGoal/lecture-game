@@ -409,7 +409,6 @@ body {
 /* Water effects with grass */
 .t39{background-image:url(img/tiles/water/shallow_water_wave_north_new.png), url(img/tiles/floor/grass_2_old.png);}
 .t40{background-image:url(img/tiles/water/shallow_water_wave_south_new.png), url(img/tiles/floor/grass_2_old.png);}
-
 .t41{background-image:url(img/tiles/passage/vgate_open_down.png), url(img/tiles/floor/grass_0_old.png);}
 .t42{background-image:url(img/tiles/passage/vgate_open_up.png), url(img/tiles/floor/grass_0_old.png);}
 
@@ -428,12 +427,14 @@ body {
 /* Temple floor */
 .t60{background-image:url(img/tiles/floor/dirt_0_new.png);}
 
+/* Gate to party */
+.t62{background-image:url(img/tiles/passage/enter_zot_open_new.png), url(img/tiles/floor/dirt_0_new.png);}
 /* Moving enemy */
 .t93 {background-image: url(img/monsters/soul_eater.png), url(img/tiles/floor/grass_0_old.png);}
 
 /* GAME BLOCKS - cannot go through */
 .b11{background-image:url(img/tiles/wall/metal_wall.png);}
-.b12{background-image:url(img/tiles/wall/crystal_wall02.png);}
+.b12{background-image:url(img/tiles-dimension2/wall/stone_2_dark0.png);}
 .b13{background-image:url(img/tiles/wall/mirrored_wall_old.png);}
 .b14{background-image:url(img/tiles/wall/green_crystal_wall.png);background-color:green;}
 .b18{background-image:url(img/tiles/passage/closed_door.png);}
@@ -526,6 +527,16 @@ body {
 
 .t130{background-image:url(img/tiles/passage/enter_zot_open_new.png), url(img/tiles-dimension2/floor/floor_sand_rock_0.png);}
 
+/* DISCO FLOOR */
+.t140{background-image:url(img/tiles-dimension2/floor/purple.JPG), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
+.t141{background-image:url(img/tiles-dimension2/floor/pink.JPG), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
+.t142{background-image:url(img/tiles-dimension2/floor/blue.JPG), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
+.t143{background-image:url(img/tiles-dimension2/floor/green.JPG), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);} 
+.t144{background-image:url(img/tiles-dimension2/floor/yellow.JPG), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
+.t145{background-image:url(img/tiles-dimension2/floor/orange.JPG), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}    
+.t146{background-image:url(img/tiles-dimension2/floor/light-blue.JPG), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}   
+.t147{background-image:url(img/tiles-dimension2/floor/light-green.JPG), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
+
 /* GAME BLOCKS - cannot go through */
 /* WALLS */
 .b110{background-image:url(img/tiles-dimension2/wall/church_3.png);}
@@ -548,12 +559,12 @@ body {
 /* Guests */
 .b140{background-image:url(img/tiles-dimension2/guests/deep_dwarf_artificer.png), url(img/tiles-dimension2/floor/floor_sand_rock_0.png);}
 .b141{background-image:url(img/tiles-dimension2/guests/deep_elf_annihilator.png), url(img/tiles-dimension2/floor/floor_sand_rock_0.png);}
-.b142{background-image:url(img/tiles-dimension2/guests/elyvilon_top.png), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
-.b143{background-image:url(img/tiles-dimension2/guests/erica_old.png), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
-.b144{background-image:url(img/tiles-dimension2/guests/gnome.png), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
+.b142{background-image:url(img/tiles-dimension2/guests/elyvilon_top.png), url(img/tiles-dimension2/floor/light-green.JPG);}
+.b143{background-image:url(img/tiles-dimension2/guests/erica_old.png), url(img/tiles-dimension2/floor/blue.JPG);}
+.b144{background-image:url(img/tiles-dimension2/guests/gnome.png), url(img/tiles-dimension2/floor/light-blue.JPG);}
 .b145{background-image:url(img/tiles-dimension2/guests/orc_warrior_new.png), url(img/tiles-dimension2/floor/floor_sand_rock_0.png);}
 .b146{background-image:url(img/tiles-dimension2/guests/tso_top.png), url(img/tiles-dimension2/floor/floor_sand_rock_0.png);}
-.b147{background-image:url(img/tiles-dimension2/guests/wiglaf_new.png), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
+.b147{background-image:url(img/tiles-dimension2/guests/wiglaf_new.png), url(img/tiles-dimension2/floor/pink.JPG);}
 
 @keyframes flipBg {
     0%   { transform: scaleX(1); }
