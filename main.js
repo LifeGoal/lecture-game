@@ -11,7 +11,7 @@ window.addEventListener("DOMContentLoaded", function () {
         baddieDirection = 'down',
         soundOn = true, // Set to false to disable sounds.
         currentDimension = 1,
-        enemies = [90, 91, 142, 143, 144, 147]; // Add all block IDs that are enemies in here. 90 is a big troll.
+        enemies = [90, 91, 142, 143, 144, 147], // Add all block IDs that are enemies in here. 90 is a big troll.
         controls = true,
         // This is for the moving character (the dementor) in dimension 1.
         enemyPos = 313,
