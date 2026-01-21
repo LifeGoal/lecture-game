@@ -783,7 +783,7 @@ window.addEventListener("DOMContentLoaded", function () {
             notify('You found the fan that Dumbledore was looking for! Go back and give it to him', 'success', 10000);
         } else if (tile.block === 97) {
             if (currentDimension == 2) { return; };
-            notify("Wow you did it! IT'S PARTY TIME!! Well done §(*￣▽￣*)§")
+            notify("Congratulations, you won! You made it to the party on time. Now you can chill at the party for a while!", "success", 15000)
             changeDimension(currentDimension === 1 ? 2 : 1);
             sound.play('winner', {
                 category: 'effects',
