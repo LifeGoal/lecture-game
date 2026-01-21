@@ -512,6 +512,49 @@ body {
 .b95{background-image:url(img/tiles/passage/vgate_runed_down.png);}
 .b96{background-image:url(img/tiles/passage/vgate_runed_up.png);}
 
+
+/* ####### DIMENSION 2: PARTY */
+.t110{background-image:url(img/tiles-dimension2/floor/floor_sand_rock_0.png);}
+.t111{background-image:url(img/tiles-dimension2/floor/sigil_straight_east_west.png);}
+.t112{background-image:url(img/tiles-dimension2/floor/sigil_straight_north_south.png);}
+.t113{background-image:url(img/tiles-dimension2/floor/sigil_cross.png);}
+.t114{background-image:url(img/tiles-dimension2/floor/sigil_corner_northeast.png);}
+.t115{background-image:url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
+
+/* STAIRS */
+.t120{background-image:url(img/tiles-dimension2/stairs.png), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
+
+.t130{background-image:url(img/tiles/passage/enter_zot_open_new.png), url(img/tiles-dimension2/floor/floor_sand_rock_0.png);}
+
+/* GAME BLOCKS - cannot go through */
+/* WALLS */
+.b110{background-image:url(img/tiles-dimension2/wall/church_3.png);}
+.b111{background-image:url(img/tiles-dimension2/wall/stone_2_dark0.png);}
+.b112{background-image:url(img/tiles-dimension2/wall/unseen.png);}
+/* decorations */
+.b120{background-image:url(img/tiles-dimension2/vgate_closed_up.png), url(img/tiles-dimension2/floor/floor_sand_rock_0.png);}
+.b121{background-image:url(img/tiles-dimension2/vgate_closed_down.png), url(img/tiles-dimension2/floor/floor_sand_rock_0.png);}
+.b122{background-image:url(img/tiles-dimension2/golden_statue_1.png), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
+.b123{background-image:url(img/tiles-dimension2/golden_statue_2.png), url(img/tiles-dimension2/floor/floor_sand_rock_0.png);}
+.b124{background-image:url(img/tiles-dimension2/disco_ball.png), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
+.b125{background-image:url(img/tiles-dimension2/gozag_0.png), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
+.b126{background-image:url(img/tiles/decorations/crates2.PNG), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}    
+.b127{background-image:url(img/tiles/chests/chest_2_closed.png), url(img/tiles-dimension2/floor/grey_dirt_0_new.png); }
+.b128{background-image:url(img/tiles-dimension2/piano.PNG ), url(img/tiles-dimension2/floor/grey_dirt_0_new.png); }  
+.b129{background-image:url(img/tiles-dimension2/shelf2.PNG), url(img/tiles-dimension2/floor/floor_sand_rock_0.png);}  
+.b130{background-image:url(img/tiles-dimension2/window-curtain.png), url(img/tiles-dimension2/wall/church_3.png);}   
+.b131{background-image:url(img/tiles-dimension2/sparkling_fountain.png), url(img/tiles-dimension2/floor/floor_sand_rock_0.png);}
+
+/* Guests */
+.b140{background-image:url(img/tiles-dimension2/guests/deep_dwarf_artificer.png), url(img/tiles-dimension2/floor/floor_sand_rock_0.png);}
+.b141{background-image:url(img/tiles-dimension2/guests/deep_elf_annihilator.png), url(img/tiles-dimension2/floor/floor_sand_rock_0.png);}
+.b142{background-image:url(img/tiles-dimension2/guests/elyvilon_top.png), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
+.b143{background-image:url(img/tiles-dimension2/guests/erica_old.png), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
+.b144{background-image:url(img/tiles-dimension2/guests/gnome.png), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
+.b145{background-image:url(img/tiles-dimension2/guests/orc_warrior_new.png), url(img/tiles-dimension2/floor/floor_sand_rock_0.png);}
+.b146{background-image:url(img/tiles-dimension2/guests/tso_top.png), url(img/tiles-dimension2/floor/floor_sand_rock_0.png);}
+.b147{background-image:url(img/tiles-dimension2/guests/wiglaf_new.png), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
+
 @keyframes flipBg {
     0%   { transform: scaleX(1); }
     50%  { transform: scaleX(-1); }
