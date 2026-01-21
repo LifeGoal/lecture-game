@@ -528,10 +528,10 @@ body {
 .t140{background-image:url(img/tiles-dimension2/floor/purple.JPG), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
 .t141{background-image:url(img/tiles-dimension2/floor/pink.JPG), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
 .t142{background-image:url(img/tiles-dimension2/floor/blue.JPG), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
-.t143{background-image:url(img/tiles-dimension2/floor/green.JPG), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);} 
+.t143{background-image:url(img/tiles-dimension2/floor/green.JPG), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
 .t144{background-image:url(img/tiles-dimension2/floor/yellow.JPG), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
-.t145{background-image:url(img/tiles-dimension2/floor/orange.JPG), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}    
-.t146{background-image:url(img/tiles-dimension2/floor/light-blue.JPG), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}   
+.t145{background-image:url(img/tiles-dimension2/floor/orange.JPG), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
+.t146{background-image:url(img/tiles-dimension2/floor/light-blue.JPG), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
 .t147{background-image:url(img/tiles-dimension2/floor/light-green.JPG), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
 
 /* GAME BLOCKS - cannot go through */
@@ -546,11 +546,11 @@ body {
 .b123{background-image:url(img/tiles-dimension2/golden_statue_2.png), url(img/tiles-dimension2/floor/floor_sand_rock_0.png);}
 .b124{background-image:url(img/tiles-dimension2/disco_ball.png), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
 .b125{background-image:url(img/tiles-dimension2/gozag_0.png), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
-.b126{background-image:url(img/tiles/decorations/crates2.PNG), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}    
+.b126{background-image:url(img/tiles/decorations/crates2.PNG), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
 .b127{background-image:url(img/tiles/chests/chest_2_closed.png), url(img/tiles-dimension2/floor/grey_dirt_0_new.png); }
-.b128{background-image:url(img/tiles-dimension2/piano.PNG ), url(img/tiles-dimension2/floor/grey_dirt_0_new.png); }  
-.b129{background-image:url(img/tiles-dimension2/shelf2.PNG), url(img/tiles-dimension2/floor/floor_sand_rock_0.png);}  
-.b130{background-image:url(img/tiles-dimension2/window-curtain.png), url(img/tiles-dimension2/wall/church_3.png);}   
+.b128{background-image:url(img/tiles-dimension2/piano.PNG ), url(img/tiles-dimension2/floor/grey_dirt_0_new.png); }
+.b129{background-image:url(img/tiles-dimension2/shelf2.PNG), url(img/tiles-dimension2/floor/floor_sand_rock_0.png);}
+.b130{background-image:url(img/tiles-dimension2/window-curtain.png), url(img/tiles-dimension2/wall/church_3.png);}
 .b131{background-image:url(img/tiles-dimension2/sparkling_fountain.png), url(img/tiles-dimension2/floor/floor_sand_rock_0.png);}
 
 /* Guests */
@@ -845,6 +845,103 @@ body {
     -webkit-backdrop-filter: blur(6px);
 }
 
+.volume-control {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    max-width: 500px;
+    background-color: rgb(10, 10, 10);
+    border: 2px solid rgb(48, 48, 48);
+    border-radius: 10px;
+    padding: 14px 18px;
+    color: #e0e0e0;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.volume-label {
+    font-size: 0.9rem;
+    color: #ccc;
+    font-weight: 500;
+}
+
+.volume-slider-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 220px;
+}
+
+.volume-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: rgb(10, 10, 10);
+    border-radius: 4px;
+    outline: none;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+    cursor: pointer;
+}
+
+.volume-slider::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, #ffffff 0%, #ffffff var(--progress, 100%), #333 var(--progress, 100%), #333 100%);
+}
+
+.volume-slider::-moz-range-track {
+    background: linear-gradient(to right, #ffffff 0%, #ffffff var(--progress, 100%), #333 var(--progress, 100%), #333 100%);
+}
+
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #ccc;
+    border-radius: 50%;
+    border: 2px solid #444;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+    margin-top: -6px;
+}
+
+.volume-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #ccc;
+    border-radius: 50%;
+    border: 2px solid #444;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+}
+
+.volume-slider:hover,
+.volume-slider:focus {
+    opacity: 1;
+}
+
+.volume-slider:focus::-webkit-slider-thumb {
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
+}
+
+.volume-slider:focus::-moz-range-thumb {
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.7)
+}
+
+#volumeValue {
+    min-width: 30px;
+    text-align: center;
+    font-weight: bold;
+    color: #ccc;
+    font-size: 0.95rem;
+}
+
 .buttons-info {
     display: flex;
     flex-direction: column;
@@ -854,7 +951,7 @@ body {
     border: 2px solid rgb(48, 48, 48);
     border-radius: 10px;
     padding: 14px 18px;
-    color: #e0e0e0;
+    color: #ccc;
     font-size: 0.95rem;
     line-height: 1.4;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);

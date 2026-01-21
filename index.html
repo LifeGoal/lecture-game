@@ -33,34 +33,41 @@
     </div>
 
     <div class="sidebar">
-        <div class="dimension-info" id="dimensionInfo">
+        <div class="dimension-info">
             🗺️ Dimension: <span id="dimensionName">Main Dimension</span>
+        </div>
+        <div class="volume-control">
+            <div class="volume-label">Volume</div>
+            <div class="volume-slider-container">
+                <input type="range" min="0" max="100" step="1" value="10" id="volumeSlider" class="volume-slider">
+                <span id="volumeValue">10%</span>
+            </div>
         </div>
         <div class="buttons-info">
             <div class="button-item">
-                <div class="button">⬆️</div>- Gå upp
+                <div class="button">⬆️</div>- Up
             </div>
             <div class="button-item">
-                <div class="button">⬇️</div>- Gå ner
+                <div class="button">⬇️</div>- Down
             </div>
             <div class="button-item">
-                <div class="button">➡️</div>- Gå åt höger
+                <div class="button">➡️</div>- Right
             </div>
             <div class="button-item">
-                <div class="button">⬅️</div>- Gå åt vänster
+                <div class="button">⬅️</div>- Left
             </div>
             <div class="button-item">
-                <div class="button">ENTER</div>- Använd
+                <div class="button">ENTER</div>- Use
             </div>
         </div>
         <div class="inventory-container">
             <div class="inventory-empty-state">
                 <div class="empty-icon">🗃️</div>
-                <p>Inventory empty</p>
+                <p>Inventory Empty</p>
             </div>
         </div>
     </div>
-    
+
     <div class="notification-container" id="notifications"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/@hiseb/confetti@2.1.0/dist/confetti.min.js"></script>

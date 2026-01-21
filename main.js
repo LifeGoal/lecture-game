@@ -9,7 +9,7 @@ window.addEventListener("DOMContentLoaded", function () {
         tileSize = 32,
         gridSize = 24,
         baddieDirection = 'down',
-        soundOn = true, // Set to false to disable sounds.
+        volume = 10,
         currentDimension = 1,
         enemies = [90, 91],
         friends = [142, 143, 144, 147],
@@ -22,7 +22,29 @@ window.addEventListener("DOMContentLoaded", function () {
         enemyMovingDown = true,
         enemyInterval = null;
 
-    const dimensions = { // These names are only for testing purposes. You can set the real names later.
+    const volumeSlider = document.getElementById('volumeSlider');
+    const volumeDisplay = document.getElementById('volumeValue');
+
+    volumeSlider.value = volume;
+    updateVolumeDisplay();
+
+    volumeSlider.addEventListener('input', function() {
+        volume = parseInt(this.value, 10);
+        volumeDisplay.textContent = volume + "%";
+        const normalized = volume / 100;
+        sound.masterVolume = normalized;
+        sound.updateActiveVolumes();
+        const percent = (volume / 100) * 100;
+        volumeSlider.style.setProperty('--progress', `${percent}%`);
+    });
+
+    function updateVolumeDisplay() {
+        volumeDisplay.textContent = volume + "%";
+        const percent = (volume / 100) * 100;
+        volumeSlider.style.setProperty('--progress', `${percent}%`);
+    }
+
+    const dimensions = {
         1: 'Main Dimension',
         2: 'Party Dimension',
     }
@@ -61,13 +83,13 @@ window.addEventListener("DOMContentLoaded", function () {
             110, 110, 115, 115, 115, 115, 115, 147, 146, 142, 140, 145, 141, 143, 147, 115, 115, 115, 110, 110, 110, 110, 110, 110,
             110, 115, 115, 115, 115, 115, 115, 142, 140, 143, 145, 146, 140, 142, 142, 115, 115, 115, 110, 110, 110, 110, 110, 110,
             110, 110, 115, 115, 115, 115, 115, 146, 141, 144, 140, 142, 144, 146, 144, 115, 115, 115, 110, 110, 110, 110, 110, 110,
-            110, 115, 115, 115, 115, 115, 115, 143, 142, 145, 141, 143, 145, 147, 145, 115, 115, 115, 110, 110, 110, 110, 110, 110, 
+            110, 115, 115, 115, 115, 115, 115, 143, 142, 145, 141, 143, 145, 147, 145, 115, 115, 115, 110, 110, 110, 110, 110, 110,
             110, 110, 115, 115, 115, 115, 115, 140, 145, 147, 145, 140, 142, 140, 141, 115, 115, 115, 110, 110, 110, 110, 110, 110,
-            110, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 110, 110, 110, 110, 110, 110, 
+            110, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 115, 110, 110, 110, 110, 110, 110,
             110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 115, 115, 115, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, // wall
             110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 120, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110,
             110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, // wall
-            110, 110, 115, 115, 115, 115, 115, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 
+            110, 110, 115, 115, 115, 115, 115, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110,
             110, 110, 115, 115, 115, 115, 115, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110,
             110, 110, 115, 115, 115, 115, 115, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110,
             110, 110, 115, 115, 115, 115, 115, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110,
@@ -118,13 +140,13 @@ window.addEventListener("DOMContentLoaded", function () {
             112, 112, 112, 110, 10, 124, 10, 10, 10, 143, 10, 10, 144, 10, 10, 10, 124, 10, 110, 112, 112, 112, 112, 112,
             112, 112, 112, 110, 10, 124, 10, 10, 10, 10, 10, 10, 10, 10, 147, 10, 124, 10, 110, 112, 112, 112, 112, 112,
             112, 112, 112, 110, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 110, 112, 112, 112, 112, 112,
-            112, 112, 112, 110, 10, 10, 10, 10, 10, 10, 10, 142, 10, 10, 10, 10, 10, 10, 110, 112, 112, 112, 112, 112, 
+            112, 112, 112, 110, 10, 10, 10, 10, 10, 10, 10, 142, 10, 10, 10, 10, 10, 10, 110, 112, 112, 112, 112, 112,
             112, 112, 112, 110, 10, 128, 10, 10, 144, 10, 10, 10, 10, 10, 10, 10, 10, 10, 110, 112, 112, 112, 112, 112,
-            112, 112, 112, 110, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 110, 112, 112, 112, 112, 112, 
+            112, 112, 112, 110, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 110, 112, 112, 112, 112, 112,
             112, 112, 112, 110, 110, 110, 110, 110, 110, 110, 10, 10, 10, 110, 110, 110, 110, 110, 110, 112, 112, 112, 112, 112,  // wall
-            112, 112, 112, 112, 112, 112, 112, 112, 112, 110, 110, 10, 110, 110, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 
+            112, 112, 112, 112, 112, 112, 112, 112, 112, 110, 110, 10, 110, 110, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112,
             112, 112, 110, 110, 110, 110, 110, 110, 110, 110, 123, 10, 123, 110, 130, 110, 110, 130, 110, 110, 130, 110, 112, 112,  // wall
-            112, 112, 110, 123, 125, 127, 126, 110, 10, 10, 10, 10, 10, 10, 10, 129, 129, 10, 10, 10, 10, 110, 112, 112, 
+            112, 112, 110, 123, 125, 127, 126, 110, 10, 10, 10, 10, 10, 10, 10, 129, 129, 10, 10, 10, 10, 110, 112, 112,
             112, 112, 110, 125, 10, 10, 127, 110, 10, 140, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 110, 110, 110,
             112, 112, 110, 10, 10, 10, 10, 120, 10, 10, 131, 10, 10, 10, 131, 10, 10, 10, 131, 10, 10, 10, 10, 110,
             112, 112, 110, 127, 127, 127, 10, 121, 10, 10, 10, 10, 10, 145, 10, 10, 146, 10, 10, 10, 10, 110, 10, 110,
@@ -180,7 +202,6 @@ window.addEventListener("DOMContentLoaded", function () {
     // inventoryItems is used from inventoryItems.js (all item datas).
     const inventory = {};
     const inventoryContainer = document.querySelector('.inventory-container');
-    const inventoryEmptyState = document.querySelector('.inventory-empty-state');
 
     function getOrCreateInventoryElement(itemId) {
         let itembox = inventoryContainer.querySelector(`.inventory-item[data-item-id="${itemId}"]`);
@@ -254,13 +275,8 @@ window.addEventListener("DOMContentLoaded", function () {
         constructor() {
             this.sounds = sounds;
             this.muted = false;
+            this.masterVolume = 1.0;
             this.activeInstances = new Set();
-
-            this.volumes = {
-                move: 0.6,
-                effects: 0.8,
-                eat: 0.7,
-            };
         }
 
         play(key, options = {}) {
@@ -273,16 +289,14 @@ window.addEventListener("DOMContentLoaded", function () {
             }
 
             const instance = sound.cloneNode(true);
-
-            const category = options.category || 'effects';
-            instance.volume = (options.volume !== undefined ? options.volume : this.volumes[category]) ?? 1;
+            let effectiveVolume = (options.volume !== undefined ? options.volume : 1.0);
+            instance.volume = effectiveVolume * this.masterVolume;
 
             if (options.randomize && Math.random() > 0.5) {
                 instance.playbackRate = 0.9 + Math.random() * 0.3;
             }
 
             this.activeInstances.add(instance);
-
             instance.addEventListener('ended', () => {
                 this.activeInstances.delete(instance);
             }, { once: true });
@@ -294,9 +308,15 @@ window.addEventListener("DOMContentLoaded", function () {
             return instance;
         }
 
+        updateActiveVolumes() {
+            for (const instance of this.activeInstances) {
+                const current = instance.volume;
+                instance.volume = current * (this.masterVolume / (current || 1));
+            }
+        }
+
         stop(instance, fadeOutMs = 400) {
             if (!instance) return;
-
             if (fadeOutMs > 0) {
                 const startVol = instance.volume;
                 const step = startVol / (fadeOutMs / 20);
@@ -517,13 +537,11 @@ window.addEventListener("DOMContentLoaded", function () {
             posLeft += moveLeft;
             posTop += moveTop;
             moveIt();
-            if (soundOn) {
-                sound.play('move', {
-                    category: 'move',
-                    volume: 0.1,
-                    randomize: true
-                });
-            }
+            sound.play('move', {
+                category: 'move',
+                volume: 0.1,
+                randomize: true
+            });
             if (gameArea[currentDimension][(posLeft + posTop * gridSize)] === 93 && characterStats.health > 0) {
                 handlePlayerHealthChange(false, 100);
                 return;
