@@ -427,8 +427,6 @@ body {
 /* Temple floor */
 .t60{background-image:url(img/tiles/floor/dirt_0_new.png);}
 
-/* Gate to party */
-.t62{background-image:url(img/tiles/passage/enter_zot_open_new.png), url(img/tiles/floor/dirt_0_new.png);}
 /* Moving enemy */
 .t93 {background-image: url(img/monsters/soul_eater.png), url(img/tiles/floor/grass_0_old.png);}
 
@@ -457,7 +455,6 @@ body {
 /* Water */
 .b28{background-image:url(img/tiles/water/shoals_shallow_water_2_new.png);}
 .b29{background-image:url(img/tiles/water/shoals_shallow_water_8_new.png);}
-
 
 /* Graveyard */
 .b30{background-image:url(img/tiles/graveyard/catacombs_0.png);}
@@ -496,7 +493,6 @@ body {
 .b74{background-image:url(img/tiles/items/statue_iron_golem.png), url(img/tiles/floor/grass0-dirt-mix_1.png);}
 .b75{background-image:url(img/tiles/items/misc_fan_inert.png), url(img/tiles/floor/dirt_0_new.png);}
 
-
 /* Food */
 .b80{background-image:url(img/food/pizza.png), url(img/tiles/floor/grass_0_old.png);}
 
@@ -513,6 +509,8 @@ body {
 .b95{background-image:url(img/tiles/passage/vgate_runed_down.png);}
 .b96{background-image:url(img/tiles/passage/vgate_runed_up.png);}
 
+/* Portal to new world */
+.b97{background-image:url(img/tiles/passage/enter_zot_open_new.png), url(img/tiles/floor/dirt_0_new.png);}
 
 /* ####### DIMENSION 2: PARTY */
 .t110{background-image:url(img/tiles-dimension2/floor/floor_sand_rock_0.png);}
@@ -524,7 +522,6 @@ body {
 
 /* STAIRS */
 .t120{background-image:url(img/tiles-dimension2/stairs.png), url(img/tiles-dimension2/floor/grey_dirt_0_new.png);}
-
 .t130{background-image:url(img/tiles/passage/enter_zot_open_new.png), url(img/tiles-dimension2/floor/floor_sand_rock_0.png);}
 
 /* DISCO FLOOR */

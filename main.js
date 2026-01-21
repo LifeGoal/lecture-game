@@ -11,7 +11,8 @@ window.addEventListener("DOMContentLoaded", function () {
         baddieDirection = 'down',
         soundOn = true, // Set to false to disable sounds.
         currentDimension = 1,
-        enemies = [90, 91, 142, 143, 144, 147], // Add all block IDs that are enemies in here. 90 is a big troll.
+        enemies = [90, 91],
+        friends = [142, 143, 144, 147],
         controls = true,
         // This is for the moving character (the dementor) in dimension 1.
         enemyPos = 313,
@@ -49,7 +50,7 @@ window.addEventListener("DOMContentLoaded", function () {
             12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 45, 14, 12, 20, 21, 21, 21, 21, 21, 21, 21,
             14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 22, 21, 21, 21, 21, 21, 21, 21,
             13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 22, 21, 21, 21, 21, 21, 21,
-            12, 60, 14, 60, 13, 14, 12, 13, 14, 12, 13, 46, 12, 13, 14, 12, 13, 14, 22, 21, 21, 21, 62, 21,
+            12, 60, 14, 60, 13, 14, 12, 13, 14, 12, 13, 46, 12, 13, 14, 12, 13, 14, 22, 21, 21, 21, 21, 21,
             14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 12, 13, 14, 22, 21, 21, 21, 21,
         ],
         2: [ // Dimension 2
@@ -93,7 +94,7 @@ window.addEventListener("DOMContentLoaded", function () {
             26, 10, 10, 10, 10, 10, 26, 10, 10, 10, 26, 27, 26, 26, 26, 26, 28, 28, 28, 28, 28, 10, 10, 26,
             27, 10, 26, 10, 10, 10, 90, 10, 10, 27, 26, 61, 27, 27, 26, 10, 10, 28, 28, 28, 28, 28, 10, 26,
             26, 80, 26, 10, 10, 10, 26, 10, 60, 26, 27, 10, 10, 37, 36, 38, 40, 40, 38, 37, 36, 28, 10, 28, // Water
-            27, 27, 27, 26, 27, 27, 26, 27, 26, 27, 10, 10, 38, 44, 10, 10, 10, 50, 10, 10, 10, 40, 10, 28, // Water
+            27, 27, 27, 26, 27, 10, 26, 27, 26, 27, 10, 10, 38, 44, 10, 10, 10, 50, 10, 10, 10, 40, 10, 28, // Water
             26, 26, 60, 26, 26, 10, 10, 10, 10, 10, 10, 10, 46, 10, 10, 49, 10, 10, 10, 41, 10, 10, 10, 26,
             26, 61, 27, 10, 10, 10, 27, 26, 10, 10, 10, 10, 91, 10, 10, 10, 10, 73, 10, 10, 10, 10, 10, 26, // fountain
             27, 27, 10, 10, 10, 10, 61, 60, 27, 26, 10, 26, 47, 10, 10, 43, 10, 10, 10, 10, 10, 48, 10, 26,
@@ -102,37 +103,37 @@ window.addEventListener("DOMContentLoaded", function () {
             26, 10, 10, 10, 10, 10, 26, 27, 10, 10, 10, 61, 26, 27, 61, 12, 10, 10, 10, 10, 10, 10, 10, 62,
             27, 10, 27, 27, 26, 10, 10, 61, 27, 27, 10, 10, 10, 10, 92, 12, 10, 10, 10, 10, 62, 10, 10, 63, // quest character
             26, 10, 26, 80, 27, 27, 10, 10, 10, 10, 26, 27, 26, 10, 10, 96, 10, 10, 10, 10, 10, 10, 10, 62, // upper gate
-            27, 10, 27, 10, 10, 10, 26, 26, 60, 10, 10, 10, 27, 27, 10, 95, 10, 10, 10, 63, 10, 10, 10, 63, // lower gate
+            27, 10, 27, 10, 10, 10, 26, 26, 60, 10, 10, 10, 27, 27, 10, 10, 10, 10, 10, 63, 10, 10, 10, 63, // lower gate
             61, 10, 10, 10, 27, 10, 10, 10, 10, 27, 26, 10, 26, 10, 10, 12, 12, 10, 10, 10, 10, 62, 10, 63,
             61, 74, 10, 74, 27, 26, 27, 27, 10, 10, 27, 10, 27, 10, 10, 26, 12, 10, 63, 10, 10, 10, 10, 63,
             19, 19, 18, 19, 19, 88, 10, 26, 10, 10, 26, 10, 27, 10, 27, 27, 12, 12, 10, 10, 10, 10, 10, 63,
-            19, 10, 75, 10, 19, 10, 10, 90, 10, 27, 27, 10, 10, 10, 26, 27, 10, 12, 10, 10, 10, 10, 10, 63,
+            19, 10, 75, 10, 19, 10, 10, 90, 10, 27, 27, 10, 10, 10, 26, 27, 10, 12, 10, 10, 10, 10, 97, 63,
             19, 19, 19, 19, 19, 27, 60, 26, 27, 26, 26, 27, 26, 26, 26, 60, 26, 12, 26, 63, 63, 63, 63, 62,
         ],
         2: [ // Dimension 2
             112, 112, 112, 110, 110, 110, 130, 110, 110, 130, 110, 110, 130, 110, 110, 130, 110, 110, 110, 112, 112, 112, 112, 112,
-            112, 112, 112, 110, 100, 100, 100, 100, 100, 100, 124, 124, 100, 100, 100, 100, 100, 100, 110, 112, 112, 112, 112, 112,
-            112, 112, 112, 110, 100, 122, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 122, 100, 110, 112, 112, 112, 112, 112,
-            112, 112, 112, 110, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 110, 112, 112, 112, 112, 112,
-            112, 112, 112, 110, 100, 124, 100, 100, 100, 143, 100, 100, 144, 100, 100, 100, 124, 100, 110, 112, 112, 112, 112, 112,
-            112, 112, 112, 110, 100, 124, 100, 100, 100, 100, 100, 100, 100, 100, 147, 100, 124, 100, 110, 112, 112, 112, 112, 112,
-            112, 112, 112, 110, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 110, 112, 112, 112, 112, 112,
-            112, 112, 112, 110, 100, 100, 100, 100, 100, 100, 100, 142, 100, 100, 100, 100, 100, 100, 110, 112, 112, 112, 112, 112, 
-            112, 112, 112, 110, 100, 128, 100, 100, 144, 100, 100, 100, 100, 100, 100, 100, 100, 100, 110, 112, 112, 112, 112, 112,
-            112, 112, 112, 110, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 110, 112, 112, 112, 112, 112, 
-            112, 112, 112, 110, 110, 110, 110, 110, 110, 110, 100, 100, 100, 110, 110, 110, 110, 110, 110, 112, 112, 112, 112, 112,  // wall
-            112, 112, 112, 112, 112, 112, 112, 112, 112, 110, 110, 100, 110, 110, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 
-            112, 112, 110, 110, 110, 110, 110, 110, 110, 110, 123, 100, 123, 110, 130, 110, 110, 130, 110, 110, 130, 110, 112, 112,  // wall
-            112, 112, 110, 123, 125, 127, 126, 110, 100, 100, 100, 100, 100, 100, 100, 129, 129, 100, 100, 100, 100, 110, 112, 112, 
-            112, 112, 110, 125, 100, 100, 127, 110, 100, 140, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 110, 110, 110,
-            112, 112, 110, 100, 100, 100, 100, 120, 100, 100, 131, 100, 100, 100, 131, 100, 100, 100, 131, 100, 100, 100, 100, 110,
-            112, 112, 110, 127, 127, 127, 100, 121, 100, 100, 100, 100, 100, 145, 100, 100, 146, 100, 100, 100, 100, 110, 100, 110,
-            112, 112, 110, 100, 100, 100, 100, 110, 100, 100, 141, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 110, 100, 110,
-            112, 112, 110, 126, 126, 125, 100, 110, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 110, 100, 110,
-            112, 112, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 100, 110,
-            112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 110, 100, 110,
-            112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 110, 100, 110, // portal
-            112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 110, 110, 110,
+            112, 112, 112, 110, 10, 10, 10, 10, 10, 10, 124, 124, 10, 10, 10, 10, 10, 10, 110, 112, 112, 112, 112, 112,
+            112, 112, 112, 110, 10, 122, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 122, 10, 110, 112, 112, 112, 112, 112,
+            112, 112, 112, 110, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 110, 112, 112, 112, 112, 112,
+            112, 112, 112, 110, 10, 124, 10, 10, 10, 143, 10, 10, 144, 10, 10, 10, 124, 10, 110, 112, 112, 112, 112, 112,
+            112, 112, 112, 110, 10, 124, 10, 10, 10, 10, 10, 10, 10, 10, 147, 10, 124, 10, 110, 112, 112, 112, 112, 112,
+            112, 112, 112, 110, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 110, 112, 112, 112, 112, 112,
+            112, 112, 112, 110, 10, 10, 10, 10, 10, 10, 10, 142, 10, 10, 10, 10, 10, 10, 110, 112, 112, 112, 112, 112, 
+            112, 112, 112, 110, 10, 128, 10, 10, 144, 10, 10, 10, 10, 10, 10, 10, 10, 10, 110, 112, 112, 112, 112, 112,
+            112, 112, 112, 110, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 110, 112, 112, 112, 112, 112, 
+            112, 112, 112, 110, 110, 110, 110, 110, 110, 110, 10, 10, 10, 110, 110, 110, 110, 110, 110, 112, 112, 112, 112, 112,  // wall
+            112, 112, 112, 112, 112, 112, 112, 112, 112, 110, 110, 10, 110, 110, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 
+            112, 112, 110, 110, 110, 110, 110, 110, 110, 110, 123, 10, 123, 110, 130, 110, 110, 130, 110, 110, 130, 110, 112, 112,  // wall
+            112, 112, 110, 123, 125, 127, 126, 110, 10, 10, 10, 10, 10, 10, 10, 129, 129, 10, 10, 10, 10, 110, 112, 112, 
+            112, 112, 110, 125, 10, 10, 127, 110, 10, 140, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 110, 110, 110,
+            112, 112, 110, 10, 10, 10, 10, 120, 10, 10, 131, 10, 10, 10, 131, 10, 10, 10, 131, 10, 10, 10, 10, 110,
+            112, 112, 110, 127, 127, 127, 10, 121, 10, 10, 10, 10, 10, 145, 10, 10, 146, 10, 10, 10, 10, 110, 10, 110,
+            112, 112, 110, 10, 10, 10, 10, 110, 10, 10, 141, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 110, 10, 110,
+            112, 112, 110, 126, 126, 125, 10, 110, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 110, 110, 10, 110,
+            112, 112, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 10, 10, 110,
+            112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 110, 10, 10, 110,
+            112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 110, 10, 10, 110, // portal
+            112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 110, 110, 110, 110,
         ],
     };
 
@@ -245,7 +246,8 @@ window.addEventListener("DOMContentLoaded", function () {
         dumbledore: new Audio('./sounds/dumbledore.mp3'),
         damage: new Audio('./sounds/bone-crack.mp3'),
         gameover: new Audio('./sounds/gameover.mp3'),
-        fewmoments: new Audio('./sounds/a-few-moments-later.mp3')
+        fewmoments: new Audio('./sounds/a-few-moments-later.mp3'),
+        winner: new Audio('./sounds/winner.mp3') // 2:31
     };
 
     class SoundManager {
@@ -388,6 +390,10 @@ window.addEventListener("DOMContentLoaded", function () {
         return enemies.includes(tileId);
     }
 
+    function isTileAFriend(tileId) {
+        return friends.includes(tileId);
+    }
+
     function moveEnemy() {
         if (currentDimension !== 1) {
             clearInterval(enemyInterval);
@@ -442,8 +448,8 @@ window.addEventListener("DOMContentLoaded", function () {
         for (i = 0; i < gameArea[currentDimension].length; i++) {
             e = document.createElement('div');
             e.innerHTML = '';
-            e.className = 'tile t' + gameArea[currentDimension][i] + (gameBlocks[currentDimension][i] ? ' b' + gameBlocks[currentDimension][i] : '') + (isTileAnEnemy(gameBlocks[currentDimension][i]) ? ' flipBg' : '');
-            if (isTileAnEnemy(gameBlocks[currentDimension][i])) {
+            e.className = 'tile t' + gameArea[currentDimension][i] + (gameBlocks[currentDimension][i] ? ' b' + gameBlocks[currentDimension][i] : '') + ((isTileAnEnemy(gameBlocks[currentDimension][i]) || isTileAFriend(gameBlocks[currentDimension][i])) ? ' flipBg' : '');
+            if (isTileAnEnemy(gameBlocks[currentDimension][i]) || isTileAFriend(gameBlocks[currentDimension][i])) {
                 e.style = 'animation: flipBg 1s infinite steps(1);';
             }
             e.id = 'n' + i;
@@ -485,8 +491,9 @@ window.addEventListener("DOMContentLoaded", function () {
     const savedStandardGameArea = structuredClone(gameArea);
     const savedStandardGameBlocks = structuredClone(gameBlocks);
 
-    function resetGamePlan() {
-        if (characterStats.health > 0) { return; };
+    function resetGamePlan(winner) {
+        if (!winner && characterStats.health > 0) { return; };
+        clearInterval(enemyInterval);
         currentDimension = 1;
         gameArea = structuredClone(savedStandardGameArea);
         gameBlocks = structuredClone(savedStandardGameBlocks);
@@ -768,13 +775,44 @@ window.addEventListener("DOMContentLoaded", function () {
             gameBlocks[currentDimension][tile.id] = 10;
             document.getElementById('n' + tile.id).className = 'tile t' + gameArea[currentDimension][tile.id] + ' b' + gameBlocks[currentDimension][tile.id];
             addItemToInventory("fan", 1);
-            // Should add some other sound here?
-            // sound.play('openChest', {
-            //     category: 'effects',
-            //     volume: 0.25,
-            //     randomize: false
-            // });
+            sound.play('openChest', {
+                category: 'effects',
+                volume: 0.25,
+                randomize: false
+            });
             notify('You found the fan that Dumbledore was looking for! Go back and give it to him', 'success', 10000);
+        } else if (tile.block === 97) {
+            if (currentDimension == 2) { return; };
+            notify("Wow you did it! IT'S PARTY TIME!! Well done §(*￣▽￣*)§")
+            changeDimension(currentDimension === 1 ? 2 : 1);
+            sound.play('winner', {
+                category: 'effects',
+                volume: 0.25,
+                randomize: false
+            });
+
+            let positionList = [
+                { x: window.innerWidth * 0.50, y: window.innerHeight * 0.60 },
+                { x: window.innerWidth * 0.25, y: window.innerHeight * 0.40 },
+                { x: window.innerWidth * 0.75, y: window.innerHeight * 0.30 },
+                { x: window.innerWidth * 0.50, y: window.innerHeight * 0.60 },
+                { x: window.innerWidth * 0.25, y: window.innerHeight * 0.40 },
+                { x: window.innerWidth * 0.75, y: window.innerHeight * 0.30 },
+                { x: window.innerWidth * 0.50, y: window.innerHeight * 0.60 },
+                { x: window.innerWidth * 0.25, y: window.innerHeight * 0.40 },
+                { x: window.innerWidth * 0.75, y: window.innerHeight * 0.30 },
+                { x: window.innerWidth * 0.50, y: window.innerHeight * 0.60 },
+                { x: window.innerWidth * 0.25, y: window.innerHeight * 0.40 },
+                { x: window.innerWidth * 0.75, y: window.innerHeight * 0.30 },
+            ];
+
+            for(let i = 0; i < positionList.length; i++) {
+                setTimeout(() => confetti({ position: positionList[i] }), i * 250);
+            }
+
+            setTimeout(() => {
+                resetGamePlan(true)
+            }, 150000)
         }
     }
 
@@ -796,9 +834,6 @@ window.addEventListener("DOMContentLoaded", function () {
         if (characterStats.health <= 0 || controls == false) { return; }
         switch (key) {
             case 13: action(); break;
-            case 32: // Spacebar to switch dimension (for testing purposes only - should be removed later)
-                changeDimension(currentDimension === 1 ? 2 : 1);
-                break;
         };
     }
 });
