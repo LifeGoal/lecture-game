@@ -15,7 +15,13 @@ window.addEventListener("DOMContentLoaded", function () {
         soundOn = true, // Set to false to disable sounds.
         currentDimension = 1,
         controls = true,
-        enemies = [90, 91]; // Add all block IDs that are enemies in here. 90 is a big troll.
+        enemies = [90, 91],
+        // This is for the moving character (the dementor) in dimension 1.
+        enemyPos = 313,
+        enemyWaitTimer = 0,
+        enemyPatrol = [313, 337, 361, 385, 409, 433],
+        patrolIndex = 0,
+        enemyMovingDown = true;
 
     const dimensions = { // These names are only for testing purposes. You can set the real names later.
         1: 'Main Dimension',
@@ -326,6 +332,49 @@ window.addEventListener("DOMContentLoaded", function () {
         return enemies.includes(tileId);
     }
 
+    function moveEnemy() {
+        if (currentDimension !== 1) { return; }
+
+        if ((posLeft + posTop * gridSize) == enemyPos && characterStats.health > 0) {
+            handlePlayerHealthChange(false, 100);
+        }
+
+        if (enemyWaitTimer > 0) {
+            enemyWaitTimer -= 0.5;
+            return;
+        }
+
+        if (enemyPos == 313) {
+            gameArea[currentDimension][enemyPos] = 45;
+            document.getElementById('n' + enemyPos).className = 'tile t45 b10';
+        } else {
+            gameArea[currentDimension][enemyPos] = 12;
+            document.getElementById('n' + enemyPos).className = 'tile t12 b10';
+        }
+
+        if (enemyMovingDown) {
+            patrolIndex++;
+            if (patrolIndex >= enemyPatrol.length) {
+                patrolIndex = enemyPatrol.length - 1
+                enemyMovingDown = false;
+            }
+        } else {
+            patrolIndex--;
+            if (patrolIndex == 0) {
+                enemyWaitTimer = 10;
+            }
+
+            if (patrolIndex < 0) {
+                patrolIndex = 1;
+                enemyMovingDown = true;
+            }
+        }
+
+        enemyPos = enemyPatrol[patrolIndex];
+        gameArea[currentDimension][enemyPos] = 93;
+        document.getElementById('n' + enemyPos).className = 'tile t93 b10';
+    }
+
     function drawGamePlan(gameover) {
         const savedPos = { left: posLeft, top: posTop, direction: baddieDirection };
 
@@ -361,6 +410,15 @@ window.addEventListener("DOMContentLoaded", function () {
         }
         rockford.style.left = (area.offsetLeft + posLeft * tileSize + tileSize / 2) + 'px';
         rockford.style.top = (area.offsetTop + posTop * tileSize + tileSize / 2) + 'px';
+
+        if (currentDimension === 1) {
+            gameArea[1][313] = 93;
+            document.getElementById('n313').className = 'tile t93 b10';
+
+            setTimeout(() => {
+                setInterval(moveEnemy, 500);
+            }, 1000);
+        }
     };
 
     drawGamePlan(false);
@@ -384,13 +442,13 @@ window.addEventListener("DOMContentLoaded", function () {
     /**
      * Move Rockford
     */
-    let move = function (moveLeft, moveTop, which) {
+    let move = function (moveLeft, moveTop, direction) {
         function moveIt() {
             rockford.style.left = (area.offsetLeft + posLeft * tileSize + tileSize / 2) + 'px';
             rockford.style.top = (area.offsetTop + posTop * tileSize + tileSize / 2) + 'px';
         };
 
-        if (which) { rockford.className = 'baddie ' + which; baddieDirection = which; }
+        if (direction) { rockford.className = 'baddie ' + direction; baddieDirection = direction; }
 
         if (!(gameBlocks[currentDimension][(posLeft + moveLeft) + (posTop + moveTop) * gridSize] - 10)) {
             posLeft += moveLeft;
@@ -402,6 +460,10 @@ window.addEventListener("DOMContentLoaded", function () {
                     volume: 0.1,
                     randomize: true
                 });
+            }
+            if (gameArea[currentDimension][(posLeft + posTop * gridSize)] === 93 && characterStats.health > 0) {
+                handlePlayerHealthChange(false, 100);
+                return;
             }
         }
     };
@@ -462,6 +524,7 @@ window.addEventListener("DOMContentLoaded", function () {
             }
         } else {
             characterStats.health -= amount;
+            if (characterStats.health < 0) { characterStats.health = 0 }
             sound.play('damage', {
                 category: 'effects',
                 volume: 0.25,

@@ -428,6 +428,9 @@ body {
 /* Temple floor */
 .t60{background-image:url(img/tiles/floor/dirt_0_new.png);}
 
+/* Moving enemy */
+.t93 {background-image: url(img/monsters/soul_eater.png), url(img/tiles/floor/grass_0_old.png);}
+
 /* GAME BLOCKS - cannot go through */
 .b11{background-image:url(img/tiles/wall/metal_wall.png);}
 .b12{background-image:url(img/tiles/wall/crystal_wall02.png);}
