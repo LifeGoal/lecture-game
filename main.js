@@ -1,6 +1,3 @@
-/**
- * Work with strings.
- */
 window.addEventListener("DOMContentLoaded", function () {
     'use strict';
     let rockford = document.getElementById('baddie1'),
@@ -15,6 +12,14 @@ window.addEventListener("DOMContentLoaded", function () {
         soundOn = true, // Set to false to disable sounds.
         currentDimension = 1,
         enemies = [90, 91, 142, 143, 144, 147]; // Add all block IDs that are enemies in here. 90 is a big troll.
+        controls = true,
+        // This is for the moving character (the dementor) in dimension 1.
+        enemyPos = 313,
+        enemyWaitTimer = 0,
+        enemyPatrol = [313, 337, 361, 385, 409, 433],
+        patrolIndex = 0,
+        enemyMovingDown = true,
+        enemyInterval = null;
 
     const dimensions = { // These names are only for testing purposes. You can set the real names later.
         1: 'Main Dimension',
@@ -136,6 +141,10 @@ window.addEventListener("DOMContentLoaded", function () {
         superStrength: false
     };
 
+    function toggleControls() {
+        controls = !controls;
+    }
+
     function updateHealthBar() {
         const healthBarFill = document.getElementById('healthBar');
         healthBarFill.style.width = characterStats.health + '%';
@@ -167,7 +176,64 @@ window.addEventListener("DOMContentLoaded", function () {
 
     updateSuperpowerDisplay();
 
+    // inventoryItems is used from inventoryItems.js (all item datas).
     const inventory = {};
+    const inventoryContainer = document.querySelector('.inventory-container');
+    const inventoryEmptyState = document.querySelector('.inventory-empty-state');
+
+    function getOrCreateInventoryElement(itemId) {
+        let itembox = inventoryContainer.querySelector(`.inventory-item[data-item-id="${itemId}"]`);
+
+        if (!itembox) {
+            itembox = document.createElement('div');
+            itembox.className = 'inventory-item';
+            itembox.dataset.itemId = itemId;
+
+            itembox.innerHTML = `
+                <div class="inventory-item-amount">0</div>
+                <div class="inventory-img"></div>
+                <p></p>
+            `;
+
+            inventoryContainer.appendChild(itembox);
+        }
+
+        return itembox;
+    }
+
+    function syncInventoryItem(item, count) {
+        if (count <= 0) {
+            const itembox = inventoryContainer.querySelector(`.inventory-item[data-item-id="${item}"]`);
+            if (itembox) itembox.remove();
+            return;
+        }
+
+        const itembox = getOrCreateInventoryElement(item);
+
+        itembox.querySelector('.inventory-item-amount').textContent = count > 99 ? '99+' : count;
+        itembox.querySelector('.inventory-img').style.backgroundImage = `url('${inventoryItems[item].image}')`;
+        itembox.querySelector('p').textContent = inventoryItems[item].label;
+
+        if (count > (parseInt(itembox.dataset.lastCount || '0'))) {
+            itembox.classList.add('just-received');
+            setTimeout(() => itembox.classList.remove('just-received'), 1200);
+        }
+
+        itembox.dataset.lastCount = count;
+    }
+
+    function refreshAllInventory() {
+        inventoryContainer.querySelectorAll('.inventory-item').forEach(el => {
+            const id = el.dataset.itemId;
+            if (!inventory[id] || inventory[id] <= 0) {
+                el.remove();
+            }
+        });
+
+        Object.entries(inventory).forEach(([id, count]) => {
+            if (count > 0) syncInventoryItem(id, count);
+        });
+    }
 
     const sounds = {
         move: new Audio('./sounds/walking.mp3'),
@@ -187,7 +253,7 @@ window.addEventListener("DOMContentLoaded", function () {
             this.sounds = sounds;
             this.muted = false;
             this.activeInstances = new Set();
-            
+
             this.volumes = {
                 move: 0.6,
                 effects: 0.8,
@@ -205,7 +271,7 @@ window.addEventListener("DOMContentLoaded", function () {
             }
 
             const instance = sound.cloneNode(true);
-            
+
             const category = options.category || 'effects';
             instance.volume = (options.volume !== undefined ? options.volume : this.volumes[category]) ?? 1;
 
@@ -228,7 +294,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
         stop(instance, fadeOutMs = 400) {
             if (!instance) return;
-            
+
             if (fadeOutMs > 0) {
                 const startVol = instance.volume;
                 const step = startVol / (fadeOutMs / 20);
@@ -288,7 +354,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
         const notification = document.createElement('div');
         notification.className = `notification ${type}`;
-        
+
         let html = '';
         if (title) {
             html += `<div class="title">${title}</div>`;
@@ -297,7 +363,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
         notification.innerHTML = html;
         notificationContainer.appendChild(notification);
-        
+
         setTimeout(() => {
             notification.classList.add('show');
         }, 10);
@@ -320,6 +386,52 @@ window.addEventListener("DOMContentLoaded", function () {
 
     function isTileAnEnemy(tileId) {
         return enemies.includes(tileId);
+    }
+
+    function moveEnemy() {
+        if (currentDimension !== 1) {
+            clearInterval(enemyInterval);
+            return;
+        }
+
+        if ((posLeft + posTop * gridSize) == enemyPos && characterStats.health > 0) {
+            handlePlayerHealthChange(false, 100);
+        }
+
+        if (enemyWaitTimer > 0) {
+            enemyWaitTimer -= 0.5;
+            return;
+        }
+
+        if (enemyPos == 313) {
+            gameArea[currentDimension][enemyPos] = 45;
+            document.getElementById('n' + enemyPos).className = 'tile t45 b10';
+        } else {
+            gameArea[currentDimension][enemyPos] = 12;
+            document.getElementById('n' + enemyPos).className = 'tile t12 b10';
+        }
+
+        if (enemyMovingDown) {
+            patrolIndex++;
+            if (patrolIndex >= enemyPatrol.length) {
+                patrolIndex = enemyPatrol.length - 1
+                enemyMovingDown = false;
+            }
+        } else {
+            patrolIndex--;
+            if (patrolIndex == 0) {
+                enemyWaitTimer = 10;
+            }
+
+            if (patrolIndex < 0) {
+                patrolIndex = 1;
+                enemyMovingDown = true;
+            }
+        }
+
+        enemyPos = enemyPatrol[patrolIndex];
+        gameArea[currentDimension][enemyPos] = 93;
+        document.getElementById('n' + enemyPos).className = 'tile t93 b10';
     }
 
     function drawGamePlan(gameover) {
@@ -348,15 +460,24 @@ window.addEventListener("DOMContentLoaded", function () {
         area.appendChild(rockford);
         if (gameover) {
             posLeft = 1,
-            posTop = 1,
-            baddieDirection = 'down';
+                posTop = 1,
+                baddieDirection = 'down';
         } else {
             baddieDirection = savedPos.direction;
             posLeft = savedPos.left;
             posTop = savedPos.top;
         }
-        rockford.style.left = (area.offsetLeft + posLeft * tileSize + tileSize / 2) + 'px';
-        rockford.style.top = (area.offsetTop + posTop * tileSize + tileSize / 2) + 'px';
+        rockford.style.left = (left + posLeft * tileSize + tileSize / 2) + 'px';
+        rockford.style.top = (top + posTop * tileSize + tileSize / 2) + 'px';
+
+        if (currentDimension === 1) {
+            gameArea[1][313] = 93;
+            document.getElementById('n313').className = 'tile t93 b10';
+
+            setTimeout(() => {
+                enemyInterval = setInterval(moveEnemy, 500);
+            }, 1000);
+        }
     };
 
     drawGamePlan(false);
@@ -377,16 +498,13 @@ window.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    /**
-     * Move Rockford
-    */
-    let move = function (moveLeft, moveTop, which) {
+    let move = function (moveLeft, moveTop, direction) {
         function moveIt() {
-            rockford.style.left = (area.offsetLeft + posLeft * tileSize + tileSize / 2) + 'px';
-            rockford.style.top = (area.offsetTop + posTop * tileSize + tileSize / 2) + 'px';
+            rockford.style.left = (left + posLeft * tileSize + tileSize / 2) + 'px';
+            rockford.style.top = (top + posTop * tileSize + tileSize / 2) + 'px';
         };
 
-        if (which) { rockford.className = 'baddie ' + which; baddieDirection = which; }
+        if (direction) { rockford.className = 'baddie ' + direction; baddieDirection = direction; }
 
         if (!(gameBlocks[currentDimension][(posLeft + moveLeft) + (posTop + moveTop) * gridSize] - 10)) {
             posLeft += moveLeft;
@@ -394,13 +512,15 @@ window.addEventListener("DOMContentLoaded", function () {
             moveIt();
             if (soundOn) {
                 sound.play('move', {
-                    category: 'move', // Category for volume control, wont be used in this case as we are passing volume directly below.
-                    volume: 0.1, // What volume to use, in this case 10%.
-                    randomize: true // Slight variation in playback rate (kinda goofy, but more realistic)
+                    category: 'move',
+                    volume: 0.1,
+                    randomize: true
                 });
             }
-        } else {  // Else means the baddie cannot move because of a wall
-            console.log('Block detected, cant move.');
+            if (gameArea[currentDimension][(posLeft + posTop * gridSize)] === 93 && characterStats.health > 0) {
+                handlePlayerHealthChange(false, 100);
+                return;
+            }
         }
     };
     move(1, 1, 'down');
@@ -427,13 +547,13 @@ window.addEventListener("DOMContentLoaded", function () {
         const y = posTop + dy;
 
         if (x < 0 || x >= gridSize || y < 0 || y >= gridSize) {
-            return null; // There is no tiles here, return null.
+            return null;
         }
 
         const idx = x + y * gridSize;
         const block = gameBlocks[currentDimension][idx];
 
-        return { id: idx, block: block, ground: gameArea[currentDimension][idx] }; // Returning all info about the tile, even though it's not needed for now.
+        return { id: idx, block: block, ground: gameArea[currentDimension][idx] };
     }
 
     function addItemToInventory(item, amount) {
@@ -441,6 +561,7 @@ window.addEventListener("DOMContentLoaded", function () {
             inventory[item] = 0;
         }
         inventory[item] += amount;
+        syncInventoryItem(item, inventory[item]);
     }
 
     function removeItemFromInventory(item, amount) {
@@ -448,6 +569,7 @@ window.addEventListener("DOMContentLoaded", function () {
             inventory[item] = 0;
         }
         inventory[item] -= amount;
+        syncInventoryItem(item, inventory[item]);
     }
 
     function handlePlayerHealthChange(add, amount) {
@@ -460,6 +582,7 @@ window.addEventListener("DOMContentLoaded", function () {
             }
         } else {
             characterStats.health -= amount;
+            if (characterStats.health < 0) { characterStats.health = 0 }
             sound.play('damage', {
                 category: 'effects',
                 volume: 0.25,
@@ -476,6 +599,7 @@ window.addEventListener("DOMContentLoaded", function () {
             });
             document.getElementById("flash-overlay").style.opacity = 1;
             setTimeout(() => {
+                refreshAllInventory();
                 resetGamePlan();
             }, 1500)
             setTimeout(() => {
@@ -516,10 +640,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
     function action() {
         const tile = getTileInFront();
-        if (tile === null) {
-            console.log('There is no tile in front of Rockford.');
-            return;
-        }
+        if (tile === null) { return; }
 
         if (tile.block === 24) { // Closed chest in house
             gameBlocks[currentDimension][tile.id] = 25;
@@ -555,7 +676,7 @@ window.addEventListener("DOMContentLoaded", function () {
         } else if (tile.block === 89) {
             notify('This chest has already been opened', 'error', 4000);
         } else if (tile.block === 48) { // Cat-statue
-            notify('Dont look at me Im not a gravestone...', 'info', 4000);
+            notify("Dont look at me I'm not a gravestone...", 'info', 4000);
         } else if (tile.block === 80) { // Food item that gives super strength
             eatFood(20, true);
             gameBlocks[currentDimension][tile.id] = 10;
@@ -588,6 +709,7 @@ window.addEventListener("DOMContentLoaded", function () {
                 volume: 0.25,
                 randomize: false
             });
+            toggleControls()
             let yearBorn = prompt('Hello my name is John F Kennedy. If you can tell me which year I was born, I will let you pass.');
             sound.stop(kennedySound, 600);
             if (yearBorn === '1917') {
@@ -596,9 +718,11 @@ window.addEventListener("DOMContentLoaded", function () {
                 if (yearBorn === null || yearBorn === "") { return; }
                 notify('Incorrect! The skeleton hits you, and you lose 20 health.', 'error', 4000);
                 handlePlayerHealthChange(false, 20);
+                toggleControls()
                 return;
             }
 
+            toggleControls()
             gameBlocks[currentDimension][tile.id] = 10;
             document.getElementById('n' + tile.id).className = 'tile t' + gameArea[currentDimension][tile.id] + ' b' + gameBlocks[currentDimension][tile.id];
             document.getElementById('n' + tile.id).style = '';
@@ -657,7 +781,7 @@ window.addEventListener("DOMContentLoaded", function () {
     document.onkeydown = function (event) {
         let key;
         key = event.keyCode || event.which;
-        if (characterStats.health <= 0) { return; }
+        if (characterStats.health <= 0 || controls == false) { return; }
         switch (key) {
             case 37: move(-1, 0, 'left'); break;
             case 39: move(1, 0, 'right'); break;
@@ -669,7 +793,7 @@ window.addEventListener("DOMContentLoaded", function () {
     document.onkeyup = function (event) {
         let key;
         key = event.keyCode || event.which;
-        if (characterStats.health <= 0) { return; }
+        if (characterStats.health <= 0 || controls == false) { return; }
         switch (key) {
             case 13: action(); break;
             case 32: // Spacebar to switch dimension (for testing purposes only - should be removed later)
