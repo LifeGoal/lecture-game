@@ -281,7 +281,7 @@ body {
  *
  */
 #flash {
-    margin: 2em auto;
+    margin: 0.5em auto;
     background-color: rgba(10, 10, 10, 0.95);
     border: 2px solid rgb(48, 48, 48);
     min-height: 10em;
@@ -564,9 +564,9 @@ body {
     display: flex;
     gap: 1rem;
     width: 768px;
-    margin: 2em auto;
+    margin: 0.5em auto;
     justify-content: space-evenly;
-    padding: 1em;
+    padding: 0.5em 1em;
     background: rgba(10, 10, 10, 0.95);
     border: 2px solid rgb(48, 48, 48);
     border-radius: 12px;
@@ -644,6 +644,110 @@ body {
 .superpower-container.active .super-label {
     color: #ffdd00;
     font-weight: bold;
+}
+
+/* Inventory */
+.inventory-container {
+    position: relative;
+    display: flex;
+    gap: 1rem;
+    width: 768px;
+    min-height: 105px;
+    margin: 0.5em auto;
+    padding: 0.5em 1em;
+    background: rgba(10, 10, 10, 0.95);
+    border: 2px solid rgb(48, 48, 48);
+    border-radius: 12px;
+    color: #eee;
+}
+
+.inventory-empty-state {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    color: #777;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+.inventory-empty-state .empty-icon {
+    font-size: 3.2rem;
+    opacity: 0.4;
+}
+
+.inventory-empty-state p {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #888;
+    margin: 0;
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+.inventory-container:has(.inventory-item) .inventory-empty-state {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.inventory-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1em;
+    background: rgba(10, 10, 10, 0.95);
+    border: 2px solid rgb(48, 48, 48);
+    border-radius: 12px;
+    color: #eee;
+    gap: 0.4em;
+}
+
+.inventory-item-amount {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    z-index: 5;
+    min-width: 14px;
+    height: 14px;
+    padding: 0 2px;
+    background: #c62828;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    line-height: 14px;
+    text-align: center;
+    border-radius: 12px;
+    border: 1px solid #b71c1c;
+}
+
+.inventory-img {
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+}
+
+.inventory-item p {
+    color: rgb(150, 150, 150);
+    font-size: small;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+.inventory-item.just-received {
+    animation: receivedPulse 1.2s ease-out;
+}
+
+@keyframes receivedPulse {
+    0% { transform: scale(1.00); box-shadow: 0 0 0 0 rgba(100,255,100,0.7); }
+    30% { transform: scale(1.15); box-shadow: 0 0 12px 6px rgba(100,255,100,0.5); }
+    100% { transform: scale(1.00); box-shadow: 0 0 0 0 rgba(100,255,100,0); }
 }
 
 /* Notifications */

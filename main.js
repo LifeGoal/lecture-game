@@ -1,6 +1,3 @@
-/**
- * Work with strings.
- */
 window.addEventListener("DOMContentLoaded", function () {
     'use strict';
     let rockford = document.getElementById('baddie1'),
@@ -21,7 +18,8 @@ window.addEventListener("DOMContentLoaded", function () {
         enemyWaitTimer = 0,
         enemyPatrol = [313, 337, 361, 385, 409, 433],
         patrolIndex = 0,
-        enemyMovingDown = true;
+        enemyMovingDown = true,
+        enemyInterval = null;
 
     const dimensions = { // These names are only for testing purposes. You can set the real names later.
         1: 'Main Dimension',
@@ -178,7 +176,64 @@ window.addEventListener("DOMContentLoaded", function () {
 
     updateSuperpowerDisplay();
 
+    // inventoryItems is used from inventoryItems.js (all item datas).
     const inventory = {};
+    const inventoryContainer = document.querySelector('.inventory-container');
+    const inventoryEmptyState = document.querySelector('.inventory-empty-state');
+
+    function getOrCreateInventoryElement(itemId) {
+        let itembox = inventoryContainer.querySelector(`.inventory-item[data-item-id="${itemId}"]`);
+
+        if (!itembox) {
+            itembox = document.createElement('div');
+            itembox.className = 'inventory-item';
+            itembox.dataset.itemId = itemId;
+
+            itembox.innerHTML = `
+                <div class="inventory-item-amount">0</div>
+                <div class="inventory-img"></div>
+                <p></p>
+            `;
+
+            inventoryContainer.appendChild(itembox);
+        }
+
+        return itembox;
+    }
+
+    function syncInventoryItem(item, count) {
+        if (count <= 0) {
+            const itembox = inventoryContainer.querySelector(`.inventory-item[data-item-id="${item}"]`);
+            if (itembox) itembox.remove();
+            return;
+        }
+
+        const itembox = getOrCreateInventoryElement(item);
+
+        itembox.querySelector('.inventory-item-amount').textContent = count > 99 ? '99+' : count;
+        itembox.querySelector('.inventory-img').style.backgroundImage = `url('${inventoryItems[item].image}')`;
+        itembox.querySelector('p').textContent = inventoryItems[item].label;
+
+        if (count > (parseInt(itembox.dataset.lastCount || '0'))) {
+            itembox.classList.add('just-received');
+            setTimeout(() => itembox.classList.remove('just-received'), 1200);
+        }
+
+        itembox.dataset.lastCount = count;
+    }
+
+    function refreshAllInventory() {
+        inventoryContainer.querySelectorAll('.inventory-item').forEach(el => {
+            const id = el.dataset.itemId;
+            if (!inventory[id] || inventory[id] <= 0) {
+                el.remove();
+            }
+        });
+
+        Object.entries(inventory).forEach(([id, count]) => {
+            if (count > 0) syncInventoryItem(id, count);
+        });
+    }
 
     const sounds = {
         move: new Audio('./sounds/walking.mp3'),
@@ -197,7 +252,7 @@ window.addEventListener("DOMContentLoaded", function () {
             this.sounds = sounds;
             this.muted = false;
             this.activeInstances = new Set();
-            
+
             this.volumes = {
                 move: 0.6,
                 effects: 0.8,
@@ -215,7 +270,7 @@ window.addEventListener("DOMContentLoaded", function () {
             }
 
             const instance = sound.cloneNode(true);
-            
+
             const category = options.category || 'effects';
             instance.volume = (options.volume !== undefined ? options.volume : this.volumes[category]) ?? 1;
 
@@ -238,7 +293,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
         stop(instance, fadeOutMs = 400) {
             if (!instance) return;
-            
+
             if (fadeOutMs > 0) {
                 const startVol = instance.volume;
                 const step = startVol / (fadeOutMs / 20);
@@ -298,7 +353,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
         const notification = document.createElement('div');
         notification.className = `notification ${type}`;
-        
+
         let html = '';
         if (title) {
             html += `<div class="title">${title}</div>`;
@@ -307,7 +362,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
         notification.innerHTML = html;
         notificationContainer.appendChild(notification);
-        
+
         setTimeout(() => {
             notification.classList.add('show');
         }, 10);
@@ -333,7 +388,10 @@ window.addEventListener("DOMContentLoaded", function () {
     }
 
     function moveEnemy() {
-        if (currentDimension !== 1) { return; }
+        if (currentDimension !== 1) {
+            clearInterval(enemyInterval);
+            return;
+        }
 
         if ((posLeft + posTop * gridSize) == enemyPos && characterStats.health > 0) {
             handlePlayerHealthChange(false, 100);
@@ -401,22 +459,22 @@ window.addEventListener("DOMContentLoaded", function () {
         area.appendChild(rockford);
         if (gameover) {
             posLeft = 1,
-            posTop = 1,
-            baddieDirection = 'down';
+                posTop = 1,
+                baddieDirection = 'down';
         } else {
             baddieDirection = savedPos.direction;
             posLeft = savedPos.left;
             posTop = savedPos.top;
         }
-        rockford.style.left = (area.offsetLeft + posLeft * tileSize + tileSize / 2) + 'px';
-        rockford.style.top = (area.offsetTop + posTop * tileSize + tileSize / 2) + 'px';
+        rockford.style.left = (left + posLeft * tileSize + tileSize / 2) + 'px';
+        rockford.style.top = (top + posTop * tileSize + tileSize / 2) + 'px';
 
         if (currentDimension === 1) {
             gameArea[1][313] = 93;
             document.getElementById('n313').className = 'tile t93 b10';
 
             setTimeout(() => {
-                setInterval(moveEnemy, 500);
+                enemyInterval = setInterval(moveEnemy, 500);
             }, 1000);
         }
     };
@@ -439,13 +497,10 @@ window.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    /**
-     * Move Rockford
-    */
     let move = function (moveLeft, moveTop, direction) {
         function moveIt() {
-            rockford.style.left = (area.offsetLeft + posLeft * tileSize + tileSize / 2) + 'px';
-            rockford.style.top = (area.offsetTop + posTop * tileSize + tileSize / 2) + 'px';
+            rockford.style.left = (left + posLeft * tileSize + tileSize / 2) + 'px';
+            rockford.style.top = (top + posTop * tileSize + tileSize / 2) + 'px';
         };
 
         if (direction) { rockford.className = 'baddie ' + direction; baddieDirection = direction; }
@@ -505,6 +560,7 @@ window.addEventListener("DOMContentLoaded", function () {
             inventory[item] = 0;
         }
         inventory[item] += amount;
+        syncInventoryItem(item, inventory[item]);
     }
 
     function removeItemFromInventory(item, amount) {
@@ -512,6 +568,7 @@ window.addEventListener("DOMContentLoaded", function () {
             inventory[item] = 0;
         }
         inventory[item] -= amount;
+        syncInventoryItem(item, inventory[item]);
     }
 
     function handlePlayerHealthChange(add, amount) {
@@ -541,6 +598,7 @@ window.addEventListener("DOMContentLoaded", function () {
             });
             document.getElementById("flash-overlay").style.opacity = 1;
             setTimeout(() => {
+                refreshAllInventory();
                 resetGamePlan();
             }, 1500)
             setTimeout(() => {
@@ -581,10 +639,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
     function action() {
         const tile = getTileInFront();
-        if (tile === null) {
-            console.log('There is no tile in front of Rockford.');
-            return;
-        }
+        if (tile === null) { return; }
 
         if (tile.block === 24) { // Closed chest in house
             gameBlocks[currentDimension][tile.id] = 25;
@@ -620,7 +675,7 @@ window.addEventListener("DOMContentLoaded", function () {
         } else if (tile.block === 89) {
             notify('This chest has already been opened', 'error', 4000);
         } else if (tile.block === 48) { // Cat-statue
-            notify('Dont look at me Im not a gravestone...', 'info', 4000);
+            notify("Dont look at me I'm not a gravestone...", 'info', 4000);
         } else if (tile.block === 80) { // Food item that gives super strength
             eatFood(20, true);
             gameBlocks[currentDimension][tile.id] = 10;
