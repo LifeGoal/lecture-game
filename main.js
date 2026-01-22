@@ -9,7 +9,7 @@ window.addEventListener("DOMContentLoaded", function () {
         tileSize = 32,
         gridSize = 24,
         baddieDirection = 'down',
-        volume = 10,
+        volume = localStorage.getItem("volume") || 10,
         currentDimension = 1,
         enemies = [90, 91],
         friends = [142, 143, 144, 147],
@@ -31,6 +31,7 @@ window.addEventListener("DOMContentLoaded", function () {
     volumeSlider.addEventListener('input', function() {
         volume = parseInt(this.value, 10);
         volumeDisplay.textContent = volume + "%";
+        localStorage.setItem("volume", volume);
         const normalized = volume / 100;
         sound.masterVolume = normalized;
         sound.updateActiveVolumes();
@@ -275,7 +276,7 @@ window.addEventListener("DOMContentLoaded", function () {
         constructor() {
             this.sounds = sounds;
             this.muted = false;
-            this.masterVolume = 1.0;
+            this.masterVolume = volume / 100;
             this.activeInstances = new Set();
         }
 
