@@ -741,10 +741,10 @@ window.addEventListener("DOMContentLoaded", function () {
             if (yearBorn === '1917') {
                 notify('Correct! You may pass.', 'success', 4000);
             } else {
+                toggleControls()
                 if (yearBorn === null || yearBorn === "") { return; }
                 notify('Incorrect! The skeleton hits you, and you lose 20 health.', 'error', 4000);
                 handlePlayerHealthChange(false, 20);
-                toggleControls()
                 return;
             }
 
